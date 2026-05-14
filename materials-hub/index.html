@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Центр питания и материалов Gym Girls Club: рецепты, подборки, бонусы, корзина и прогресс.">
+  <title>Gym Girls Club — центр питания и материалов</title>
+  <link rel="stylesheet" href="assets/css/materials.css">
+</head>
+<body>
+  <div class="materials-hub">
+    <header class="hub-hero" id="top">
+      <nav class="hub-nav" aria-label="Навигация по материалам">
+        <a href="#recipes">Рецепты</a>
+        <a href="#collections">Подборки</a>
+        <a href="#bonus">Бонусы</a>
+        <a href="#shopping">Корзина</a>
+        <a href="#progress">Прогресс</a>
+      </nav>
+
+      <div class="hub-hero__content">
+        <p class="hub-eyebrow">Gym Girls Club</p>
+        <h1>Центр питания и материалов</h1>
+        <p class="hub-lead">Рецепты, подборки, базовая корзина и личные отметки в одном месте. Без сложного кабинета и без лишней путаницы.</p>
+        <div class="hub-actions">
+          <a class="button button--primary" href="#recipes">Найти рецепт</a>
+          <a class="button button--ghost" href="#shopping">Открыть корзину</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Краткая статистика">
+        <div>
+          <span class="hero-panel__num" data-total-recipes>125</span>
+          <span class="hero-panel__label">рецептов</span>
+        </div>
+        <div>
+          <span class="hero-panel__num" data-cooked-count>0</span>
+          <span class="hero-panel__label">приготовлено</span>
+        </div>
+        <p>Отметки сохраняются только в этом браузере и не синхронизируются между устройствами.</p>
+      </aside>
+    </header>
+
+    <main>
+      <section class="quick-grid" aria-label="Быстрые действия">
+        <a href="#recipes" class="quick-card">
+          <span>01</span>
+          <strong>Каталог рецептов</strong>
+          <small>Поиск, категории, КБЖУ и быстрые отметки.</small>
+        </a>
+        <a href="#collections" class="quick-card">
+          <span>02</span>
+          <strong>Подборки</strong>
+          <small>Быстро, больше белка, десерты, можно заранее.</small>
+        </a>
+        <a href="#bonus" class="quick-card">
+          <span>03</span>
+          <strong>Бонусы</strong>
+          <small>Замены, быстрые соусы и базовые подсказки.</small>
+        </a>
+        <a href="#shopping" class="quick-card">
+          <span>04</span>
+          <strong>Список покупок</strong>
+          <small>Базовая корзина с чекбоксами и копированием.</small>
+        </a>
+      </section>
+
+      <section class="section" id="recipes" aria-labelledby="recipes-title">
+        <div class="section-heading">
+          <p class="hub-eyebrow">Каталог</p>
+          <h2 id="recipes-title">Рецепты</h2>
+          <p>Можно искать по названию и ингредиентам, фильтровать по разделам и личным отметкам.</p>
+        </div>
+
+        <div class="recipes-toolbar" aria-label="Фильтры рецептов">
+          <label class="search-field">
+            <span>Поиск</span>
+            <input type="search" data-search placeholder="Например: творог, курица, десерт">
+          </label>
+
+          <div class="filter-row" data-category-filters aria-label="Фильтр по разделам"></div>
+          <div class="filter-row" data-status-filters aria-label="Фильтр по отметкам">
+            <button class="chip" type="button" data-status-filter="favorite">Избранное</button>
+            <button class="chip" type="button" data-status-filter="cooked">Приготовлено</button>
+            <button class="chip" type="button" data-status-filter="want">Хочу попробовать</button>
+          </div>
+
+          <div class="toolbar-meta">
+            <span data-result-count>0 рецептов</span>
+            <button class="text-button" type="button" data-reset-filters>Сбросить фильтры</button>
+          </div>
+        </div>
+
+        <div class="recipe-grid" data-recipes-list></div>
+      </section>
+
+      <section class="section" id="collections" aria-labelledby="collections-title">
+        <div class="section-heading">
+          <p class="hub-eyebrow">Подборки</p>
+          <h2 id="collections-title">Быстрые сценарии</h2>
+          <p>Подборки строятся только по данным из рецептов: время, категория и заявленные БЖУ.</p>
+        </div>
+        <div class="collection-grid" data-collections></div>
+      </section>
+
+      <section class="section" id="bonus" aria-labelledby="bonus-title">
+        <div class="section-heading">
+          <p class="hub-eyebrow">Бонус</p>
+          <h2 id="bonus-title">Замены и быстрые инструменты</h2>
+        </div>
+        <div class="bonus-grid">
+          <article class="bonus-card">
+            <h3>Таблица замен</h3>
+            <div data-replacements></div>
+          </article>
+          <article class="bonus-card">
+            <h3>3 быстрых соуса</h3>
+            <div data-sauces></div>
+          </article>
+          <article class="bonus-card">
+            <h3>Калькуляторы и гайды</h3>
+            <p>В проекте уже есть отдельные материалы по калоражу, КБЖУ, трекерам и PDF. Их лучше переносить в единый стиль отдельным этапом, чтобы не выдумывать формулы и не ломать текущие файлы.</p>
+            <a class="button button--small" href="reports/recipe-audit.csv">Открыть аудит рецептов</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="shopping" aria-labelledby="shopping-title">
+        <div class="section-heading">
+          <p class="hub-eyebrow">Корзина</p>
+          <h2 id="shopping-title">Базовый список покупок</h2>
+          <p>Отмечай, что уже есть дома. Список хранится только в этом браузере.</p>
+        </div>
+        <div class="shopping-layout">
+          <div class="shopping-list" data-shopping-list></div>
+          <aside class="shopping-panel">
+            <h3>Действия</h3>
+            <button class="button button--primary" type="button" data-copy-shopping>Скопировать список</button>
+            <button class="button button--ghost" type="button" data-reset-shopping>Сбросить галочки</button>
+            <p data-copy-status aria-live="polite"></p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="progress" aria-labelledby="progress-title">
+        <div class="section-heading">
+          <p class="hub-eyebrow">Мои отметки</p>
+          <h2 id="progress-title">Прогресс</h2>
+        </div>
+        <div class="progress-grid">
+          <article class="progress-card">
+            <span data-progress-cooked>0 из 125</span>
+            <strong>приготовлено</strong>
+          </article>
+          <article class="progress-card">
+            <span data-progress-favorite>0</span>
+            <strong>в избранном</strong>
+          </article>
+          <article class="progress-card">
+            <span data-progress-want>0</span>
+            <strong>хочу попробовать</strong>
+          </article>
+          <article class="progress-card progress-card--wide">
+            <span data-audit-short>Аудит загружается</span>
+            <strong>качество базы</strong>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <a class="back-top" href="#top" aria-label="Наверх">↑</a>
+  </div>
+
+  <script src="assets/data/recipes-data.js"></script>
+  <script src="assets/js/materials.js"></script>
+</body>
+</html>
