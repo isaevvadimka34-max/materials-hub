@@ -3,118 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Центр питания и материалов Gym Girls Club: рецепты, подборки, бонусы, корзина и прогресс.">
-  <title>Gym Girls Club — центр питания и материалов</title>
+  <meta name="description" content="Центр материалов Gym Girls Club: сборник рецептов, КБЖУ, отметки, бонусы и продуктовая корзина.">
+  <title>Gym Girls Club — центр материалов</title>
   <link rel="stylesheet" href="assets/css/materials.css">
 </head>
 <body>
   <div class="materials-hub">
     <header class="hub-hero" id="top">
-      <nav class="hub-nav" aria-label="Навигация по материалам">
-        <span class="hub-nav__brand">Центр материалов</span>
-        <a class="hub-nav__item is-active" href="#recipes">Сборник рецептов</a>
-        <span class="hub-nav__item is-muted">Калькулятор КБЖУ</span>
-        <span class="hub-nav__item is-muted">Гайды</span>
-        <span class="hub-nav__item is-muted">Полезные материалы</span>
-        <span class="hub-nav__item is-muted">Бонусы</span>
-      </nav>
+      <div class="hub-brand">Центр материалов <span>by QMELLZ</span></div>
+
+      <div class="hub-nav-wrap" aria-label="Навигация по материалам">
+        <nav class="hub-nav">
+          <a class="hub-nav__item is-active" href="#recipes">Сборник рецептов</a>
+          <span class="hub-nav__item is-muted">Калькулятор КБЖУ</span>
+          <span class="hub-nav__item is-muted">Гайды</span>
+          <span class="hub-nav__item is-muted">Полезные материалы</span>
+          <span class="hub-nav__item is-muted">Бонусы</span>
+        </nav>
+      </div>
 
       <div class="hub-hero__content">
         <p class="hub-eyebrow">Gym Girls Club</p>
         <h1>Сборник рецептов</h1>
-        <p class="hub-lead">125 идей для завтраков, обедов, перекусов, ужинов и десертов. Поиск, подборки, КБЖУ, отметки и продуктовая корзина в одном месте.</p>
-        <div class="hub-actions">
-          <a class="button button--primary" href="#recipes">Найти рецепт</a>
-          <a class="button button--ghost" href="#shopping">Продуктовая корзина</a>
-        </div>
+        <p class="hub-lead">125 идей для завтраков, обедов, перекусов, ужинов и десертов. Простые блюда с КБЖУ, отметками и удобным списком по разделам.</p>
+        <span class="hero-count" data-total-recipes>125 рецептов</span>
       </div>
-
-      <aside class="hero-panel" aria-label="Краткая статистика">
-        <div>
-          <span class="hero-panel__num" data-total-recipes>125</span>
-          <span class="hero-panel__label">рецептов</span>
-        </div>
-        <div>
-          <span class="hero-panel__num" data-cooked-count>0</span>
-          <span class="hero-panel__label">приготовлено</span>
-        </div>
-        <p>Текущий раздел центра: рецепты, подборки, замены, быстрые соусы и список продуктов.</p>
-      </aside>
     </header>
 
     <main>
-      <section class="quick-grid" aria-label="Быстрые действия">
-        <a href="#recipes" class="quick-card">
-          <span>01</span>
-          <strong>Сборник рецептов</strong>
-          <small>Поиск, категории, КБЖУ и быстрые отметки.</small>
-        </a>
-        <a href="#collections" class="quick-card">
-          <span>02</span>
-          <strong>Подборки</strong>
-          <small>Быстро, больше белка, десерты, можно заранее.</small>
-        </a>
-        <a href="#bonus" class="quick-card">
-          <span>03</span>
-          <strong>Бонусы</strong>
-          <small>Замены, быстрые соусы и базовые подсказки.</small>
-        </a>
-        <a href="#shopping" class="quick-card">
-          <span>04</span>
-          <strong>Продуктовая корзина</strong>
-          <small>Отметь нужные продукты и скопируй только выбранное.</small>
-        </a>
-      </section>
-
       <section class="section" id="recipes" aria-labelledby="recipes-title">
         <div class="section-heading">
           <p class="hub-eyebrow">Каталог</p>
-          <h2 id="recipes-title">Сборник рецептов</h2>
-          <p>Можно искать по названию и ингредиентам, фильтровать по приемам пищи, подкатегориям и личным отметкам.</p>
+          <h2 id="recipes-title">Рецепты по разделам</h2>
+          <p>Выбирай нужный раздел, отмечай блюда сердечком или галочкой и возвращайся к ним через вкладки.</p>
         </div>
 
         <aside class="kbju-disclaimer" aria-label="Пояснение по КБЖУ">
           <strong>КБЖУ ориентировочное.</strong>
-          <p>Показатели могут отличаться от фактических: на них влияют бренд продукта, точная граммовка, жирность, способ приготовления и замены ингредиентов. Для точного расчета лучше сверять конкретные продукты по этикетке или трекеру.</p>
+          <p>Показатели могут отличаться от фактических: на них влияют бренд продукта, точная граммовка, жирность, способ приготовления и замены ингредиентов.</p>
         </aside>
 
-        <div class="recipes-toolbar" aria-label="Фильтры рецептов">
-          <label class="search-field">
-            <span>Поиск</span>
-            <input type="search" data-search placeholder="Например: творог, курица, десерт">
-          </label>
-
-          <div class="filter-group">
-            <span class="filter-label">Прием пищи</span>
-            <div class="filter-row" data-category-filters aria-label="Фильтр по разделам"></div>
-          </div>
-
-          <div class="filter-group subcategory-panel" data-subcategory-panel hidden>
-            <span class="filter-label">Подкатегория</span>
-            <div class="filter-row" data-subcategory-filters aria-label="Фильтр по подкатегориям"></div>
-          </div>
-
-          <div class="filter-row" data-status-filters aria-label="Фильтр по отметкам">
-            <button class="chip" type="button" data-status-filter="cooked">Приготовлено</button>
+        <div class="recipes-toolbar" aria-label="Навигация по рецептам">
+          <div class="status-tabs" data-status-tabs aria-label="Мои списки">
+            <button class="chip is-active" type="button" data-status-filter="">Все блюда</button>
             <button class="chip" type="button" data-status-filter="want">Хочу попробовать</button>
+            <button class="chip" type="button" data-status-filter="cooked">Приготовлено</button>
           </div>
+
+          <div class="meal-jump" data-category-filters aria-label="Быстрый переход по разделам"></div>
 
           <div class="toolbar-meta">
             <span data-result-count>0 рецептов</span>
-            <button class="text-button" type="button" data-reset-filters>Сбросить фильтры</button>
+            <span class="status-message" data-status-message aria-live="polite"></span>
+            <button class="text-button" type="button" data-reset-filters>Показать всё</button>
           </div>
         </div>
 
-        <div class="recipe-grid" data-recipes-list></div>
-      </section>
-
-      <section class="section" id="collections" aria-labelledby="collections-title">
-        <div class="section-heading">
-          <p class="hub-eyebrow">Подборки</p>
-          <h2 id="collections-title">Быстрые сценарии</h2>
-          <p>Подборки строятся только по данным из рецептов: время, категория и заявленные БЖУ.</p>
-        </div>
-        <div class="collection-grid" data-collections></div>
+        <div class="recipe-sections" data-recipes-list></div>
       </section>
 
       <section class="section" id="bonus" aria-labelledby="bonus-title">
@@ -150,28 +95,14 @@
           </aside>
         </div>
       </section>
-
-      <section class="section" id="progress" aria-labelledby="progress-title">
-        <div class="section-heading">
-          <p class="hub-eyebrow">Мои отметки</p>
-          <h2 id="progress-title">Прогресс</h2>
-        </div>
-        <div class="progress-grid">
-          <article class="progress-card">
-            <span data-progress-cooked>0 из 125</span>
-            <strong>приготовлено</strong>
-          </article>
-          <article class="progress-card">
-            <span data-progress-want>0</span>
-            <strong>хочу попробовать</strong>
-          </article>
-          <article class="progress-card progress-card--wide">
-            <span data-audit-short>Аудит загружается</span>
-            <strong>качество базы</strong>
-          </article>
-        </div>
-      </section>
     </main>
+
+    <div class="recipe-modal" data-recipe-modal hidden>
+      <button class="recipe-modal__backdrop" type="button" data-close-recipe aria-label="Закрыть окно"></button>
+      <article class="recipe-modal__panel" role="dialog" aria-modal="true" aria-labelledby="recipe-modal-title">
+        <div data-recipe-modal-content></div>
+      </article>
+    </div>
 
     <a class="back-top" href="#top" aria-label="Наверх">↑</a>
   </div>
