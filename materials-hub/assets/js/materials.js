@@ -272,7 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <h4>Приготовление</h4>
           <ol>${steps}</ol>
         </div>
-        ${recipe.note ? `<div class="recipe-note"><strong>Чем хорош рецепт:</strong> ${recipe.note}</div>` : ''}
       </div>
       <footer class="recipe-modal__footer">
         <button class="button button--primary" type="button" data-close-recipe>Закрыть</button>
