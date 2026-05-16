@@ -240,6 +240,46 @@ main {
   margin: 0;
 }
 
+.favorite-sauces {
+  max-width: 940px;
+  margin: 36px auto 0;
+  padding: 18px;
+  border: 1px solid rgba(62, 39, 35, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 12px 30px rgba(62, 39, 35, 0.04);
+  scroll-margin-top: 220px;
+}
+
+.favorite-sauces__head {
+  margin-bottom: 10px;
+}
+
+.favorite-sauces__head span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--dusty-rose);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.favorite-sauces__head h2 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-style: italic;
+  line-height: 1;
+}
+
+.favorite-sauces__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
 .recipes-toolbar {
   position: sticky;
   top: 62px;
@@ -449,6 +489,13 @@ a.chip {
 
 .chip--jump {
   background: rgba(96, 118, 106, 0.1);
+}
+
+.chip--sauces {
+  border-color: rgba(207, 119, 147, 0.24);
+  background: rgba(255, 248, 250, 0.9);
+  color: var(--dusty-rose);
+  font-weight: 800;
 }
 
 .text-button {
@@ -869,7 +916,6 @@ body.is-modal-open {
   color: var(--espresso);
 }
 
-.replace-row,
 .sauce-row,
 .booster-row,
 .shopping-item {
@@ -877,31 +923,27 @@ body.is-modal-open {
   border-bottom: 1px solid var(--soft-line);
 }
 
-.replace-row {
-  display: block;
-}
-
-.replace-row:last-child,
 .sauce-row:last-child,
 .booster-row:last-child,
 .shopping-item:last-child {
   border-bottom: 0;
 }
 
-.replace-row strong,
+.favorite-sauces .sauce-row {
+  padding: 12px;
+  border: 1px solid rgba(62, 39, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.54);
+}
+
+.favorite-sauces .sauce-row:last-child {
+  border-bottom: 1px solid rgba(62, 39, 35, 0.1);
+}
+
 .sauce-row strong,
 .booster-row strong {
   display: block;
   color: var(--espresso);
-}
-
-.replace-arrow {
-  display: block;
-  margin: 4px 0;
-  color: var(--sage);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
 }
 
 .booster-row span {
@@ -1020,6 +1062,7 @@ body.is-modal-open {
 
 @media (max-width: 980px) {
   .recipe-grid,
+  .favorite-sauces__list,
   .bonus-grid,
   .shopping-layout {
     grid-template-columns: 1fr;

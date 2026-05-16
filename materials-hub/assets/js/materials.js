@@ -66,9 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     statusFilters: document.querySelectorAll('[data-status-filter]'),
     statusCounts: document.querySelectorAll('[data-status-count]'),
     shoppingCounts: document.querySelectorAll('[data-shopping-count]'),
-    replacements: document.querySelector('[data-replacements]'),
     sauces: document.querySelector('[data-sauces]'),
-    boosters: document.querySelector('[data-boosters]'),
     statusMessage: document.querySelector('[data-status-message]'),
     recipeModal: document.querySelector('[data-recipe-modal]'),
     recipeModalContent: document.querySelector('[data-recipe-modal-content]'),
@@ -186,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `<a class="chip chip--jump" href="#recipes-${category.id}" data-jump-category="${category.id}">${category.title}</a>`
     )).join('');
 
-    els.categoryFilters.innerHTML = `${categoryLinks}<a class="chip chip--jump" href="#bonus" data-jump-category="bonus">Бонусы</a>`;
+    els.categoryFilters.innerHTML = categoryLinks;
   }
 
   function categoryRecipes(categoryId) {
@@ -363,21 +361,8 @@ document.addEventListener('DOMContentLoaded', () => {
     els.recipeList.innerHTML = categories.map((category) => renderRecipeSection(category)).join('');
   }
 
-  function renderBonus() {
-    const replacements = bonus.replacements || [];
+  function renderSauces() {
     const sauces = bonus.sauces || [];
-
-    if (els.replacements) {
-      els.replacements.innerHTML = replacements.length
-        ? replacements.map((item) => `
-          <div class="replace-row">
-            <strong>Нет: ${item.from}</strong>
-            <span class="replace-arrow">Можно взять</span>
-            <span>${item.to}</span>
-          </div>
-        `).join('')
-        : '<p>Таблица замен не распознана</p>';
-    }
 
     if (els.sauces) {
       els.sauces.innerHTML = sauces.length
@@ -396,22 +381,6 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
         }).join('')
         : '<p>Соусы не распознаны</p>';
-    }
-
-    if (els.boosters) {
-      const boosters = [
-        { title: 'Добавить белок', body: 'яйцо, творог, курица, тунец или греческий йогурт' },
-        { title: 'Добавить овощи', body: 'огурцы, томаты, зелень, брокколи или замороженная смесь' },
-        { title: 'Добавить углеводы', body: 'хлебцы, рис, гречка, булгур или цельнозерновой хлеб' },
-        { title: 'Сделать вкуснее', body: 'быстрый соус, лимонный сок, чеснок, зелень или специи' },
-      ];
-
-      els.boosters.innerHTML = boosters.map((item) => `
-        <div class="booster-row">
-          <strong>${item.title}</strong>
-          <span>${item.body}</span>
-        </div>
-      `).join('');
     }
   }
 
@@ -593,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
     checkbox.closest('.shopping-item')?.classList.toggle('is-checked', checkbox.checked);
   });
 
-  renderBonus();
+  renderSauces();
   renderShopping();
   renderRecipes();
 });
