@@ -25,32 +25,43 @@
       <div class="hub-hero__content">
         <p class="hub-eyebrow">Gym Girls Club</p>
         <h1>Сборник рецептов</h1>
-        <p class="hub-lead">125 идей для завтраков, обедов, перекусов, ужинов и десертов. Простые блюда с КБЖУ, отметками и удобным списком по разделам.</p>
-        <span class="hero-count" data-total-recipes>125 рецептов</span>
       </div>
     </header>
 
     <main>
-      <section class="section" id="recipes" aria-labelledby="recipes-title">
-        <div class="section-heading">
-          <p class="hub-eyebrow">Каталог</p>
-          <h2 id="recipes-title">Рецепты по разделам</h2>
-          <p>Выбирай нужный раздел, отмечай блюда сердечком или галочкой и возвращайся к ним через вкладки.</p>
-        </div>
-
+      <section class="section" id="recipes" aria-label="Сборник рецептов">
         <aside class="kbju-disclaimer" aria-label="Пояснение по КБЖУ">
-          <strong>КБЖУ ориентировочное.</strong>
-          <p>Показатели могут отличаться от фактических: на них влияют бренд продукта, точная граммовка, жирность, способ приготовления и замены ингредиентов.</p>
+          <strong>КБЖУ ориентировочное</strong>
+          <p>Показатели могут отличаться от фактических: на них влияют бренд продукта, точная граммовка, жирность, способ приготовления и замены ингредиентов</p>
         </aside>
 
         <div class="recipes-toolbar" aria-label="Навигация по рецептам">
-          <div class="status-tabs" data-status-tabs aria-label="Мои списки">
+          <div class="status-tabs" data-status-tabs aria-label="Все рецепты">
             <button class="chip is-active" type="button" data-status-filter="">Все блюда</button>
-            <button class="chip" type="button" data-status-filter="want">Хочу попробовать</button>
-            <button class="chip" type="button" data-status-filter="cooked">Приготовлено</button>
           </div>
 
           <div class="meal-jump" data-category-filters aria-label="Быстрый переход по разделам"></div>
+
+          <div class="my-lists" aria-label="Мои списки">
+            <span class="my-lists__title">Мои списки</span>
+            <div class="my-lists__actions">
+              <button class="my-list-button" type="button" data-status-filter="want">
+                <span class="my-list-button__icon" aria-hidden="true">♥</span>
+                <span>Хочу попробовать</span>
+                <strong data-status-count="want">0</strong>
+              </button>
+              <button class="my-list-button my-list-button--shopping" type="button" data-open-shopping>
+                <span class="my-list-button__icon" aria-hidden="true">🛒</span>
+                <span>Моя продуктовая корзина</span>
+                <strong data-shopping-count>0</strong>
+              </button>
+              <button class="my-list-button my-list-button--cooked" type="button" data-status-filter="cooked">
+                <span class="my-list-button__icon" aria-hidden="true">✓</span>
+                <span>Приготовлено</span>
+                <strong data-status-count="cooked">0</strong>
+              </button>
+            </div>
+          </div>
 
           <div class="toolbar-meta">
             <span data-result-count>0 рецептов</span>
@@ -64,35 +75,21 @@
 
       <section class="section" id="bonus" aria-labelledby="bonus-title">
         <div class="section-heading">
-          <p class="hub-eyebrow">Бонус</p>
-          <h2 id="bonus-title">Замены и быстрые соусы</h2>
+          <h2 id="bonus-title">Бонусы</h2>
         </div>
         <div class="bonus-grid">
           <article class="bonus-card">
-            <h3>Таблица замен</h3>
+            <h3>Если нет продукта</h3>
             <div data-replacements></div>
           </article>
           <article class="bonus-card">
             <h3>3 быстрых соуса</h3>
             <div data-sauces></div>
           </article>
-        </div>
-      </section>
-
-      <section class="section" id="shopping" aria-labelledby="shopping-title">
-        <div class="section-heading">
-          <p class="hub-eyebrow">Корзина</p>
-          <h2 id="shopping-title">Продуктовая корзина</h2>
-          <p>Отметь продукты, которые нужно купить. При копировании попадут только выбранные позиции.</p>
-        </div>
-        <div class="shopping-layout">
-          <div class="shopping-list" data-shopping-list></div>
-          <aside class="shopping-panel">
-            <h3>Действия</h3>
-            <button class="button button--primary" type="button" data-copy-shopping>Скопировать выбранное</button>
-            <button class="button button--ghost" type="button" data-reset-shopping>Сбросить галочки</button>
-            <p data-copy-status aria-live="polite"></p>
-          </aside>
+          <article class="bonus-card">
+            <h3>Быстрые добавки к блюду</h3>
+            <div data-boosters></div>
+          </article>
         </div>
       </section>
     </main>

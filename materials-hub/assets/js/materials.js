@@ -64,14 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
     recipeList: document.querySelector('[data-recipes-list]'),
     resetFilters: document.querySelector('[data-reset-filters]'),
     statusFilters: document.querySelectorAll('[data-status-filter]'),
+    statusCounts: document.querySelectorAll('[data-status-count]'),
+    shoppingCounts: document.querySelectorAll('[data-shopping-count]'),
     replacements: document.querySelector('[data-replacements]'),
     sauces: document.querySelector('[data-sauces]'),
-    shoppingList: document.querySelector('[data-shopping-list]'),
-    copyShopping: document.querySelector('[data-copy-shopping]'),
-    resetShopping: document.querySelector('[data-reset-shopping]'),
-    copyStatus: document.querySelector('[data-copy-status]'),
+    boosters: document.querySelector('[data-boosters]'),
     statusMessage: document.querySelector('[data-status-message]'),
-    totalRecipes: document.querySelector('[data-total-recipes]'),
     recipeModal: document.querySelector('[data-recipe-modal]'),
     recipeModalContent: document.querySelector('[data-recipe-modal-content]'),
   };
@@ -96,6 +94,28 @@ document.addEventListener('DOMContentLoaded', () => {
     return state.statuses[id] || {};
   }
 
+  function shoppingState() {
+    const value = state.shopping || {};
+    return {
+      recipes: value.recipes && typeof value.recipes === 'object' ? value.recipes : {},
+      checked: value.checked && typeof value.checked === 'object' ? value.checked : {},
+    };
+  }
+
+  function writeShopping(next) {
+    state.shopping = next;
+    writeJson(shoppingKey, state.shopping);
+    renderShopping();
+  }
+
+  function isInShopping(id) {
+    return Boolean(shoppingState().recipes[id]);
+  }
+
+  function statusCount(name) {
+    return recipes.reduce((count, recipe) => count + (statusFor(recipe.id)[name] ? 1 : 0), 0);
+  }
+
   function plural(count, words) {
     const lastTwo = count % 100;
     const last = count % 10;
@@ -117,7 +137,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     writeJson(storageKey, state.statuses);
     renderRecipes();
+    renderShopping();
     showStatusMessage(recipe, name, nextValue);
+  }
+
+  function toggleShoppingRecipe(id) {
+    const recipe = recipes.find((item) => item.id === id);
+    const current = shoppingState();
+    const nextValue = !current.recipes[id];
+    current.recipes[id] = nextValue;
+    writeShopping(current);
+    renderRecipes();
+
+    if (els.statusMessage && recipe) {
+      els.statusMessage.textContent = `${nextValue ? 'Добавлено в корзину' : 'Убрано из корзины'}: ${recipe.title}`;
+    }
+  }
+
+  function markRecipeCooked(id) {
+    const current = statusFor(id);
+    const recipe = recipes.find((item) => item.id === id);
+
+    state.statuses[id] = {
+      ...current,
+      want: false,
+      cooked: true,
+    };
+
+    writeJson(storageKey, state.statuses);
+    renderRecipes();
+    if (els.statusMessage && recipe) {
+      els.statusMessage.textContent = `Приготовлено: ${recipe.title}`;
+    }
   }
 
   function showStatusMessage(recipe, name, isActive) {
@@ -131,9 +182,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderCategoryFilters() {
-    els.categoryFilters.innerHTML = categories.map((category) => (
+    const categoryLinks = categories.map((category) => (
       `<a class="chip chip--jump" href="#recipes-${category.id}" data-jump-category="${category.id}">${category.title}</a>`
     )).join('');
+
+    els.categoryFilters.innerHTML = `${categoryLinks}<a class="chip chip--jump" href="#bonus" data-jump-category="bonus">Бонусы</a>`;
   }
 
   function categoryRecipes(categoryId) {
@@ -168,29 +221,26 @@ document.addEventListener('DOMContentLoaded', () => {
     return true;
   }
 
-  function recipeCard(recipe) {
+  function recipeIndexRow(recipe, index) {
     const statuses = statusFor(recipe.id);
-    const kbju = recipe.kbju;
-    const cardStatusClass = `${statuses.cooked ? 'is-cooked' : ''} ${statuses.want ? 'is-want' : ''}`.trim();
+    const rowStatusClass = `${statuses.cooked ? 'is-cooked' : ''} ${statuses.want ? 'is-want' : ''}`.trim();
+    const inShopping = isInShopping(recipe.id);
+    const cookedAction = state.statusFilter === 'want'
+      ? `<button class="mark-cooked-button" type="button" data-mark-cooked="${recipe.id}">Приготовила</button>`
+      : '';
+
     return `
-      <article class="recipe-card ${cardStatusClass}" id="recipe-${recipe.id}" data-recipe-card="${recipe.id}">
-        <div class="recipe-summary">
-          <button class="recipe-main-toggle" type="button" data-open-recipe="${recipe.id}">
-            <span class="recipe-category">${recipe.category.title}</span>
-            <h3 class="recipe-title">${recipe.title}</h3>
-            <span class="recipe-meta">
-              <span class="recipe-pill">${recipe.time}</span>
-              <span class="recipe-pill">${kbju.kcal} ккал</span>
-              <span class="recipe-pill">Б ${kbju.protein} / Ж ${kbju.fat} / У ${kbju.carbs}</span>
-            </span>
-          </button>
-          <div class="recipe-card-actions" aria-label="Быстрые отметки рецепта">
-            <button class="status-icon ${statuses.want ? 'is-active' : ''}" type="button" data-status="${recipe.id}:want" aria-label="Хочу попробовать: ${recipe.title}" title="Хочу попробовать">♥</button>
-            <button class="status-icon status-icon--cooked ${statuses.cooked ? 'is-active' : ''}" type="button" data-status="${recipe.id}:cooked" aria-label="Приготовлено: ${recipe.title}" title="Приготовлено">✓</button>
-            <button class="recipe-open" type="button" data-open-recipe="${recipe.id}" aria-label="Открыть рецепт">+</button>
-          </div>
+      <div class="recipe-index__item ${rowStatusClass}">
+        <button class="recipe-index__open" type="button" data-open-recipe="${recipe.id}">
+          <span>${index + 1}</span>
+          <strong>${recipe.title}</strong>
+        </button>
+        <div class="recipe-card-actions" aria-label="Быстрые отметки рецепта">
+          <button class="status-icon ${statuses.want ? 'is-active' : ''}" type="button" data-status="${recipe.id}:want" aria-label="Хочу попробовать: ${recipe.title}" title="Хочу попробовать">♥</button>
+          <button class="status-icon status-icon--shopping ${inShopping ? 'is-active' : ''}" type="button" data-shopping-recipe="${recipe.id}" aria-label="В корзину: ${recipe.title}" title="В корзину">🛒</button>
+          ${cookedAction}
         </div>
-      </article>
+      </div>
     `;
   }
 
@@ -236,7 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const recipe = recipes.find((item) => item.id === id);
     if (!recipe || !els.recipeModal || !els.recipeModalContent) return;
 
-    clearTargetedRecipe();
     els.recipeModalContent.innerHTML = recipeDetails(recipe);
     els.recipeModal.hidden = false;
     document.body.classList.add('is-modal-open');
@@ -249,24 +298,6 @@ document.addEventListener('DOMContentLoaded', () => {
     els.recipeModal.hidden = true;
     els.recipeModalContent.innerHTML = '';
     document.body.classList.remove('is-modal-open');
-  }
-
-  function clearTargetedRecipe() {
-    document.querySelectorAll('[data-recipe-card].is-targeted').forEach((card) => {
-      card.classList.remove('is-targeted');
-    });
-  }
-
-  function targetRecipeCard(id) {
-    const card = document.querySelector(`#recipe-${id}`);
-    if (!card) return;
-
-    clearTargetedRecipe();
-    card.classList.add('is-targeted');
-    card.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
   }
 
   function renderSubcategoryChips(category) {
@@ -292,21 +323,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     return `
       <div class="recipe-index" aria-label="Список блюд: ${category.title}">
-        ${visible.map((recipe, index) => (
-          `<button class="recipe-index__item" type="button" data-scroll-recipe="${recipe.id}">
-            <span>${index + 1}</span>
-            ${recipe.title}
-          </button>`
-        )).join('')}
+        ${visible.map((recipe, index) => recipeIndexRow(recipe, index)).join('')}
       </div>
     `;
   }
 
   function renderRecipeSection(category) {
     const visible = categoryRecipes(category.id).filter(recipeMatches);
-    const cards = visible.length
-      ? visible.map((recipe) => recipeCard(recipe)).join('')
-      : '<div class="empty-state">Пока нет блюд в этом разделе.</div>';
 
     return `
       <section class="recipe-section" id="recipes-${category.id}" aria-labelledby="recipes-${category.id}-title">
@@ -318,8 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a href="#recipes" class="recipe-section__top">К началу</a>
         </div>
         ${renderSubcategoryChips(category)}
-        ${renderRecipeIndex(category, visible)}
-        <div class="recipe-grid">${cards}</div>
+        ${visible.length ? renderRecipeIndex(category, visible) : '<div class="empty-state">Пока нет блюд в этом разделе</div>'}
       </section>
     `;
   }
@@ -331,6 +353,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('[data-status-filter]').forEach((button) => {
       button.classList.toggle('is-active', state.statusFilter === button.dataset.statusFilter);
+    });
+
+    els.statusCounts.forEach((item) => {
+      item.textContent = statusCount(item.dataset.statusCount);
     });
 
     els.resultCount.textContent = `${visibleCount} ${plural(visibleCount, ['рецепт', 'рецепта', 'рецептов'])}`;
@@ -345,12 +371,12 @@ document.addEventListener('DOMContentLoaded', () => {
       els.replacements.innerHTML = replacements.length
         ? replacements.map((item) => `
           <div class="replace-row">
-            <strong>${item.from}</strong>
-            <span class="replace-arrow">заменить на</span>
+            <strong>Нет: ${item.from}</strong>
+            <span class="replace-arrow">Можно взять</span>
             <span>${item.to}</span>
           </div>
         `).join('')
-        : '<p>Таблица замен не распознана.</p>';
+        : '<p>Таблица замен не распознана</p>';
     }
 
     if (els.sauces) {
@@ -369,84 +395,114 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           `;
         }).join('')
-        : '<p>Соусы не распознаны.</p>';
+        : '<p>Соусы не распознаны</p>';
+    }
+
+    if (els.boosters) {
+      const boosters = [
+        { title: 'Добавить белок', body: 'яйцо, творог, курица, тунец или греческий йогурт' },
+        { title: 'Добавить овощи', body: 'огурцы, томаты, зелень, брокколи или замороженная смесь' },
+        { title: 'Добавить углеводы', body: 'хлебцы, рис, гречка, булгур или цельнозерновой хлеб' },
+        { title: 'Сделать вкуснее', body: 'быстрый соус, лимонный сок, чеснок, зелень или специи' },
+      ];
+
+      els.boosters.innerHTML = boosters.map((item) => `
+        <div class="booster-row">
+          <strong>${item.title}</strong>
+          <span>${item.body}</span>
+        </div>
+      `).join('');
     }
   }
 
   function baseBasket() {
-    const fromSource = bonus.basketItems || [];
-    if (fromSource.length) {
-      return fromSource;
-    }
+    const selected = shoppingState().recipes;
+    return recipes.filter((recipe) => selected[recipe.id]);
+  }
 
-    return [
-      'Яйца',
-      'Творог',
-      'Греческий йогурт',
-      'Курица',
-      'Рыба',
-      'Крупы',
-      'Овощи',
-      'Фрукты',
-      'Цельнозерновой хлеб',
-      'Специи',
-    ];
+  function splitIngredients(value) {
+    const result = [];
+    let current = '';
+    let depth = 0;
+
+    text(value).split('').forEach((char) => {
+      if (char === '(') depth += 1;
+      if (char === ')' && depth > 0) depth -= 1;
+
+      if ((char === ',' || char === ';' || char === '•') && depth === 0) {
+        if (current.trim()) result.push(current.trim());
+        current = '';
+        return;
+      }
+
+      current += char;
+    });
+
+    if (current.trim()) result.push(current.trim());
+    return result;
+  }
+
+  function shoppingGroups() {
+    return baseBasket().map((recipe) => ({
+      recipe,
+      ingredients: splitIngredients(recipe.ingredients),
+    })).filter((group) => group.ingredients.length);
   }
 
   function renderShopping() {
-    if (!els.shoppingList) return;
+    const groups = shoppingGroups();
+    els.shoppingCounts.forEach((item) => {
+      item.textContent = groups.length;
+    });
+  }
 
-    els.shoppingList.innerHTML = baseBasket().map((item, index) => {
-      const id = `shop-${index}`;
-      const checked = Boolean(state.shopping[item]);
+  function shoppingContent() {
+    const groups = shoppingGroups();
+    const checkedItems = shoppingState().checked;
+
+    if (!groups.length) {
+      return '<div class="empty-state">Добавь блюда кнопкой +, и здесь появится список покупок</div>';
+    }
+
+    return groups.map((group) => `
+      <article class="shopping-recipe">
+        <h3>${group.recipe.title}</h3>
+        ${group.ingredients.map((item, index) => {
+      const key = `${group.recipe.id}:${item}`;
+      const id = `shop-${group.recipe.id}-${index}`;
+      const checked = Boolean(checkedItems[key]);
       return `
         <div class="shopping-item ${checked ? 'is-checked' : ''}">
           <label for="${id}">
-            <input id="${id}" type="checkbox" ${checked ? 'checked' : ''} data-shopping-item="${item}">
+            <input id="${id}" type="checkbox" ${checked ? 'checked' : ''} data-shopping-item="${key}">
             <span>${item}</span>
           </label>
         </div>
       `;
-    }).join('');
+    }).join('')}
+      </article>
+    `).join('');
   }
 
-  function copyShoppingList() {
-    const selected = baseBasket().filter((item) => state.shopping[item]);
+  function openShoppingModal() {
+    if (!els.recipeModal || !els.recipeModalContent) return;
 
-    if (!selected.length) {
-      els.copyStatus.textContent = 'Сначала отметь продукты, которые нужно купить.';
-      return;
-    }
-
-    const lines = selected.map((item) => `- ${item}`).join('\n');
-
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(lines).then(() => {
-        els.copyStatus.textContent = 'Список скопирован.';
-      }).catch(() => fallbackCopy(lines));
-      return;
-    }
-
-    fallbackCopy(lines);
-  }
-
-  function fallbackCopy(lines) {
-    const textarea = document.createElement('textarea');
-    textarea.value = lines;
-    textarea.setAttribute('readonly', '');
-    textarea.style.position = 'fixed';
-    textarea.style.left = '-9999px';
-    document.body.append(textarea);
-    textarea.select();
-
-    try {
-      document.execCommand('copy');
-      els.copyStatus.textContent = 'Список скопирован.';
-    } catch {
-      els.copyStatus.textContent = 'Не удалось скопировать список.';
-    } finally {
-      textarea.remove();
-    }
+    els.recipeModalContent.innerHTML = `
+      <header class="recipe-modal__head">
+        <div>
+          <span class="recipe-category">Мои списки</span>
+          <h3 id="recipe-modal-title">Моя продуктовая корзина</h3>
+        </div>
+        <button class="recipe-modal__close" type="button" data-close-recipe aria-label="Закрыть корзину">×</button>
+      </header>
+      <div class="recipe-modal__body">
+        <p class="shopping-hint">Добавь блюда кнопкой корзины, и здесь появится список покупок</p>
+        <div class="shopping-list shopping-list--modal" data-shopping-list>${shoppingContent()}</div>
+      </div>
+    `;
+    els.recipeModal.hidden = false;
+    document.body.classList.add('is-modal-open');
+    els.recipeModal.querySelector('.recipe-modal__close')?.focus();
   }
 
   els.categoryFilters.addEventListener('click', (event) => {
@@ -477,9 +533,30 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const shoppingRecipe = event.target.closest('[data-shopping-recipe]');
+    if (shoppingRecipe) {
+      event.preventDefault();
+      toggleShoppingRecipe(shoppingRecipe.dataset.shoppingRecipe);
+      return;
+    }
+
+    const markCooked = event.target.closest('[data-mark-cooked]');
+    if (markCooked) {
+      event.preventDefault();
+      markRecipeCooked(markCooked.dataset.markCooked);
+      return;
+    }
+
+    const openShopping = event.target.closest('[data-open-shopping]');
+    if (openShopping) {
+      openShoppingModal();
+      return;
+    }
+
     const statusFilter = event.target.closest('[data-status-filter]');
     if (statusFilter) {
-      state.statusFilter = statusFilter.dataset.statusFilter;
+      const nextFilter = statusFilter.dataset.statusFilter;
+      state.statusFilter = state.statusFilter === nextFilter ? '' : nextFilter;
       renderRecipes();
       return;
     }
@@ -492,10 +569,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const scrollRecipe = event.target.closest('[data-scroll-recipe]');
-    if (scrollRecipe) {
-      targetRecipeCard(scrollRecipe.dataset.scrollRecipe);
-    }
   });
 
   document.addEventListener('keydown', (event) => {
@@ -511,26 +584,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#recipes')?.scrollIntoView({ behavior: 'smooth' });
   });
 
-  els.shoppingList.addEventListener('change', (event) => {
+  document.addEventListener('change', (event) => {
     const checkbox = event.target.closest('[data-shopping-item]');
     if (!checkbox) return;
-    state.shopping[checkbox.dataset.shoppingItem] = checkbox.checked;
-    writeJson(shoppingKey, state.shopping);
-    renderShopping();
+    const current = shoppingState();
+    current.checked[checkbox.dataset.shoppingItem] = checkbox.checked;
+    writeShopping(current);
+    checkbox.closest('.shopping-item')?.classList.toggle('is-checked', checkbox.checked);
   });
-
-  els.copyShopping.addEventListener('click', copyShoppingList);
-
-  els.resetShopping.addEventListener('click', () => {
-    state.shopping = {};
-    writeJson(shoppingKey, state.shopping);
-    renderShopping();
-    els.copyStatus.textContent = 'Галочки сброшены.';
-  });
-
-  if (els.totalRecipes) {
-    els.totalRecipes.textContent = `${recipes.length} ${plural(recipes.length, ['рецепт', 'рецепта', 'рецептов'])}`;
-  }
 
   renderBonus();
   renderShopping();
