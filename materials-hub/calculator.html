@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Калькулятор КБЖУ Gym Girls Club: расчет калорий, белков, жиров и углеводов под цель.">
+  <title>Gym Girls Club — калькулятор КБЖУ</title>
+  <link rel="stylesheet" href="assets/css/materials.css?v=calculator-3">
+</head>
+<body>
+  <div class="materials-hub">
+    <header class="hub-hero calculator-hero" id="top">
+      <div class="hub-brand">Центр материалов <span>by QMELLZ</span></div>
+
+      <div class="hub-nav-wrap" aria-label="Навигация по материалам">
+        <nav class="hub-nav">
+          <a class="hub-nav__item" href="index.html#recipes">Сборник рецептов</a>
+          <a class="hub-nav__item is-active" href="calculator.html">Калькулятор КБЖУ</a>
+          <span class="hub-nav__item is-muted">Гайды</span>
+          <span class="hub-nav__item is-muted">Полезные материалы</span>
+        </nav>
+      </div>
+
+      <div class="hub-hero__content">
+        <p class="hub-eyebrow">Gym Girls Club</p>
+        <h1>Калькулятор КБЖУ</h1>
+      </div>
+    </header>
+
+    <main>
+      <section class="section calculator-section" aria-label="Калькулятор КБЖУ">
+        <aside class="kbju-disclaimer" aria-label="Пояснение по расчету">
+          <strong>Расчет ориентировочный</strong>
+          <p>Калькулятор не заменяет консультацию врача или нутрициолога. Используй результат как стартовую точку и смотри на динамику веса, самочувствие и тренировки.</p>
+        </aside>
+
+        <div class="calculator-layout" data-calculator-layout>
+          <form class="calculator-card" data-calculator-form novalidate>
+            <div class="section-heading calculator-heading">
+              <span class="calculator-kicker">Твои параметры</span>
+              <h2>Подберем норму</h2>
+            </div>
+
+            <div class="calculator-fields">
+              <label class="calculator-field">
+                <span>Вес, кг</span>
+                <input type="text" name="weight" inputmode="decimal" autocomplete="off" placeholder="62" required>
+              </label>
+
+              <label class="calculator-field">
+                <span>Рост, см</span>
+                <input type="text" name="height" inputmode="decimal" autocomplete="off" placeholder="168" required>
+              </label>
+
+              <label class="calculator-field">
+                <span>Возраст</span>
+                <input type="text" name="age" inputmode="numeric" autocomplete="off" placeholder="28" required>
+              </label>
+            </div>
+
+            <label class="calculator-field">
+              <span>Активность</span>
+              <select name="activity" required>
+                <option value="1.2">Минимальная: сидячий день, мало шагов</option>
+                <option value="1.37">Умеренная: прогулки или 1-2 тренировки в неделю</option>
+                <option value="1.55">Активная: 3-4 тренировки в неделю</option>
+                <option value="1.73">Высокая: 5-6 тренировок в неделю</option>
+              </select>
+            </label>
+
+            <fieldset class="calculator-goals">
+              <legend>Цель</legend>
+
+              <label class="goal-option is-selected">
+                <input type="radio" name="goal" value="softCut" checked>
+                <span>
+                  <strong>Мягкое похудение</strong>
+                  <small>Комфортный дефицит без жестких ограничений</small>
+                </span>
+              </label>
+
+              <label class="goal-option">
+                <input type="radio" name="goal" value="activeCut">
+                <span>
+                  <strong>Активное похудение</strong>
+                  <small>Более заметный дефицит с защитой минимума</small>
+                </span>
+              </label>
+
+              <label class="goal-option">
+                <input type="radio" name="goal" value="maintain">
+                <span>
+                  <strong>Поддержание формы</strong>
+                  <small>Стабильный вес и понятная норма на день</small>
+                </span>
+              </label>
+
+              <label class="goal-option">
+                <input type="radio" name="goal" value="recomp">
+                <span>
+                  <strong>Рекомпозиция</strong>
+                  <small>Калории около поддержки, белок выше</small>
+                </span>
+              </label>
+
+              <label class="goal-option">
+                <input type="radio" name="goal" value="shapeGain">
+                <span>
+                  <strong>Набор формы</strong>
+                  <small>Аккуратный профицит без резкого набора</small>
+                </span>
+              </label>
+            </fieldset>
+
+            <p class="calculator-error" data-calculator-error aria-live="polite"></p>
+
+            <button class="button button--primary calculator-submit" type="submit">Рассчитать норму</button>
+          </form>
+
+          <section class="calculator-result" data-calculator-result hidden aria-label="Результат расчета">
+            <div class="calculator-result__head">
+              <span data-result-mode>Твоя норма</span>
+              <strong data-result-kcal>0 ккал</strong>
+              <p data-result-summary></p>
+            </div>
+
+            <div class="calculator-warning" data-result-warning hidden>
+              Расчет уперся в безопасный минимум 1200 ккал. Лучше не снижать норму ниже без сопровождения специалиста.
+            </div>
+
+            <div class="macro-meter" aria-hidden="true">
+              <span class="macro-meter__protein" data-bar-protein></span>
+              <span class="macro-meter__fat" data-bar-fat></span>
+              <span class="macro-meter__carbs" data-bar-carbs></span>
+            </div>
+
+            <div class="macro-legend" aria-label="Цвета БЖУ">
+              <span><i class="macro-dot macro-dot--protein"></i>Белки</span>
+              <span><i class="macro-dot macro-dot--fat"></i>Жиры</span>
+              <span><i class="macro-dot macro-dot--carbs"></i>Углеводы</span>
+            </div>
+
+            <div class="macro-results">
+              <div class="macro-result">
+                <span><i class="macro-dot macro-dot--protein"></i>Белки</span>
+                <strong data-result-protein>0 г</strong>
+              </div>
+              <div class="macro-result">
+                <span><i class="macro-dot macro-dot--fat"></i>Жиры</span>
+                <strong data-result-fat>0 г</strong>
+              </div>
+              <div class="macro-result">
+                <span><i class="macro-dot macro-dot--carbs"></i>Углеводы</span>
+                <strong data-result-carbs>0 г</strong>
+              </div>
+            </div>
+
+            <div class="calculator-details">
+              <span>Базовый обмен: <strong data-result-bmr>0 ккал</strong></span>
+              <span>Поддержание: <strong data-result-tdee>0 ккал</strong></span>
+              <span>Расчет от: <strong data-result-date>—</strong></span>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <a class="back-top" href="#top" aria-label="Наверх">↑</a>
+  </div>
+
+  <script src="assets/js/calculator.js?v=calculator-3"></script>
+</body>
+</html>
