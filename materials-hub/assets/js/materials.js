@@ -169,6 +169,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function returnRecipeToWant(id) {
+    const current = statusFor(id);
+    const recipe = recipes.find((item) => item.id === id);
+
+    state.statuses[id] = {
+      ...current,
+      want: true,
+      cooked: false,
+    };
+
+    writeJson(storageKey, state.statuses);
+    renderRecipes();
+    if (els.statusMessage && recipe) {
+      els.statusMessage.textContent = `Возвращено в «Хочу попробовать»: ${recipe.title}`;
+    }
+  }
+
   function showStatusMessage(recipe, name, isActive) {
     if (!els.statusMessage || !recipe) return;
 
@@ -225,7 +242,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const inShopping = isInShopping(recipe.id);
     const cookedAction = state.statusFilter === 'want'
       ? `<button class="mark-cooked-button" type="button" data-mark-cooked="${recipe.id}">Приготовила</button>`
-      : '';
+      : (state.statusFilter === 'cooked'
+        ? `<button class="status-icon status-icon--remove-cooked" type="button" data-return-to-want="${recipe.id}" aria-label="Вернуть в Хочу попробовать: ${recipe.title}" title="Вернуть в Хочу попробовать">&times;</button>`
+        : '');
 
     return `
       <div class="recipe-index__item ${rowStatusClass}">
@@ -512,6 +531,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (markCooked) {
       event.preventDefault();
       markRecipeCooked(markCooked.dataset.markCooked);
+      return;
+    }
+
+    const returnToWant = event.target.closest('[data-return-to-want]');
+    if (returnToWant) {
+      event.preventDefault();
+      returnRecipeToWant(returnToWant.dataset.returnToWant);
       return;
     }
 
