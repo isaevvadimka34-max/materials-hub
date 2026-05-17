@@ -1433,12 +1433,245 @@ body.is-modal-open {
   color: var(--espresso);
 }
 
+.guide-hero {
+  min-height: 520px;
+}
+
+.guide-hero h1 {
+  font-size: clamp(56px, 9vw, 112px);
+}
+
+.guide-shell {
+  display: grid;
+  gap: 46px;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.guide-grid--intro {
+  align-items: stretch;
+}
+
+.guide-panel,
+.guide-zone,
+.guide-mini-card,
+.cycle-card,
+.guide-cta {
+  border: 1px solid rgba(62, 39, 35, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow);
+}
+
+.guide-panel {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.guide-panel--dark {
+  background: var(--espresso);
+  color: var(--cream);
+}
+
+.guide-panel--dark h2,
+.guide-panel--dark .guide-kicker {
+  color: var(--cream);
+}
+
+.guide-panel h2,
+.guide-panel h3,
+.guide-zone h3,
+.guide-mini-card h3,
+.cycle-card h3,
+.guide-cta h3 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 3vw, 38px);
+  line-height: 1;
+}
+
+.guide-panel--dark p,
+.guide-panel--dark .guide-result {
+  color: rgba(255, 248, 243, 0.86);
+}
+
+.guide-panel p,
+.guide-zone p,
+.guide-mini-card p,
+.cycle-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.guide-kicker,
+.guide-zone span,
+.guide-mini-card span,
+.cycle-card span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.guide-search {
+  display: grid;
+  gap: 8px;
+  font-weight: 800;
+}
+
+.guide-search span {
+  color: inherit;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.guide-search input {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 14px;
+  border: 1px solid rgba(62, 39, 35, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.92);
+  color: var(--deep-text);
+  font-size: 16px;
+  font-weight: 700;
+  outline: 0;
+}
+
+.guide-search input:focus {
+  border-color: var(--dusty-rose);
+  box-shadow: 0 0 0 3px rgba(201, 123, 148, 0.14);
+}
+
+.guide-result {
+  display: grid;
+  gap: 5px;
+  min-height: 74px;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.1);
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.guide-result strong {
+  color: inherit;
+}
+
+.guide-result--green {
+  background: rgba(96, 118, 106, 0.14);
+  color: var(--sage);
+}
+
+.guide-result--amber {
+  background: rgba(200, 148, 60, 0.16);
+  color: #8a5b14;
+}
+
+.guide-result--rose {
+  background: rgba(201, 123, 148, 0.16);
+  color: var(--dusty-rose);
+}
+
+.guide-section {
+  display: grid;
+  gap: 18px;
+}
+
+.guide-zone-grid,
+.cycle-grid,
+.guide-card-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.guide-card-list {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.guide-zone,
+.guide-mini-card,
+.cycle-card {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+
+.guide-zone {
+  border-top: 5px solid var(--sage);
+}
+
+.guide-zone--amber {
+  border-top-color: #c8943c;
+}
+
+.guide-zone--rose {
+  border-top-color: var(--dusty-rose);
+}
+
+.guide-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.guide-cta {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px;
+  background: rgba(244, 201, 214, 0.22);
+}
+
+.guide-link {
+  width: fit-content;
+}
+
+.guide-checks {
+  display: grid;
+  gap: 10px;
+}
+
+.guide-checks label {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 12px;
+  border: 1px solid rgba(62, 39, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.62);
+  color: var(--deep-text);
+  font-weight: 700;
+}
+
+.guide-checks input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--dusty-rose);
+}
+
 @media (max-width: 980px) {
   .recipe-grid,
   .favorite-sauces__list,
   .bonus-grid,
   .shopping-layout,
-  .calculator-layout {
+  .calculator-layout,
+  .guide-grid,
+  .guide-zone-grid,
+  .cycle-grid,
+  .guide-card-list {
     grid-template-columns: 1fr;
   }
 
@@ -1448,6 +1681,11 @@ body.is-modal-open {
 
   .calculator-result {
     position: static;
+  }
+
+  .guide-cta {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 
