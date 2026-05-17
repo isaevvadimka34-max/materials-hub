@@ -1662,6 +1662,220 @@ body.is-modal-open {
   accent-color: var(--dusty-rose);
 }
 
+.tracker-hero h1 {
+  max-width: 760px;
+  font-size: clamp(52px, 9vw, 112px);
+}
+
+.tracker-shell {
+  display: grid;
+  gap: 22px;
+}
+
+.tracker-top,
+.tracker-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 18px;
+}
+
+.tracker-card {
+  border: 1px solid rgba(62, 39, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow);
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.tracker-goal-card,
+.tracker-week-card {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(244, 201, 214, 0.18)),
+    var(--surface);
+}
+
+.tracker-summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tracker-summary-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.tracker-score {
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 700;
+  line-height: 0.95;
+}
+
+.tracker-progress {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(62, 39, 35, 0.08);
+}
+
+.tracker-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--dusty-rose), var(--sage));
+  transition: width 0.2s ease;
+}
+
+.tracker-reset {
+  width: fit-content;
+  margin-top: auto;
+}
+
+.tracker-field {
+  display: grid;
+  gap: 10px;
+}
+
+.tracker-field span,
+.tracker-energy span {
+  color: var(--espresso);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tracker-field textarea {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid rgba(62, 39, 35, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.72);
+  color: var(--deep-text);
+  padding: 14px;
+  outline: none;
+}
+
+.tracker-field textarea:focus {
+  border-color: var(--dusty-rose);
+  box-shadow: 0 0 0 3px rgba(201, 123, 148, 0.16);
+}
+
+.tracker-section-head {
+  margin-bottom: 18px;
+}
+
+.tracker-section-head h2 {
+  margin: 4px 0 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 5vw, 58px);
+  line-height: 0.95;
+}
+
+.tracker-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.tracker-day {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(62, 39, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.58);
+}
+
+.tracker-day.is-today {
+  border-color: rgba(201, 123, 148, 0.42);
+  background: rgba(244, 201, 214, 0.24);
+}
+
+.tracker-day h3 {
+  margin: 0;
+  color: var(--espresso);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tracker-habits {
+  display: grid;
+  gap: 8px;
+}
+
+.tracker-habit {
+  display: grid;
+  gap: 2px;
+  min-height: 62px;
+  width: 100%;
+  border: 1px solid rgba(62, 39, 35, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--deep-text);
+  padding: 9px;
+  text-align: left;
+}
+
+.tracker-habit span {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tracker-habit small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.tracker-habit.is-checked {
+  border-color: rgba(96, 118, 106, 0.36);
+  background: var(--sage-soft);
+}
+
+.tracker-habit.is-checked span::before {
+  content: "✓ ";
+  color: var(--sage);
+}
+
+.tracker-mood {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(42px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.tracker-mood button {
+  aspect-ratio: 1;
+  border: 1px solid rgba(62, 39, 35, 0.14);
+  border-radius: 50%;
+  background: rgba(255, 248, 243, 0.74);
+  color: var(--espresso);
+  font-weight: 700;
+}
+
+.tracker-mood button.is-active {
+  border-color: var(--dusty-rose);
+  background: var(--dusty-rose);
+  color: var(--cream);
+}
+
+.tracker-energy {
+  display: grid;
+  gap: 16px;
+}
+
+.tracker-energy input {
+  width: 100%;
+  accent-color: var(--dusty-rose);
+}
+
 @media (max-width: 980px) {
   .recipe-grid,
   .favorite-sauces__list,
@@ -1671,7 +1885,9 @@ body.is-modal-open {
   .guide-grid,
   .guide-zone-grid,
   .cycle-grid,
-  .guide-card-list {
+  .guide-card-list,
+  .tracker-top,
+  .tracker-bottom {
     grid-template-columns: 1fr;
   }
 
@@ -1686,6 +1902,10 @@ body.is-modal-open {
   .guide-cta {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .tracker-grid {
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
   }
 }
 
@@ -1889,5 +2109,31 @@ body.is-modal-open {
 
   .replace-row {
     grid-template-columns: 1fr;
+  }
+
+  .tracker-card {
+    padding: 16px;
+  }
+
+  .tracker-grid {
+    display: flex;
+    margin-right: -16px;
+    overflow-x: auto;
+    padding: 2px 16px 8px 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .tracker-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tracker-day {
+    flex: 0 0 min(82vw, 320px);
+    scroll-snap-align: start;
+  }
+
+  .tracker-habit {
+    min-height: 58px;
   }
 }
