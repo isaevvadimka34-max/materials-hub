@@ -3,6 +3,23 @@
 document.addEventListener('DOMContentLoaded', () => {
   const storageKey = 'ggc-materials-calculator-v1';
   const minKcal = 1200;
+  const defaultSteps = 'under4000';
+  const defaultWorkouts = '0';
+  const maxActivityFactor = 1.73;
+
+  const stepFactors = {
+    under4000: 1.2,
+    '4000-7000': 1.28,
+    '7000-10000': 1.37,
+    '10000plus': 1.46,
+  };
+
+  const workoutBonuses = {
+    0: 0,
+    '1-2': 0.09,
+    '3-4': 0.18,
+    '5-6': 0.27,
+  };
 
   const goalSettings = {
     softCut: {
@@ -41,6 +58,16 @@ document.addEventListener('DOMContentLoaded', () => {
       summary: 'Аккуратный профицит для набора формы без резкого скачка калорий.',
     },
   };
+
+  function calculateActivityFactor(values) {
+    const stepFactor = stepFactors[values.steps] || stepFactors[defaultSteps];
+    const workoutBonus = workoutBonuses[values.workouts] || workoutBonuses[defaultWorkouts];
+    return Math.min(maxActivityFactor, Number((stepFactor + workoutBonus).toFixed(2)));
+  }
+
+  if (typeof window !== 'undefined' && window.__calculatorTestHooks) {
+    window.__calculatorTestHooks.calculateActivityFactor = calculateActivityFactor;
+  }
 
   const form = document.querySelector('[data-calculator-form]');
   const result = document.querySelector('[data-calculator-result]');
@@ -100,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function calculate(values) {
     const settings = goalSettings[values.goal] || goalSettings.softCut;
     const bmr = (10 * values.weight) + (6.25 * values.height) - (5 * values.age) - 161;
-    const tdee = bmr * values.activity;
+    const tdee = bmr * values.activityFactor;
     const rawTarget = tdee * settings.factor;
     const targetKcal = Math.max(minKcal, rawTarget);
     const hitMinimum = rawTarget < minKcal;
@@ -180,7 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
       form.elements.weight.value = saved.values.weight || '';
       form.elements.height.value = saved.values.height || '';
       form.elements.age.value = saved.values.age || '';
-      form.elements.activity.value = saved.values.activity || '1.2';
+      form.elements.steps.value = saved.values.steps || defaultSteps;
+      form.elements.workouts.value = saved.values.workouts || defaultWorkouts;
 
       const goal = form.querySelector(`[name="goal"][value="${saved.values.goal}"]`);
       if (goal) goal.checked = true;
@@ -206,9 +234,11 @@ document.addEventListener('DOMContentLoaded', () => {
       weight: parsePositive(formData, 'weight'),
       height: parsePositive(formData, 'height'),
       age: parsePositive(formData, 'age'),
-      activity: parsePositive(formData, 'activity') || 1.2,
+      steps: String(formData.get('steps') || defaultSteps),
+      workouts: String(formData.get('workouts') || defaultWorkouts),
       goal: String(formData.get('goal') || 'softCut'),
     };
+    values.activityFactor = calculateActivityFactor(values);
 
     const validationMessage = validate(values);
     if (validationMessage) {

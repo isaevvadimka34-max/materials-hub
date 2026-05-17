@@ -136,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
     writeJson(storageKey, state.statuses);
     renderRecipes();
     renderShopping();
+    syncModalStatusButtons(id, name);
     showStatusMessage(recipe, name, nextValue);
   }
 
@@ -194,6 +195,18 @@ document.addEventListener('DOMContentLoaded', () => {
       : (isActive ? 'Добавлено в «Приготовлено»' : 'Убрано из «Приготовлено»');
 
     els.statusMessage.textContent = `${action}: ${recipe.title}`;
+  }
+
+  function syncModalStatusButtons(id, name) {
+    if (!els.recipeModal || els.recipeModal.hidden) return;
+
+    const isActive = Boolean(statusFor(id)[name]);
+    els.recipeModal
+      .querySelectorAll(`[data-status="${id}:${name}"]`)
+      .forEach((button) => {
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
   }
 
   function renderCategoryFilters() {
@@ -263,6 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function recipeDetails(recipe) {
     const kbju = recipe.kbju;
+    const statuses = statusFor(recipe.id);
     const tagHtml = recipe.tags.map((tag) => `<span class="tag">${tag}</span>`).join('');
     const steps = recipe.steps.map((step) => `<li>${step}</li>`).join('');
 
@@ -272,7 +286,10 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="recipe-category">${recipe.category.title}</span>
           <h3 id="recipe-modal-title">${recipe.title}</h3>
         </div>
-        <button class="recipe-modal__close" type="button" data-close-recipe aria-label="Закрыть рецепт">×</button>
+        <div class="recipe-modal__actions" aria-label="Действия с рецептом">
+          <button class="status-icon ${statuses.want ? 'is-active' : ''}" type="button" data-status="${recipe.id}:want" aria-label="Хочу попробовать: ${recipe.title}" aria-pressed="${statuses.want ? 'true' : 'false'}" title="Хочу попробовать">♥</button>
+          <button class="recipe-modal__close" type="button" data-close-recipe aria-label="Закрыть рецепт">×</button>
+        </div>
       </header>
       <div class="recipe-modal__body">
         <div class="recipe-tags">${tagHtml}</div>

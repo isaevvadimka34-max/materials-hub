@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Калькулятор КБЖУ Gym Girls Club: расчет калорий, белков, жиров и углеводов под цель.">
   <title>Gym Girls Club — калькулятор КБЖУ</title>
-  <link rel="stylesheet" href="assets/css/materials.css?v=calculator-4">
+  <link rel="stylesheet" href="assets/css/materials.css?v=calculator-5">
 </head>
 <body>
   <div class="materials-hub">
@@ -31,7 +31,7 @@
       <section class="section calculator-section" aria-label="Калькулятор КБЖУ">
         <aside class="kbju-disclaimer" aria-label="Пояснение по расчету">
           <strong>Расчет ориентировочный</strong>
-          <p>Калькулятор не заменяет консультацию врача или нутрициолога. Используй результат как стартовую точку и смотри на динамику веса, самочувствие и тренировки.</p>
+          <p>Калькулятор не заменяет консультацию врача или нутрициолога. Используй результат как стартовую точку, проверь динамику через 14 дней и скорректируй калории по весу, замерам и самочувствию.</p>
         </aside>
 
         <div class="calculator-layout" data-calculator-layout>
@@ -58,15 +58,27 @@
               </label>
             </div>
 
-            <label class="calculator-field">
-              <span>Активность</span>
-              <select name="activity" required>
-                <option value="1.2">Минимальная: сидячий день, мало шагов</option>
-                <option value="1.37">Умеренная: прогулки или 1-2 тренировки в неделю</option>
-                <option value="1.55">Активная: 3-4 тренировки в неделю</option>
-                <option value="1.73">Высокая: 5-6 тренировок в неделю</option>
-              </select>
-            </label>
+            <div class="calculator-fields calculator-fields--activity">
+              <label class="calculator-field">
+                <span>Шаги в день</span>
+                <select name="steps" required>
+                  <option value="under4000">До 4000</option>
+                  <option value="4000-7000">4000-7000</option>
+                  <option value="7000-10000">7000-10000</option>
+                  <option value="10000plus">10000+</option>
+                </select>
+              </label>
+
+              <label class="calculator-field">
+                <span>Тренировки</span>
+                <select name="workouts" required>
+                  <option value="0">0 в неделю</option>
+                  <option value="1-2">1-2 в неделю</option>
+                  <option value="3-4">3-4 в неделю</option>
+                  <option value="5-6">5-6 в неделю</option>
+                </select>
+              </label>
+            </div>
 
             <fieldset class="calculator-goals">
               <legend>Цель</legend>
@@ -162,6 +174,6 @@
     <a class="back-top" href="#top" aria-label="Наверх">↑</a>
   </div>
 
-  <script src="assets/js/calculator.js?v=calculator-3"></script>
+  <script src="assets/js/calculator.js?v=calculator-4"></script>
 </body>
 </html>
