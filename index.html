@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Центр материалов Gym Girls Club: сборник рецептов, КБЖУ, отметки и продуктовая корзина.">
+  <title>Gym Girls Club — центр материалов</title>
+  <link rel="stylesheet" href="assets/css/materials.css?v=hub-5">
+</head>
+<body>
+  <div class="materials-hub">
+    <header class="hub-hero" id="top">
+      <div class="hub-brand">Центр материалов <span>by QMELLZ</span></div>
+
+      <div class="hub-nav-wrap" aria-label="Навигация по материалам">
+        <nav class="hub-nav">
+          <a class="hub-nav__item is-active" href="index.html#recipes">Сборник рецептов</a>
+          <a class="hub-nav__item" href="calculator.html">Калькулятор КБЖУ</a>
+          <a class="hub-nav__item" href="nutrition-guide.html">Гид по питанию</a>
+          <a class="hub-nav__item" href="body-guide.html">Режим и тело</a>
+          <a class="hub-nav__item" href="tracker.html">Мой трекер</a>
+        </nav>
+      </div>
+
+      <div class="hub-hero__content">
+        <p class="hub-eyebrow">Gym Girls Club</p>
+        <h1>Сборник рецептов</h1>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="recipes" aria-label="Сборник рецептов">
+        <aside class="kbju-disclaimer" aria-label="Пояснение по КБЖУ">
+          <strong>КБЖУ ориентировочное</strong>
+          <p>Показатели могут отличаться от фактических: на них влияют бренд продукта, точная граммовка, жирность, способ приготовления и замены ингредиентов</p>
+        </aside>
+
+        <div class="recipes-toolbar" aria-label="Навигация по рецептам">
+          <div class="status-tabs" data-status-tabs aria-label="Все рецепты">
+            <button class="chip is-active" type="button" data-status-filter="">Все блюда</button>
+            <a class="chip chip--sauces" href="#favorite-sauces">3 моих любимых соуса</a>
+          </div>
+
+          <div class="meal-jump" data-category-filters aria-label="Быстрый переход по разделам"></div>
+
+          <div class="my-lists" aria-label="Мои списки">
+            <span class="my-lists__title">Мои списки</span>
+            <div class="my-lists__actions">
+              <button class="my-list-button" type="button" data-status-filter="want">
+                <span class="my-list-button__icon" aria-hidden="true">♥</span>
+                <span>Хочу попробовать</span>
+                <strong data-status-count="want">0</strong>
+              </button>
+              <button class="my-list-button my-list-button--shopping" type="button" data-open-shopping>
+                <span class="my-list-button__icon" aria-hidden="true">🛒</span>
+                <span>Моя продуктовая корзина</span>
+                <strong data-shopping-count>0</strong>
+              </button>
+              <button class="my-list-button my-list-button--cooked" type="button" data-status-filter="cooked">
+                <span class="my-list-button__icon" aria-hidden="true">✓</span>
+                <span>Приготовлено</span>
+                <strong data-status-count="cooked">0</strong>
+              </button>
+            </div>
+          </div>
+
+          <div class="toolbar-meta">
+            <span data-result-count>0 рецептов</span>
+            <span class="status-message" data-status-message aria-live="polite"></span>
+            <button class="text-button" type="button" data-reset-filters>Показать всё</button>
+          </div>
+        </div>
+
+        <div class="recipe-sections" data-recipes-list></div>
+
+        <section class="favorite-sauces" id="favorite-sauces" aria-labelledby="favorite-sauces-title">
+          <div class="favorite-sauces__head">
+            <span>К блюдам и салатам</span>
+            <h2 id="favorite-sauces-title">3 моих любимых соуса</h2>
+          </div>
+          <div class="favorite-sauces__list" data-sauces></div>
+        </section>
+      </section>
+    </main>
+
+    <div class="recipe-modal" data-recipe-modal hidden>
+      <button class="recipe-modal__backdrop" type="button" data-close-recipe aria-label="Закрыть окно"></button>
+      <article class="recipe-modal__panel" role="dialog" aria-modal="true" aria-labelledby="recipe-modal-title">
+        <div data-recipe-modal-content></div>
+      </article>
+    </div>
+
+    <a class="back-top" href="#top" aria-label="Наверх">↑</a>
+  </div>
+
+  <script src="assets/data/recipes-data.js"></script>
+  <script src="assets/js/materials.js?v=hub-4"></script>
+</body>
+</html>

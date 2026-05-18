@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Гид по питанию QMELLZ: фуд-сканер, продукты, белок и быстрые решения для рациона.">
+  <title>Gym Girls Club — гид по питанию</title>
+  <link rel="stylesheet" href="assets/css/materials.css?v=hub-5">
+</head>
+<body>
+  <div class="materials-hub">
+    <header class="hub-hero guide-hero" id="top">
+      <div class="hub-brand">Центр материалов <span>by QMELLZ</span></div>
+
+      <div class="hub-nav-wrap" aria-label="Навигация по материалам">
+        <nav class="hub-nav">
+          <a class="hub-nav__item" href="index.html#recipes">Сборник рецептов</a>
+          <a class="hub-nav__item" href="calculator.html">Калькулятор КБЖУ</a>
+          <a class="hub-nav__item is-active" href="nutrition-guide.html">Гид по питанию</a>
+          <a class="hub-nav__item" href="body-guide.html">Режим и тело</a>
+          <a class="hub-nav__item" href="tracker.html">Мой трекер</a>
+        </nav>
+      </div>
+
+      <div class="hub-hero__content">
+        <p class="hub-eyebrow">Питание без хаоса</p>
+        <h1>Гид по питанию</h1>
+        <p class="hub-lead">Что считать, где добрать белок и как быстро принять решение по продукту.</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section guide-shell" aria-label="Гид по питанию">
+        <div class="guide-grid guide-grid--intro">
+          <article class="guide-panel guide-panel--dark">
+            <span class="guide-kicker">Фуд-сканер</span>
+            <h2>Введи продукт и получи ответ</h2>
+            <label class="guide-search">
+              <span>Название продукта</span>
+              <input type="search" data-food-search placeholder="Например: банан, огурец, авокадо">
+            </label>
+            <div class="guide-result" data-food-result>
+              Начни вводить продукт, чтобы понять: считать, не считать или быть аккуратнее с порцией.
+            </div>
+          </article>
+
+          <article class="guide-panel">
+            <span class="guide-kicker">Главное правило</span>
+            <h2>Вода и клетчатка легче, крахмал и жиры считаем</h2>
+            <p>Зеленые и водянистые овощи обычно не ломают рацион. Картофель, кукуруза, авокадо, фрукты, сухофрукты, масло и соусы уже дают заметную энергию.</p>
+            <a class="button button--primary guide-link" href="calculator.html">Проверить норму КБЖУ</a>
+          </article>
+        </div>
+
+        <section class="guide-section" aria-labelledby="food-zones-title">
+          <div class="section-heading">
+            <span class="hub-eyebrow">Зоны продуктов</span>
+            <h2 id="food-zones-title">Что считать</h2>
+          </div>
+
+          <div class="guide-zone-grid">
+            <article class="guide-zone guide-zone--green">
+              <span>Можно не считать</span>
+              <h3>Водянистые овощи</h3>
+              <p>Огурцы, помидоры, сельдерей, кабачки, капуста, брокколи, зелень, грибы.</p>
+            </article>
+            <article class="guide-zone guide-zone--amber">
+              <span>Считаем</span>
+              <h3>Плотные продукты</h3>
+              <p>Картофель, батат, кукуруза, бобовые, вареная свекла и морковь, авокадо, оливки.</p>
+            </article>
+            <article class="guide-zone guide-zone--rose">
+              <span>Осторожно</span>
+              <h3>Сладкое и концентраты</h3>
+              <p>Фрукты, виноград, бананы, манго, сухофрукты, соки, масло, сметана и соусы.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="guide-section" aria-labelledby="protein-title">
+          <div class="section-heading">
+            <span class="hub-eyebrow">Белок</span>
+            <h2 id="protein-title">Как быстро добрать белок</h2>
+            <p>Выбери ситуацию, а гид покажет простые варианты без сложной готовки.</p>
+          </div>
+
+          <div class="guide-filter-row" aria-label="Фильтр белковых решений">
+            <button class="chip is-active" type="button" data-protein-filter="all">Все</button>
+            <button class="chip" type="button" data-protein-filter="snack">Перекус</button>
+            <button class="chip" type="button" data-protein-filter="meal">Прием пищи</button>
+            <button class="chip" type="button" data-protein-filter="shop">Купить домой</button>
+          </div>
+
+          <div class="guide-card-list" data-protein-results></div>
+
+          <div class="guide-cta">
+            <div>
+              <span class="guide-kicker">Высокий белок</span>
+              <h3>Открой рецепты и выбирай блюда с белком</h3>
+            </div>
+            <a class="button button--primary" href="index.html#recipes">К рецептам</a>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <a class="back-top" href="#top" aria-label="Наверх">↑</a>
+  </div>
+
+  <script src="assets/js/nutrition-guide.js?v=hub-1"></script>
+</body>
+</html>

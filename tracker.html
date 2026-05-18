@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Мой трекер QMELLZ: цель недели, привычки, настроение, энергия, заметки и маленькая победа дня.">
+  <title>Gym Girls Club — мой трекер</title>
+  <link rel="stylesheet" href="assets/css/materials.css?v=hub-5">
+</head>
+<body>
+  <div class="materials-hub">
+    <header class="hub-hero guide-hero tracker-hero" id="top">
+      <div class="hub-brand">Центр материалов <span>by QMELLZ</span></div>
+
+      <div class="hub-nav-wrap" aria-label="Навигация по материалам">
+        <nav class="hub-nav">
+          <a class="hub-nav__item" href="index.html#recipes">Сборник рецептов</a>
+          <a class="hub-nav__item" href="calculator.html">Калькулятор КБЖУ</a>
+          <a class="hub-nav__item" href="nutrition-guide.html">Гид по питанию</a>
+          <a class="hub-nav__item" href="body-guide.html">Режим и тело</a>
+          <a class="hub-nav__item is-active" href="tracker.html">Мой трекер</a>
+        </nav>
+      </div>
+
+      <div class="hub-hero__content">
+        <p class="hub-eyebrow">Мой прогресс</p>
+        <h1>Мой трекер</h1>
+        <p class="hub-lead">Отмечай базу недели: тренировки, воду, шаги, сон, питание и самочувствие. Маленькие отметки дают большую картину.</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section tracker-shell" aria-label="Мой недельный трекер">
+        <div class="tracker-top">
+          <article class="tracker-card tracker-goal-card">
+            <span class="guide-kicker">Цель недели</span>
+            <label class="tracker-field">
+              <span>Что держим в фокусе?</span>
+              <textarea data-tracker-goal rows="4" placeholder="Например: 3 тренировки, 8 000 шагов и спокойный режим без перегруза"></textarea>
+            </label>
+          </article>
+
+          <article class="tracker-card tracker-summary-card">
+            <span class="guide-kicker">Итог недели</span>
+            <div class="tracker-score" data-tracker-summary>0 из 42 привычек закрыто</div>
+            <div class="tracker-progress" aria-hidden="true">
+              <span data-tracker-progress></span>
+            </div>
+            <p>Не гонись за идеалом. Смотри на регулярность и возвращайся к базе на следующий день.</p>
+            <button class="button button--primary tracker-reset" type="button" data-tracker-reset>Сбросить неделю</button>
+          </article>
+        </div>
+
+        <section class="tracker-card tracker-week-card" aria-labelledby="tracker-week-title">
+          <div class="tracker-section-head">
+            <span class="guide-kicker">Ежедневный трекер</span>
+            <h2 id="tracker-week-title">Неделя по дням</h2>
+          </div>
+          <div class="tracker-grid" data-tracker-grid></div>
+        </section>
+
+        <div class="tracker-bottom">
+          <article class="tracker-card">
+            <span class="guide-kicker">Настроение</span>
+            <div class="tracker-mood" data-tracker-mood aria-label="Настроение дня">
+              <button type="button" data-mood="1" aria-label="Очень тяжело">1</button>
+              <button type="button" data-mood="2" aria-label="Тяжело">2</button>
+              <button type="button" data-mood="3" aria-label="Нормально">3</button>
+              <button type="button" data-mood="4" aria-label="Хорошо">4</button>
+              <button type="button" data-mood="5" aria-label="Отлично">5</button>
+            </div>
+          </article>
+
+          <article class="tracker-card">
+            <span class="guide-kicker">Энергия</span>
+            <label class="tracker-energy">
+              <span><strong data-tracker-energy-value>50%</strong></span>
+              <input type="range" min="0" max="100" step="5" value="50" data-tracker-energy>
+            </label>
+          </article>
+
+          <article class="tracker-card">
+            <label class="tracker-field">
+              <span>Заметки</span>
+              <textarea data-tracker-notes rows="5" placeholder="Что заметила по телу, аппетиту, сну или нагрузке?"></textarea>
+            </label>
+          </article>
+
+          <article class="tracker-card">
+            <label class="tracker-field">
+              <span>Моя маленькая победа сегодня</span>
+              <textarea data-tracker-win rows="5" placeholder="Например: вышла на прогулку, приготовила нормальный прием пищи, легла раньше"></textarea>
+            </label>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <a class="back-top" href="#top" aria-label="Наверх">↑</a>
+  </div>
+
+  <script src="assets/js/tracker.js?v=hub-1"></script>
+</body>
+</html>
