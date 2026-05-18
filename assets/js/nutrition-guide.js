@@ -222,21 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   ];
 
-  const proteinItems = [
-    { type: 'snack', title: 'Творог + ягоды', text: 'Быстрый вариант, когда хочется сладкого и нужно добрать белок.' },
-    { type: 'snack', title: 'Тунец + хлебец + огурец', text: 'Собирается за пару минут и хорошо держит сытость.' },
-    { type: 'snack', title: 'Яйца + овощи', text: 'Простой перекус без лишней готовки.' },
-    { type: 'meal', title: 'Курица или индейка к гарниру', text: 'Самый простой способ поднять белок в обеде или ужине.' },
-    { type: 'meal', title: 'Паста с тунцом или легким сыром', text: 'Обычное блюдо становится плотнее по белку без сложного рецепта.' },
-    { type: 'meal', title: 'Овсянка на молоке с протеином', text: 'Подходит, если завтрак обычно выходит углеводным.' },
-    { type: 'shop', title: 'База для холодильника', text: 'Яйца, творог, греческий йогурт, куриное филе, рыба, тунец, легкий сыр.' },
-    { type: 'shop', title: 'Растительный белок', text: 'Чечевица, фасоль, нут, тофу и соевое молоко помогают разнообразить рацион.' },
-  ];
-
   const search = document.querySelector('[data-food-search]');
   const result = document.querySelector('[data-food-result]');
-  const proteinResults = document.querySelector('[data-protein-results]');
-  const proteinFilters = document.querySelectorAll('[data-protein-filter]');
 
   function writeState(value) {
     localStorage.setItem(storageKey, JSON.stringify(value));
@@ -333,41 +320,14 @@ document.addEventListener('DOMContentLoaded', () => {
     renderFoodResult(item);
   }
 
-  function renderProteins(type = 'all') {
-    if (!proteinResults) return;
-
-    const items = proteinItems.filter((item) => type === 'all' || item.type === type);
-    proteinResults.innerHTML = items.map((item) => `
-      <article class="guide-mini-card">
-        <span>${item.type === 'snack' ? 'Перекус' : item.type === 'meal' ? 'Прием пищи' : 'Покупки'}</span>
-        <h3>${item.title}</h3>
-        <p>${item.text}</p>
-      </article>
-    `).join('');
-  }
-
-  function setFilter(filter) {
-    proteinFilters.forEach((button) => {
-      button.classList.toggle('is-active', button.dataset.proteinFilter === filter);
-    });
-    renderProteins(filter);
-    writeState({ ...readState(), proteinFilter: filter, query: search?.value || '' });
-  }
-
   const saved = readState();
   if (search && saved.query) {
     search.value = saved.query;
     renderFood(saved.query);
   }
-  renderProteins(saved.proteinFilter || 'all');
-  setFilter(saved.proteinFilter || 'all');
 
   search?.addEventListener('input', () => {
     renderFood(search.value);
-    writeState({ ...readState(), query: search.value });
-  });
-
-  proteinFilters.forEach((button) => {
-    button.addEventListener('click', () => setFilter(button.dataset.proteinFilter || 'all'));
+    writeState({ query: search.value });
   });
 });

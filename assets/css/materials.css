@@ -1713,6 +1713,108 @@ body.is-modal-open {
   background: rgba(244, 201, 214, 0.22);
 }
 
+.protein-templates {
+  gap: 20px;
+}
+
+.protein-template-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.protein-template-card {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid rgba(62, 39, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.72);
+  box-shadow: 0 18px 34px rgba(62, 39, 35, 0.06);
+}
+
+.protein-template-card__badge {
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(96, 118, 106, 0.12);
+  color: var(--sage);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.protein-template-card h3 {
+  margin: 0;
+}
+
+.protein-template-card__row {
+  display: grid;
+  gap: 4px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(62, 39, 35, 0.08);
+}
+
+.protein-template-card__row span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.protein-template-card__row strong {
+  color: var(--deep-text);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.protein-formula {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border: 1px solid rgba(96, 118, 106, 0.18);
+  border-radius: 8px;
+  background: rgba(96, 118, 106, 0.08);
+  color: var(--espresso);
+  font-size: clamp(14px, 2vw, 18px);
+  font-weight: 900;
+}
+
+.protein-formula span[aria-hidden="true"] {
+  color: var(--dusty-rose);
+}
+
+.protein-template-summary {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--deep-text);
+  font-size: 18px;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.protein-fast-note {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-left: 4px solid var(--dusty-rose);
+  border-radius: 8px;
+  background: rgba(244, 201, 214, 0.22);
+}
+
+.protein-fast-note span {
+  color: var(--dusty-rose);
+  font-weight: 900;
+}
+
+.protein-fast-note p {
+  margin: 0;
+}
+
 .guide-link {
   width: fit-content;
 }
@@ -1984,6 +2086,10 @@ body.is-modal-open {
     flex-direction: column;
   }
 
+  .protein-template-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .tracker-grid {
     grid-template-columns: repeat(4, minmax(150px, 1fr));
   }
@@ -2017,6 +2123,19 @@ body.is-modal-open {
     line-height: 0.98;
     overflow-wrap: normal;
     word-break: normal;
+  }
+
+  .protein-template-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .protein-template-card {
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .protein-formula {
+    justify-content: flex-start;
   }
 
   main {

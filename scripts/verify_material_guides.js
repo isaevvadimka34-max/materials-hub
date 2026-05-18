@@ -86,8 +86,12 @@ assert.match(nutritionHtml, /data-food-search/, 'nutrition guide should include 
 assert.match(nutritionHtml, /nutrition-scanner/, 'nutrition guide should use the premium food scanner block');
 assert.match(nutritionHtml, /scanner-zone-grid/, 'nutrition guide should merge food zones into scanner block');
 assert.doesNotMatch(nutritionHtml, /Начни вводить продукт/, 'scanner empty state should not duplicate the search prompt');
-assert.match(nutritionHtml, /data-protein-filter/, 'nutrition guide should include protein filters');
-assert.match(nutritionHtml, /Высокий белок/, 'nutrition guide should link to high-protein recipes');
+assert.match(nutritionHtml, /Белок без сложных расчётов/, 'nutrition guide should introduce protein plate templates');
+assert.match(nutritionHtml, /БЕЛОК\s*→\s*ОСНОВА\s*→\s*ОБЪЁМ\s*→\s*ВКУС/, 'nutrition guide should show the protein plate formula');
+assert.match(nutritionHtml, /Быстрый завтрак/, 'nutrition guide should include a breakfast protein template');
+assert.match(nutritionHtml, /Нормальный обед/, 'nutrition guide should include a lunch protein template');
+assert.match(nutritionHtml, /Перекус на ходу/, 'nutrition guide should include an on-the-go snack protein template');
+assert.match(nutritionHtml, /Ужин без перегруза/, 'nutrition guide should include a dinner protein template');
 assert.match(nutritionJs, /foodItems/, 'nutrition JS should include food scanner data');
 assert.match(nutritionJs, /portionTip/, 'nutrition JS should output practical portion advice');
 assert.match(nutritionJs, /data-food-status/, 'nutrition JS should render scanner status separately');

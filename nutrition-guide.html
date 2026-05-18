@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Гид по питанию QMELLZ: фуд-сканер, продукты, белок и быстрые решения для рациона.">
   <title>Gym Girls Club — гид по питанию</title>
-  <link rel="stylesheet" href="assets/css/materials.css?v=hub-6">
+  <link rel="stylesheet" href="assets/css/materials.css?v=hub-7">
 </head>
 <body>
   <div class="materials-hub">
@@ -68,28 +68,86 @@
           </div>
         </section>
 
-        <section class="guide-section" aria-labelledby="protein-title">
+        <section class="guide-section protein-templates" aria-labelledby="protein-title">
           <div class="section-heading">
             <span class="hub-eyebrow">Белок</span>
-            <h2 id="protein-title">Как быстро добрать белок</h2>
-            <p>Выбери ситуацию, а гид покажет простые варианты без сложной готовки.</p>
+            <h2 id="protein-title">Белок без сложных расчётов</h2>
+            <p>Выбери готовый шаблон тарелки и адаптируй его под себя: завтрак, обед, перекус или ужин.</p>
           </div>
 
-          <div class="guide-filter-row" aria-label="Фильтр белковых решений">
-            <button class="chip is-active" type="button" data-protein-filter="all">Все</button>
-            <button class="chip" type="button" data-protein-filter="snack">Перекус</button>
-            <button class="chip" type="button" data-protein-filter="meal">Прием пищи</button>
-            <button class="chip" type="button" data-protein-filter="shop">Купить домой</button>
+          <div class="protein-template-grid">
+            <article class="protein-template-card">
+              <span class="protein-template-card__badge">завтрак</span>
+              <h3>Быстрый завтрак</h3>
+              <div class="protein-template-card__row">
+                <span>Белок</span>
+                <strong>яйца / творог / йогурт</strong>
+              </div>
+              <div class="protein-template-card__row">
+                <span>Добавь</span>
+                <strong>ягоды / овощи / хлебец</strong>
+              </div>
+            </article>
+
+            <article class="protein-template-card">
+              <span class="protein-template-card__badge">обед</span>
+              <h3>Нормальный обед</h3>
+              <div class="protein-template-card__row">
+                <span>Белок</span>
+                <strong>курица / рыба / индейка</strong>
+              </div>
+              <div class="protein-template-card__row">
+                <span>Основа</span>
+                <strong>крупа / картофель / паста</strong>
+              </div>
+              <div class="protein-template-card__row">
+                <span>Объём</span>
+                <strong>овощи</strong>
+              </div>
+            </article>
+
+            <article class="protein-template-card">
+              <span class="protein-template-card__badge">перекус</span>
+              <h3>Перекус на ходу</h3>
+              <div class="protein-template-card__row">
+                <span>Белок</span>
+                <strong>творожок / йогурт / тунец</strong>
+              </div>
+              <div class="protein-template-card__row">
+                <span>Добавь</span>
+                <strong>хлебцы / фрукт / орехи</strong>
+              </div>
+            </article>
+
+            <article class="protein-template-card">
+              <span class="protein-template-card__badge">ужин</span>
+              <h3>Ужин без перегруза</h3>
+              <div class="protein-template-card__row">
+                <span>Белок</span>
+                <strong>омлет / рыба / творог</strong>
+              </div>
+              <div class="protein-template-card__row">
+                <span>Объём</span>
+                <strong>овощи / салат / зелень</strong>
+              </div>
+            </article>
           </div>
 
-          <div class="guide-card-list" data-protein-results></div>
+          <div class="protein-formula" aria-label="БЕЛОК → ОСНОВА → ОБЪЁМ → ВКУС">
+            <span>БЕЛОК</span>
+            <span aria-hidden="true">→</span>
+            <span>ОСНОВА</span>
+            <span aria-hidden="true">→</span>
+            <span>ОБЪЁМ</span>
+            <span aria-hidden="true">→</span>
+            <span>ВКУС</span>
+          </div>
 
-          <div class="guide-cta">
-            <div>
-              <span class="guide-kicker">Высокий белок</span>
-              <h3>Открой рецепты и выбирай блюда с белком</h3>
-            </div>
-            <a class="button button--primary" href="index.html#recipes">К рецептам</a>
+          <p class="protein-template-summary">Не нужно собирать идеальную тарелку. Достаточно понимать принцип: белок + основа + объём + вкус.</p>
+
+          <div class="protein-fast-note">
+            <span>Если нет времени</span>
+            <p>Творог, яйца, йогурт, тунец или готовая курица помогут быстро добрать белок без сложной готовки.</p>
           </div>
         </section>
       </section>
@@ -98,6 +156,6 @@
     <a class="back-top" href="#top" aria-label="Наверх">↑</a>
   </div>
 
-  <script src="assets/js/nutrition-guide.js?v=hub-4"></script>
+  <script src="assets/js/nutrition-guide.js?v=hub-5"></script>
 </body>
 </html>
