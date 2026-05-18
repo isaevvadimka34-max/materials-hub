@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Гид по питанию QMELLZ: фуд-сканер, продукты, белок и быстрые решения для рациона.">
   <title>Gym Girls Club — гид по питанию</title>
-  <link rel="stylesheet" href="assets/css/materials.css?v=hub-5">
+  <link rel="stylesheet" href="assets/css/materials.css?v=hub-6">
 </head>
 <body>
   <div class="materials-hub">
@@ -31,48 +31,39 @@
 
     <main>
       <section class="section guide-shell" aria-label="Гид по питанию">
-        <div class="guide-grid guide-grid--intro">
-          <article class="guide-panel guide-panel--dark">
-            <span class="guide-kicker">Фуд-сканер</span>
-            <h2>Введи продукт и получи ответ</h2>
+        <section class="nutrition-scanner" aria-labelledby="food-scanner-title">
+          <div class="nutrition-scanner__main">
+            <span class="guide-kicker">Фудсканер</span>
+            <h2 id="food-scanner-title">Введи продукт и пойми, считать его или нет</h2>
+            <p>Быстрый ориентир для ежедневных решений: когда можно расслабиться, а где лучше учесть порцию.</p>
+
             <label class="guide-search">
               <span>Название продукта</span>
               <input type="search" data-food-search placeholder="Например: банан, огурец, авокадо">
             </label>
-            <div class="guide-result" data-food-result>
-              Начни вводить продукт, чтобы понять: считать, не считать или быть аккуратнее с порцией.
+
+            <div class="guide-result scanner-result" data-food-result>
+              <span class="scanner-result__status scanner-result__status--empty" data-food-status></span>
+              <span class="scanner-result__advice" data-food-advice>Фудсканер подскажет: считать, не считать или быть аккуратнее.</span>
+              <span class="scanner-result__tip" data-food-tip>Совет появится здесь.</span>
             </div>
-          </article>
-
-          <article class="guide-panel">
-            <span class="guide-kicker">Главное правило</span>
-            <h2>Вода и клетчатка легче, крахмал и жиры считаем</h2>
-            <p>Зеленые и водянистые овощи обычно не ломают рацион. Картофель, кукуруза, авокадо, фрукты, сухофрукты, масло и соусы уже дают заметную энергию.</p>
-            <a class="button button--primary guide-link" href="calculator.html">Проверить норму КБЖУ</a>
-          </article>
-        </div>
-
-        <section class="guide-section" aria-labelledby="food-zones-title">
-          <div class="section-heading">
-            <span class="hub-eyebrow">Зоны продуктов</span>
-            <h2 id="food-zones-title">Что считать</h2>
           </div>
 
-          <div class="guide-zone-grid">
+          <div class="scanner-zone-grid" aria-label="Зоны продуктов">
             <article class="guide-zone guide-zone--green">
               <span>Можно не считать</span>
-              <h3>Водянистые овощи</h3>
-              <p>Огурцы, помидоры, сельдерей, кабачки, капуста, брокколи, зелень, грибы.</p>
+              <h3>Легкая база</h3>
+              <p>Огурцы, помидоры, зелень, кабачки, капуста, брокколи, грибы, вода, чай и кофе без добавок.</p>
             </article>
             <article class="guide-zone guide-zone--amber">
               <span>Считаем</span>
-              <h3>Плотные продукты</h3>
-              <p>Картофель, батат, кукуруза, бобовые, вареная свекла и морковь, авокадо, оливки.</p>
+              <h3>Обычные продукты рациона</h3>
+              <p>Крупы, хлеб, паста, картофель, батат, кукуруза, свекла, морковь, бобовые, мясо, рыба, яйца, творог.</p>
             </article>
             <article class="guide-zone guide-zone--rose">
-              <span>Осторожно</span>
-              <h3>Сладкое и концентраты</h3>
-              <p>Фрукты, виноград, бананы, манго, сухофрукты, соки, масло, сметана и соусы.</p>
+              <span>Аккуратно</span>
+              <h3>Калорийно плотное</h3>
+              <p>Масла, орехи, семечки, авокадо, оливки, жирные соусы, сладкое, сухофрукты, соки, алкоголь, фастфуд.</p>
             </article>
           </div>
         </section>
@@ -107,6 +98,6 @@
     <a class="back-top" href="#top" aria-label="Наверх">↑</a>
   </div>
 
-  <script src="assets/js/nutrition-guide.js?v=hub-1"></script>
+  <script src="assets/js/nutrition-guide.js?v=hub-4"></script>
 </body>
 </html>
