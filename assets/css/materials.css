@@ -1774,7 +1774,7 @@ body.is-modal-open {
 
 .overeating-chain {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -1812,24 +1812,26 @@ body.is-modal-open {
 .overeating-loop-note {
   position: relative;
   display: grid;
-  align-content: space-between;
-  gap: 10px;
-  min-height: 190px;
-  padding: 18px;
-  border: 1px solid rgba(62, 39, 35, 0.09);
+  grid-column: 1 / -1;
+  grid-template-columns: 120px minmax(180px, 0.75fr) 1fr;
+  gap: 18px;
+  align-items: center;
+  min-height: auto;
+  padding: 16px 18px;
+  border: 1px solid rgba(96, 118, 106, 0.18);
   border-radius: 8px;
   background:
-    linear-gradient(135deg, rgba(62, 39, 35, 0.94), rgba(96, 118, 106, 0.82)),
-    var(--espresso);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(96, 118, 106, 0.12)),
+    rgba(255, 248, 243, 0.92);
   color: var(--espresso);
-  box-shadow: inset 0 3px 0 rgba(255, 248, 243, 0.18), 0 18px 36px rgba(62, 39, 35, 0.12);
+  box-shadow: inset 0 3px 0 rgba(96, 118, 106, 0.14), 0 18px 36px rgba(62, 39, 35, 0.06);
 }
 
 .overeating-loop-note::before {
   content: "→";
   position: absolute;
-  top: 22px;
-  left: -10px;
+  top: -10px;
+  left: 18px;
   display: grid;
   place-items: center;
   width: 20px;
@@ -1842,7 +1844,7 @@ body.is-modal-open {
 }
 
 .overeating-loop-note span {
-  color: rgba(255, 248, 243, 0.72);
+  color: var(--dusty-rose);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0;
@@ -1850,17 +1852,19 @@ body.is-modal-open {
 }
 
 .overeating-loop-note strong {
-  color: var(--cream);
-  font-size: clamp(20px, 2.1vw, 28px);
-  line-height: 1.05;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(22px, 2vw, 30px);
+  font-style: italic;
+  line-height: 1.12;
 }
 
 .overeating-loop-note p {
   margin: 0;
-  color: rgba(255, 248, 243, 0.82);
-  font-size: 14px;
-  font-weight: 750;
-  line-height: 1.35;
+  color: var(--deep-text);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .overeating-step__number {
@@ -1936,10 +1940,11 @@ body.is-modal-open {
 
 .overeating-interrupt {
   display: grid;
-  gap: 10px;
-  padding: 14px;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(62, 39, 35, 0.11);
   border-radius: 8px;
-  background: rgba(244, 201, 214, 0.18);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(244, 201, 214, 0.2));
 }
 
 .overeating-interrupt h3 {
@@ -1949,23 +1954,44 @@ body.is-modal-open {
 }
 
 .overeating-interrupt ul {
+  counter-reset: interrupt-step;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .overeating-interrupt li {
-  padding: 12px;
-  border: 1px solid rgba(244, 201, 214, 0.38);
+  counter-increment: interrupt-step;
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 10px;
+  align-items: start;
+  min-height: 72px;
+  padding: 14px;
+  border: 1px solid rgba(62, 39, 35, 0.14);
   border-radius: 8px;
-  background: rgba(255, 248, 243, 0.72);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 22px rgba(62, 39, 35, 0.07);
   color: var(--deep-text);
   font-size: 14px;
   font-weight: 800;
   line-height: 1.35;
+}
+
+.overeating-interrupt li::before {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--espresso);
+  color: #fff;
+  content: counter(interrupt-step);
+  font-size: 13px;
+  font-weight: 900;
 }
 
 .overeating-cycle__conclusion {
@@ -1973,45 +1999,79 @@ body.is-modal-open {
   gap: 12px;
   max-width: 860px;
   margin: 0 auto;
-  padding: 18px 20px;
-  border: 1px solid rgba(62, 39, 35, 0.09);
+  padding: 20px 22px;
+  border: 1px solid rgba(244, 201, 214, 0.34);
   border-radius: 8px;
   background:
-    linear-gradient(135deg, rgba(255, 248, 243, 0.98), rgba(244, 201, 214, 0.24)),
-    rgba(255, 248, 243, 0.9);
-  box-shadow: 0 18px 36px rgba(62, 39, 35, 0.07);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(244, 201, 214, 0.18)),
+    rgba(255, 248, 243, 0.94);
+  box-shadow: 0 16px 32px rgba(62, 39, 35, 0.06);
   text-align: center;
 }
 
 .overeating-cycle__conclusion p {
   margin: 0;
   color: var(--deep-text);
-  font-size: clamp(18px, 2vw, 24px);
-  font-weight: 850;
-  line-height: 1.5;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-style: italic;
+  font-weight: 650;
+  line-height: 1.6;
 }
 
 .overeating-cycle__conclusion p:first-child {
   color: var(--espresso);
-  font-size: clamp(20px, 2.4vw, 28px);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.25;
 }
 
 .overeating-cycle__tools {
-  padding: 14px 16px;
-  border-left: 4px solid var(--dusty-rose);
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 16px 18px;
+  border: 1px solid rgba(96, 118, 106, 0.18);
+  border-left: 4px solid var(--sage);
   border-radius: 8px;
-  background: rgba(244, 201, 214, 0.22);
+  background: rgba(255, 255, 255, 0.72);
 }
 
 .overeating-cycle__tools p {
   margin: 0;
   color: var(--deep-text);
-  font-weight: 800;
-  line-height: 1.5;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 650;
+  line-height: 1.55;
 }
 
 .overeating-cycle__tools strong {
   color: var(--dusty-rose);
+}
+
+.overeating-expert-note {
+  display: grid;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 20px 22px;
+  border: 1px solid rgba(96, 118, 106, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(96, 118, 106, 0.12)),
+    rgba(255, 248, 243, 0.92);
+  box-shadow: inset 0 3px 0 rgba(96, 118, 106, 0.14), 0 18px 36px rgba(62, 39, 35, 0.06);
+}
+
+.overeating-expert-note p {
+  margin: 0;
+  color: var(--deep-text);
+  font-size: clamp(17px, 1.5vw, 21px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
 .guide-link {
@@ -2290,6 +2350,10 @@ body.is-modal-open {
   }
 
   .overeating-system__reasons {
+    grid-template-columns: 1fr;
+  }
+
+  .overeating-loop-note {
     grid-template-columns: 1fr;
   }
 

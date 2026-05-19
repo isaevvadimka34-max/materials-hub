@@ -286,12 +286,18 @@ document.addEventListener('DOMContentLoaded', () => {
     return candidates[0]?.item || null;
   }
 
+  function cleanVisualCopy(value) {
+    return String(value || '')
+      .replace(/\.(?=\s+[А-ЯЁA-Z])/g, ',')
+      .replace(/[.!?]+$/g, '');
+  }
+
   function renderFoodResult({ status, text, portionTip, tone = 'neutral' }) {
     result.className = `guide-result scanner-result guide-result--${tone}`;
     result.innerHTML = `
-      <span class="scanner-result__status" data-food-status>${status}</span>
-      <span class="scanner-result__advice" data-food-advice>${text}</span>
-      <span class="scanner-result__tip" data-food-tip>${portionTip}</span>
+      <span class="scanner-result__status" data-food-status>${cleanVisualCopy(status)}</span>
+      <span class="scanner-result__advice" data-food-advice>${cleanVisualCopy(text)}</span>
+      <span class="scanner-result__tip" data-food-tip>${cleanVisualCopy(portionTip)}</span>
     `;
   }
 
