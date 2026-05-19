@@ -224,6 +224,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const search = document.querySelector('[data-food-search]');
   const result = document.querySelector('[data-food-result]');
+  const proteinTabs = document.querySelectorAll('[data-protein-tab]');
+  const proteinTitle = document.querySelector('[data-protein-title]');
+  const proteinSteps = {
+    protein: document.querySelector('[data-protein-step="protein"]'),
+    base: document.querySelector('[data-protein-step="base"]'),
+    volume: document.querySelector('[data-protein-step="volume"]'),
+    taste: document.querySelector('[data-protein-step="taste"]'),
+  };
+  const proteinExample = document.querySelector('[data-protein-example]');
+
+  const proteinTemplates = {
+    breakfast: {
+      title: 'Завтрак',
+      protein: 'яйца / творог / греческий йогурт',
+      base: 'хлебец / каша / фрукт',
+      volume: 'ягоды / овощи',
+      taste: 'орехи / корица / сыр',
+      example: 'яйца + хлебец + овощи + сыр',
+    },
+    lunch: {
+      title: 'Обед',
+      protein: 'курица / рыба / индейка',
+      base: 'рис / гречка / картофель',
+      volume: 'овощи / салат',
+      taste: 'соус / специи / сыр',
+      example: 'курица + рис + овощи + соус',
+    },
+    snack: {
+      title: 'Перекус',
+      protein: 'творожок / йогурт / тунец',
+      base: 'хлебцы / фрукт',
+      volume: 'ягоды / овощи',
+      taste: 'орехи / специи',
+      example: 'йогурт + фрукт + хлебцы + орехи',
+    },
+    dinner: {
+      title: 'Ужин',
+      protein: 'омлет / рыба / творог',
+      base: 'хлебец / картофель / крупа по желанию',
+      volume: 'овощи / салат / зелень',
+      taste: 'специи / соус / сыр',
+      example: 'омлет + овощи + зелень + специи',
+    },
+  };
 
   function writeState(value) {
     localStorage.setItem(storageKey, JSON.stringify(value));
@@ -320,14 +364,37 @@ document.addEventListener('DOMContentLoaded', () => {
     renderFoodResult(item);
   }
 
+  function renderProteinTemplate(key = 'breakfast') {
+    const template = proteinTemplates[key] || proteinTemplates.breakfast;
+    if (!proteinTitle || !proteinSteps.protein || !proteinTabs.length) return;
+
+    proteinTitle.textContent = template.title;
+    proteinSteps.protein.textContent = template.protein;
+    proteinSteps.base.textContent = template.base;
+    proteinSteps.volume.textContent = template.volume;
+    proteinSteps.taste.textContent = template.taste;
+    if (proteinExample) proteinExample.textContent = template.example;
+
+    proteinTabs.forEach((button) => {
+      const isActive = button.dataset.proteinTab === key;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-selected', String(isActive));
+    });
+  }
+
   const saved = readState();
   if (search && saved.query) {
     search.value = saved.query;
     renderFood(saved.query);
   }
+  renderProteinTemplate('breakfast');
 
   search?.addEventListener('input', () => {
     renderFood(search.value);
     writeState({ query: search.value });
+  });
+
+  proteinTabs.forEach((button) => {
+    button.addEventListener('click', () => renderProteinTemplate(button.dataset.proteinTab));
   });
 });

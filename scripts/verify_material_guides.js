@@ -20,6 +20,7 @@ const bodyJs = read('assets/js/body-guide.js');
 const css = read('assets/css/materials.css');
 
 function createElementStub() {
+  const classes = new Set();
   return {
     className: '',
     dataset: {},
@@ -30,7 +31,22 @@ function createElementStub() {
       this[`on${event}`] = callback;
     },
     classList: {
-      toggle() {},
+      add(value) {
+        classes.add(value);
+      },
+      remove(value) {
+        classes.delete(value);
+      },
+      toggle(value, force) {
+        if (force) classes.add(value);
+        else classes.delete(value);
+      },
+      contains(value) {
+        return classes.has(value);
+      },
+    },
+    setAttribute(name, value) {
+      this[name] = value;
     },
   };
 }
@@ -38,7 +54,6 @@ function createElementStub() {
 function createFoodScannerHarness() {
   const search = createElementStub();
   const result = createElementStub();
-  const proteinResults = createElementStub();
   let domReady;
 
   const document = {
@@ -48,7 +63,6 @@ function createFoodScannerHarness() {
     querySelector(selector) {
       if (selector === '[data-food-search]') return search;
       if (selector === '[data-food-result]') return result;
-      if (selector === '[data-protein-results]') return proteinResults;
       return null;
     },
     querySelectorAll() {
@@ -75,6 +89,67 @@ function createFoodScannerHarness() {
   };
 }
 
+function createProteinBuilderHarness() {
+  const tabs = ['breakfast', 'lunch', 'snack', 'dinner'].map((tab) => {
+    const element = createElementStub();
+    element.dataset.proteinTab = tab;
+    return element;
+  });
+  const title = createElementStub();
+  const steps = {
+    protein: createElementStub(),
+    base: createElementStub(),
+    volume: createElementStub(),
+    taste: createElementStub(),
+  };
+  const example = createElementStub();
+  let domReady;
+
+  const document = {
+    addEventListener(event, callback) {
+      if (event === 'DOMContentLoaded') domReady = callback;
+    },
+    querySelector(selector) {
+      if (selector === '[data-food-search]') return null;
+      if (selector === '[data-food-result]') return null;
+      if (selector === '[data-protein-title]') return title;
+      if (selector === '[data-protein-example]') return example;
+      const stepMatch = selector.match(/^\[data-protein-step="([^"]+)"\]$/);
+      if (stepMatch) return steps[stepMatch[1]];
+      return null;
+    },
+    querySelectorAll(selector) {
+      if (selector === '[data-protein-tab]') return tabs;
+      return [];
+    },
+  };
+
+  const localStorage = {
+    getItem() {
+      return null;
+    },
+    setItem() {},
+  };
+
+  vm.runInNewContext(nutritionJs, { document, localStorage });
+  domReady();
+
+  return {
+    select(tab) {
+      tabs.find((button) => button.dataset.proteinTab === tab).onclick();
+      return {
+        title: title.textContent,
+        protein: steps.protein.textContent,
+        base: steps.base.textContent,
+        volume: steps.volume.textContent,
+        taste: steps.taste.textContent,
+        example: example.textContent,
+        active: tabs.find((button) => button.dataset.proteinTab === tab).classList.contains('is-active'),
+      };
+    },
+  };
+}
+
 for (const html of [indexHtml, calculatorHtml, nutritionHtml, bodyHtml]) {
   assert.match(html, /nutrition-guide\.html/, 'navigation should link to nutrition guide');
   assert.match(html, /body-guide\.html/, 'navigation should link to body guide');
@@ -86,13 +161,24 @@ assert.match(nutritionHtml, /data-food-search/, 'nutrition guide should include 
 assert.match(nutritionHtml, /nutrition-scanner/, 'nutrition guide should use the premium food scanner block');
 assert.match(nutritionHtml, /scanner-zone-grid/, 'nutrition guide should merge food zones into scanner block');
 assert.doesNotMatch(nutritionHtml, /Начни вводить продукт/, 'scanner empty state should not duplicate the search prompt');
-assert.match(nutritionHtml, /Белок без сложных расчётов/, 'nutrition guide should introduce protein plate templates');
+assert.match(nutritionHtml, /Собери тарелку за 10 секунд/, 'nutrition guide should introduce the protein plate builder');
+assert.match(nutritionHtml, /белок без сложных расчётов/, 'nutrition guide should keep the protein no-calculation eyebrow');
+assert.match(nutritionHtml, /protein-flow/, 'nutrition guide should render the protein builder flow');
+assert.match(nutritionHtml, /Выбери приём пищи/, 'nutrition guide should start the protein builder flow with meal choice');
+assert.match(nutritionHtml, /собери формулу/, 'nutrition guide should explain the formula step');
+assert.match(nutritionHtml, /адаптируй под свой день/, 'nutrition guide should explain the adaptation step');
+assert.match(nutritionHtml, /data-protein-tab="breakfast"/, 'nutrition guide should include breakfast protein tab');
+assert.match(nutritionHtml, /data-protein-tab="lunch"/, 'nutrition guide should include lunch protein tab');
+assert.match(nutritionHtml, /data-protein-tab="snack"/, 'nutrition guide should include snack protein tab');
+assert.match(nutritionHtml, /data-protein-tab="dinner"/, 'nutrition guide should include dinner protein tab');
 assert.match(nutritionHtml, /БЕЛОК\s*→\s*ОСНОВА\s*→\s*ОБЪЁМ\s*→\s*ВКУС/, 'nutrition guide should show the protein plate formula');
-assert.match(nutritionHtml, /Быстрый завтрак/, 'nutrition guide should include a breakfast protein template');
-assert.match(nutritionHtml, /Нормальный обед/, 'nutrition guide should include a lunch protein template');
-assert.match(nutritionHtml, /Перекус на ходу/, 'nutrition guide should include an on-the-go snack protein template');
-assert.match(nutritionHtml, /Ужин без перегруза/, 'nutrition guide should include a dinner protein template');
+assert.match(nutritionHtml, /data-protein-step="protein"/, 'nutrition guide should render protein builder protein step');
+assert.match(nutritionHtml, /data-protein-step="base"/, 'nutrition guide should render protein builder base step');
+assert.match(nutritionHtml, /data-protein-step="volume"/, 'nutrition guide should render protein builder volume step');
+assert.match(nutritionHtml, /data-protein-step="taste"/, 'nutrition guide should render protein builder taste step');
+assert.match(nutritionHtml, /data-protein-example/, 'nutrition guide should render a dynamic plate example');
 assert.match(nutritionJs, /foodItems/, 'nutrition JS should include food scanner data');
+assert.match(nutritionJs, /proteinTemplates/, 'nutrition JS should include protein tab templates');
 assert.match(nutritionJs, /portionTip/, 'nutrition JS should output practical portion advice');
 assert.match(nutritionJs, /data-food-status/, 'nutrition JS should render scanner status separately');
 assert.doesNotMatch(nutritionJs, /Начни вводить продукт/, 'scanner JS empty state should not duplicate the search prompt');
@@ -141,6 +227,16 @@ for (const [query, expected] of [
 assert.doesNotMatch(scanner.scan('масло'), /Варианты:/, 'clarification should not duplicate options');
 assert.doesNotMatch(scanner.scan('масло'), /сливочное.*сливочное/s, 'clarification should not repeat the same option twice');
 assert.doesNotMatch(scanner.scan('непонятный продукт'), /Пока нет в базе/, 'unknown product should not show a missing database dead end');
+
+const proteinBuilder = createProteinBuilderHarness();
+const lunchTemplate = proteinBuilder.select('lunch');
+assert.equal(lunchTemplate.title, 'Обед', 'lunch tab should render lunch title');
+assert.equal(lunchTemplate.protein, 'курица / рыба / индейка', 'lunch tab should render protein options');
+assert.equal(lunchTemplate.base, 'рис / гречка / картофель', 'lunch tab should render base options');
+assert.equal(lunchTemplate.volume, 'овощи / салат', 'lunch tab should render volume options');
+assert.equal(lunchTemplate.taste, 'соус / специи / сыр', 'lunch tab should render taste options');
+assert.equal(lunchTemplate.example, 'курица + рис + овощи + соус', 'lunch tab should render the lunch plate example');
+assert.equal(lunchTemplate.active, true, 'selected protein tab should become active');
 
 assert.match(bodyHtml, /data-water-weight/, 'body guide should include water calculator');
 assert.match(bodyHtml, /data-body-check/, 'body guide should include daily checklist');
