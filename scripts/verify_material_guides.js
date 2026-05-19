@@ -89,67 +89,6 @@ function createFoodScannerHarness() {
   };
 }
 
-function createProteinBuilderHarness() {
-  const tabs = ['breakfast', 'lunch', 'snack', 'dinner'].map((tab) => {
-    const element = createElementStub();
-    element.dataset.proteinTab = tab;
-    return element;
-  });
-  const title = createElementStub();
-  const steps = {
-    protein: createElementStub(),
-    base: createElementStub(),
-    volume: createElementStub(),
-    taste: createElementStub(),
-  };
-  const example = createElementStub();
-  let domReady;
-
-  const document = {
-    addEventListener(event, callback) {
-      if (event === 'DOMContentLoaded') domReady = callback;
-    },
-    querySelector(selector) {
-      if (selector === '[data-food-search]') return null;
-      if (selector === '[data-food-result]') return null;
-      if (selector === '[data-protein-title]') return title;
-      if (selector === '[data-protein-example]') return example;
-      const stepMatch = selector.match(/^\[data-protein-step="([^"]+)"\]$/);
-      if (stepMatch) return steps[stepMatch[1]];
-      return null;
-    },
-    querySelectorAll(selector) {
-      if (selector === '[data-protein-tab]') return tabs;
-      return [];
-    },
-  };
-
-  const localStorage = {
-    getItem() {
-      return null;
-    },
-    setItem() {},
-  };
-
-  vm.runInNewContext(nutritionJs, { document, localStorage });
-  domReady();
-
-  return {
-    select(tab) {
-      tabs.find((button) => button.dataset.proteinTab === tab).onclick();
-      return {
-        title: title.textContent,
-        protein: steps.protein.textContent,
-        base: steps.base.textContent,
-        volume: steps.volume.textContent,
-        taste: steps.taste.textContent,
-        example: example.textContent,
-        active: tabs.find((button) => button.dataset.proteinTab === tab).classList.contains('is-active'),
-      };
-    },
-  };
-}
-
 for (const html of [indexHtml, calculatorHtml, nutritionHtml, bodyHtml]) {
   assert.match(html, /nutrition-guide\.html/, 'navigation should link to nutrition guide');
   assert.match(html, /body-guide\.html/, 'navigation should link to body guide');
@@ -161,24 +100,46 @@ assert.match(nutritionHtml, /data-food-search/, 'nutrition guide should include 
 assert.match(nutritionHtml, /nutrition-scanner/, 'nutrition guide should use the premium food scanner block');
 assert.match(nutritionHtml, /scanner-zone-grid/, 'nutrition guide should merge food zones into scanner block');
 assert.doesNotMatch(nutritionHtml, /Начни вводить продукт/, 'scanner empty state should not duplicate the search prompt');
-assert.match(nutritionHtml, /Собери тарелку за 10 секунд/, 'nutrition guide should introduce the protein plate builder');
-assert.match(nutritionHtml, /белок без сложных расчётов/, 'nutrition guide should keep the protein no-calculation eyebrow');
-assert.match(nutritionHtml, /protein-flow/, 'nutrition guide should render the protein builder flow');
-assert.match(nutritionHtml, /Выбери приём пищи/, 'nutrition guide should start the protein builder flow with meal choice');
-assert.match(nutritionHtml, /собери формулу/, 'nutrition guide should explain the formula step');
-assert.match(nutritionHtml, /адаптируй под свой день/, 'nutrition guide should explain the adaptation step');
-assert.match(nutritionHtml, /data-protein-tab="breakfast"/, 'nutrition guide should include breakfast protein tab');
-assert.match(nutritionHtml, /data-protein-tab="lunch"/, 'nutrition guide should include lunch protein tab');
-assert.match(nutritionHtml, /data-protein-tab="snack"/, 'nutrition guide should include snack protein tab');
-assert.match(nutritionHtml, /data-protein-tab="dinner"/, 'nutrition guide should include dinner protein tab');
-assert.match(nutritionHtml, /БЕЛОК\s*→\s*ОСНОВА\s*→\s*ОБЪЁМ\s*→\s*ВКУС/, 'nutrition guide should show the protein plate formula');
-assert.match(nutritionHtml, /data-protein-step="protein"/, 'nutrition guide should render protein builder protein step');
-assert.match(nutritionHtml, /data-protein-step="base"/, 'nutrition guide should render protein builder base step');
-assert.match(nutritionHtml, /data-protein-step="volume"/, 'nutrition guide should render protein builder volume step');
-assert.match(nutritionHtml, /data-protein-step="taste"/, 'nutrition guide should render protein builder taste step');
-assert.match(nutritionHtml, /data-protein-example/, 'nutrition guide should render a dynamic plate example');
+assert.match(nutritionHtml, /переедание и срывы/, 'nutrition guide should introduce the overeating cycle eyebrow');
+assert.match(nutritionHtml, /Срыв — это не отсутствие силы воли/, 'nutrition guide should introduce the overeating cycle block');
+assert.match(nutritionHtml, /Продукт — только часть картины/, 'overeating bridge should have a clear visual heading');
+assert.match(nutritionHtml, /Фудсканер помогает быстро сориентироваться с отдельным продуктом/, 'overeating bridge should connect from food scanner');
+assert.match(nutritionHtml, /почему вообще тянет сорваться/, 'overeating bridge should lead into the breakdown topic');
+assert.match(nutritionHtml, /сценарии дня: мало еды, много запретов и попытка держаться идеально/, 'overeating bridge should explain the daily scenario');
+assert.match(nutritionHtml, /я просто не выдержала/, 'overeating cycle should name the common self-blame thought');
+assert.match(nutritionHtml, /Недоела/, 'overeating cycle should include the under-eating step');
+assert.match(nutritionHtml, /весь день “держалась”/, 'overeating cycle should explain the under-eating step');
+assert.match(nutritionHtml, /Запретила/, 'overeating cycle should include the restriction step');
+assert.match(nutritionHtml, /любое отклонение считала провалом/, 'overeating cycle should explain the restriction step');
+assert.match(nutritionHtml, /Терпела/, 'overeating cycle should include the enduring hunger step');
+assert.match(nutritionHtml, /игнорировала голод, усталость и желание нормально поесть/, 'overeating cycle should explain the enduring step');
+assert.match(nutritionHtml, /Сорвалась/, 'overeating cycle should include the overeating step');
+assert.match(nutritionHtml, /слишком долго держалась/, 'overeating cycle should explain the overeating step');
+assert.match(nutritionHtml, /Обвинила себя/, 'overeating cycle should include the self-blame step');
+assert.match(nutritionHtml, /снова захотела сделать всё ещё жёстче/, 'overeating cycle should explain the stricter restart');
+assert.match(nutritionHtml, /и цикл повторяется/, 'overeating cycle should show the repeated loop');
+assert.match(nutritionHtml, /Где ломается система/, 'overeating cycle should explain why the system breaks');
+assert.match(nutritionHtml, /не хватило еды/, 'overeating cycle should include the food shortage reason');
+assert.match(nutritionHtml, /слишком много запретов/, 'overeating cycle should include the restriction overload reason');
+assert.match(nutritionHtml, /нет спокойного следующего шага/, 'overeating cycle should include the missing next step reason');
+assert.match(nutritionHtml, /Как остановить цикл раньше/, 'overeating cycle should include an early interruption scenario');
+assert.match(nutritionHtml, /поесть до сильного голода/, 'overeating cycle should include the first practical action');
+assert.match(nutritionHtml, /не делить еду на “хорошую” и “плохую”/, 'overeating cycle should include the flexible food action');
+assert.match(nutritionHtml, /оставить место для обычной жизни/, 'overeating cycle should include the real-life flexibility action');
+assert.match(nutritionHtml, /вернуться к следующему нормальному приёму пищи/, 'overeating cycle should include the calm return action');
+assert.match(nutritionHtml, /не хватает дисциплины/, 'overeating cycle should include the stronger final conclusion');
+assert.match(nutritionHtml, /не через боль и наказание/, 'overeating cycle should explain that nutrition is not built through punishment');
+assert.match(nutritionHtml, /через заботу к себе/, 'overeating cycle should frame the solution as self-care');
+assert.match(nutritionHtml, /торт или бургер/, 'overeating cycle should allow flexible foods without shame');
+assert.match(nutritionHtml, /вернуться к балансу/, 'overeating cycle should explain balance after flexible foods');
+assert.match(nutritionHtml, /спокойным следующим шагом/, 'overeating cycle should include a clear replacement for plan B');
+assert.doesNotMatch(nutritionHtml, /план Б/i, 'overeating cycle should not use unclear plan B wording');
+assert.match(nutritionHtml, /overeating-cycle/, 'nutrition guide should use scoped overeating-cycle styles');
+assert.doesNotMatch(nutritionHtml, /Собери тарелку за 10 секунд/, 'nutrition guide should remove the old protein plate builder');
+assert.doesNotMatch(nutritionHtml, /data-protein-tab/, 'nutrition guide should remove old protein tabs');
 assert.match(nutritionJs, /foodItems/, 'nutrition JS should include food scanner data');
-assert.match(nutritionJs, /proteinTemplates/, 'nutrition JS should include protein tab templates');
+assert.doesNotMatch(nutritionJs, /proteinTemplates/, 'nutrition JS should remove protein constructor templates');
+assert.doesNotMatch(nutritionJs, /data-protein-tab/, 'nutrition JS should remove protein tab handlers');
 assert.match(nutritionJs, /portionTip/, 'nutrition JS should output practical portion advice');
 assert.match(nutritionJs, /data-food-status/, 'nutrition JS should render scanner status separately');
 assert.doesNotMatch(nutritionJs, /Начни вводить продукт/, 'scanner JS empty state should not duplicate the search prompt');
@@ -227,16 +188,6 @@ for (const [query, expected] of [
 assert.doesNotMatch(scanner.scan('масло'), /Варианты:/, 'clarification should not duplicate options');
 assert.doesNotMatch(scanner.scan('масло'), /сливочное.*сливочное/s, 'clarification should not repeat the same option twice');
 assert.doesNotMatch(scanner.scan('непонятный продукт'), /Пока нет в базе/, 'unknown product should not show a missing database dead end');
-
-const proteinBuilder = createProteinBuilderHarness();
-const lunchTemplate = proteinBuilder.select('lunch');
-assert.equal(lunchTemplate.title, 'Обед', 'lunch tab should render lunch title');
-assert.equal(lunchTemplate.protein, 'курица / рыба / индейка', 'lunch tab should render protein options');
-assert.equal(lunchTemplate.base, 'рис / гречка / картофель', 'lunch tab should render base options');
-assert.equal(lunchTemplate.volume, 'овощи / салат', 'lunch tab should render volume options');
-assert.equal(lunchTemplate.taste, 'соус / специи / сыр', 'lunch tab should render taste options');
-assert.equal(lunchTemplate.example, 'курица + рис + овощи + соус', 'lunch tab should render the lunch plate example');
-assert.equal(lunchTemplate.active, true, 'selected protein tab should become active');
 
 assert.match(bodyHtml, /data-water-weight/, 'body guide should include water calculator');
 assert.match(bodyHtml, /data-body-check/, 'body guide should include daily checklist');

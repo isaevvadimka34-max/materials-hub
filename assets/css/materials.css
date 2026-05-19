@@ -1713,190 +1713,304 @@ body.is-modal-open {
   background: rgba(244, 201, 214, 0.22);
 }
 
-.protein-templates {
+.overeating-cycle {
   gap: 18px;
 }
 
-.protein-builder {
+.overeating-cycle__bridge {
+  position: relative;
   display: grid;
-  gap: 14px;
-}
-
-.protein-tabs {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 2px 2px 8px;
-  scrollbar-width: thin;
-}
-
-.protein-tab {
-  min-height: 42px;
-  padding: 0 18px;
-  border: 1px solid rgba(62, 39, 35, 0.12);
-  border-radius: 999px;
-  background: rgba(255, 248, 243, 0.72);
-  color: var(--espresso);
-  font-weight: 800;
-  letter-spacing: 0;
-  white-space: nowrap;
-  transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
-}
-
-.protein-tab:hover {
-  transform: translateY(-1px);
-  border-color: rgba(96, 118, 106, 0.34);
-  background: rgba(96, 118, 106, 0.1);
-}
-
-.protein-tab.is-active {
-  border-color: var(--espresso);
-  background: var(--espresso);
-  color: var(--cream);
-  box-shadow: 0 12px 24px rgba(62, 39, 35, 0.12);
-}
-
-.protein-flow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  grid-template-columns: minmax(180px, 0.42fr) minmax(0, 1fr);
+  gap: 10px 18px;
   align-items: center;
-  width: fit-content;
-  padding: 10px 12px;
-  border: 1px solid rgba(96, 118, 106, 0.14);
-  border-radius: 8px;
-  background: rgba(255, 248, 243, 0.72);
-  color: var(--muted);
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.protein-flow span[aria-hidden="true"] {
-  color: var(--dusty-rose);
-}
-
-.protein-builder-card {
-  display: grid;
-  gap: 16px;
-  padding: 22px;
-  border: 1px solid rgba(62, 39, 35, 0.1);
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  border: 1px solid rgba(62, 39, 35, 0.09);
   border-radius: 8px;
   background:
     linear-gradient(135deg, rgba(255, 248, 243, 0.96), rgba(244, 201, 214, 0.18)),
-    rgba(255, 248, 243, 0.88);
-  box-shadow: 0 20px 42px rgba(62, 39, 35, 0.08);
+    rgba(255, 248, 243, 0.82);
+  box-shadow: 0 18px 36px rgba(62, 39, 35, 0.07);
 }
 
-.protein-builder-card__top {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(62, 39, 35, 0.08);
-  padding-bottom: 14px;
+.overeating-cycle__bridge::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  bottom: 18px;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--dusty-rose);
 }
 
-.protein-builder-card__top h3 {
-  margin: 0;
-  font-size: clamp(28px, 4vw, 44px);
-}
-
-.protein-formula {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 12px 14px;
-  border: 1px solid rgba(96, 118, 106, 0.18);
-  border-radius: 8px;
-  background: rgba(96, 118, 106, 0.08);
-  color: var(--espresso);
-  font-size: clamp(14px, 2vw, 18px);
-  font-weight: 900;
-}
-
-.protein-formula span[aria-hidden="true"] {
+.overeating-cycle__bridge span {
+  padding-left: 14px;
   color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
-.protein-builder-steps {
+.overeating-cycle__bridge strong {
+  grid-column: 1;
+  padding-left: 14px;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(22px, 2.6vw, 34px);
+  line-height: 1;
+}
+
+.overeating-cycle__bridge p {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin: 0;
+  color: var(--deep-text);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.overeating-chain {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 10px;
 }
 
-.protein-builder-step {
+.overeating-step {
   position: relative;
   display: grid;
-  gap: 8px;
-  min-height: 104px;
-  padding: 16px;
-  border: 1px solid rgba(62, 39, 35, 0.07);
+  gap: 10px;
+  min-height: 190px;
+  padding: 18px;
+  border: 1px solid rgba(62, 39, 35, 0.08);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.5);
-  box-shadow: inset 0 3px 0 rgba(96, 118, 106, 0.12);
+  background:
+    linear-gradient(135deg, rgba(255, 248, 243, 0.96), rgba(244, 201, 214, 0.18)),
+    rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 3px 0 rgba(244, 201, 214, 0.28), 0 18px 36px rgba(62, 39, 35, 0.07);
 }
 
-.protein-builder-step span {
-  color: var(--sage);
+.overeating-step:not(:last-of-type)::after {
+  content: "→";
+  position: absolute;
+  top: 22px;
+  right: -10px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--espresso);
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.overeating-loop-note {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  gap: 10px;
+  min-height: 190px;
+  padding: 18px;
+  border: 1px solid rgba(62, 39, 35, 0.09);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(62, 39, 35, 0.94), rgba(96, 118, 106, 0.82)),
+    var(--espresso);
+  color: var(--espresso);
+  box-shadow: inset 0 3px 0 rgba(255, 248, 243, 0.18), 0 18px 36px rgba(62, 39, 35, 0.12);
+}
+
+.overeating-loop-note::before {
+  content: "→";
+  position: absolute;
+  top: 22px;
+  left: -10px;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--espresso);
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.overeating-loop-note span {
+  color: rgba(255, 248, 243, 0.72);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
-.protein-builder-step strong {
-  color: var(--deep-text);
-  font-size: 17px;
+.overeating-loop-note strong {
+  color: var(--cream);
+  font-size: clamp(20px, 2.1vw, 28px);
+  line-height: 1.05;
+}
+
+.overeating-loop-note p {
+  margin: 0;
+  color: rgba(255, 248, 243, 0.82);
+  font-size: 14px;
+  font-weight: 750;
   line-height: 1.35;
 }
 
-.protein-example {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  border-radius: 8px;
-  background: rgba(244, 201, 214, 0.22);
-}
-
-.protein-example span {
+.overeating-step__number {
   color: var(--dusty-rose);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: 0;
-  text-transform: uppercase;
 }
 
-.protein-example strong {
+.overeating-step h3 {
+  margin: 0;
   color: var(--espresso);
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: clamp(20px, 2.2vw, 26px);
 }
 
-.protein-template-summary {
-  max-width: 760px;
-  margin: 0 auto;
+.overeating-step p {
+  margin: 0;
   color: var(--deep-text);
-  font-size: 18px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.overeating-system {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(62, 39, 35, 0.09);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 243, 0.96), rgba(96, 118, 106, 0.08)),
+    rgba(255, 248, 243, 0.82);
+  box-shadow: 0 18px 36px rgba(62, 39, 35, 0.07);
+}
+
+.overeating-system__intro {
+  display: grid;
+  gap: 8px;
+}
+
+.overeating-system__intro p {
+  max-width: 860px;
+  margin: 0;
+  color: var(--deep-text);
+  font-size: 17px;
   line-height: 1.55;
+}
+
+.overeating-system__reasons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.overeating-system__reasons article {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid rgba(62, 39, 35, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.overeating-system__reasons strong {
+  color: var(--espresso);
+  font-size: 15px;
+}
+
+.overeating-system__reasons span {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.overeating-interrupt {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(244, 201, 214, 0.18);
+}
+
+.overeating-interrupt h3 {
+  margin: 0;
+  color: var(--espresso);
+  font-size: clamp(20px, 2vw, 26px);
+}
+
+.overeating-interrupt ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.overeating-interrupt li {
+  padding: 12px;
+  border: 1px solid rgba(244, 201, 214, 0.38);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.72);
+  color: var(--deep-text);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.overeating-cycle__conclusion {
+  display: grid;
+  gap: 12px;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  border: 1px solid rgba(62, 39, 35, 0.09);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 243, 0.98), rgba(244, 201, 214, 0.24)),
+    rgba(255, 248, 243, 0.9);
+  box-shadow: 0 18px 36px rgba(62, 39, 35, 0.07);
   text-align: center;
 }
 
-.protein-fast-note {
+.overeating-cycle__conclusion p {
+  margin: 0;
+  color: var(--deep-text);
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 850;
+  line-height: 1.5;
+}
+
+.overeating-cycle__conclusion p:first-child {
+  color: var(--espresso);
+  font-size: clamp(20px, 2.4vw, 28px);
+}
+
+.overeating-cycle__tools {
   padding: 14px 16px;
   border-left: 4px solid var(--dusty-rose);
   border-radius: 8px;
   background: rgba(244, 201, 214, 0.22);
 }
 
-.protein-fast-note p {
+.overeating-cycle__tools p {
   margin: 0;
+  color: var(--deep-text);
+  font-weight: 800;
+  line-height: 1.5;
 }
 
-.protein-fast-note strong {
+.overeating-cycle__tools strong {
   color: var(--dusty-rose);
 }
 
@@ -2171,7 +2285,15 @@ body.is-modal-open {
     flex-direction: column;
   }
 
-  .protein-builder-steps {
+  .overeating-chain {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .overeating-system__reasons {
+    grid-template-columns: 1fr;
+  }
+
+  .overeating-interrupt ul {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2210,36 +2332,51 @@ body.is-modal-open {
     word-break: normal;
   }
 
-  .protein-builder-steps {
+  .overeating-chain {
     grid-template-columns: 1fr;
   }
 
-  .protein-tabs {
-    margin-left: -16px;
-    margin-right: -16px;
-    padding-left: 16px;
-    padding-right: 16px;
+  .overeating-cycle__bridge {
+    grid-template-columns: 1fr;
+    padding: 16px;
   }
 
-  .protein-flow {
-    width: auto;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    white-space: nowrap;
+  .overeating-cycle__bridge span,
+  .overeating-cycle__bridge strong {
+    padding-left: 12px;
   }
 
-  .protein-builder-card {
-    gap: 14px;
-    padding: 14px;
+  .overeating-cycle__bridge p {
+    grid-column: 1;
+    grid-row: auto;
+    padding-left: 12px;
+    font-size: 16px;
   }
 
-  .protein-builder-card__top {
-    display: grid;
-    gap: 8px;
+  .overeating-step {
+    min-height: auto;
   }
 
-  .protein-formula {
-    justify-content: flex-start;
+  .overeating-step:not(:last-of-type)::after {
+    top: auto;
+    right: auto;
+    bottom: -15px;
+    left: 18px;
+    content: "↓";
+  }
+
+  .overeating-loop-note {
+    min-height: auto;
+  }
+
+  .overeating-loop-note::before {
+    top: -15px;
+    left: 18px;
+    content: "↓";
+  }
+
+  .overeating-interrupt ul {
+    grid-template-columns: 1fr;
   }
 
   main {
