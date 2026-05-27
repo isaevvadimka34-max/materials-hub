@@ -90,55 +90,51 @@ function createFoodScannerHarness() {
 }
 
 for (const html of [indexHtml, calculatorHtml, nutritionHtml, bodyHtml]) {
-  assert.match(html, /nutrition-guide\.html/, 'navigation should link to nutrition guide');
-  assert.match(html, /body-guide\.html/, 'navigation should link to body guide');
-  assert.match(html, /Гид по питанию/, 'navigation should name nutrition guide');
-  assert.match(html, /Режим и тело/, 'navigation should name body guide');
+  assert.match(html, /nutrition-guide\.html/, 'navigation should link to materials guide');
+  assert.match(html, /Полезные материалы/, 'navigation should name the unified materials guide');
 }
 
+for (const materialId of [
+  'food-scanner',
+  'stress-overeating',
+  'overeating-cycle',
+  'swelling',
+  'cellulite',
+  'daily-base',
+  'cycle-training',
+  'supplements',
+]) {
+  assert.match(nutritionHtml, new RegExp(`data-material-card="${materialId}"`), `materials library should include ${materialId} card`);
+  assert.match(nutritionHtml, new RegExp(`data-material-panel="${materialId}"`), `materials library should include ${materialId} panel`);
+  assert.match(nutritionHtml, new RegExp(`#${materialId}`), `materials library should expose #${materialId} link`);
+}
+
+assert.match(nutritionHtml, /data-material-library/, 'nutrition guide should include the materials library view');
+assert.match(nutritionHtml, /data-material-back/, 'nutrition guide should include a return to library action');
+assert.match(nutritionHtml, /data-material-title/, 'nutrition guide should expose the active material title');
+assert.match(nutritionHtml, /Стресс и переедание/, 'materials guide should include stress overeating material');
+assert.match(nutritionHtml, /Продукт — только часть картины/, 'stress material should restore the old bridge heading');
+assert.match(nutritionHtml, /Фудсканер помогает быстро сориентироваться с отдельным продуктом/, 'stress material should restore the old food scanner bridge copy');
+assert.match(nutritionHtml, /Срыв — это не отсутствие силы воли/, 'stress material should restore the old overeating headline');
+assert.match(nutritionHtml, /я просто не выдержала/, 'stress material should restore the old self-blame framing');
+assert.match(nutritionHtml, /Срыв часто выглядит как проблема сладкого или “слабой силы воли”/, 'stress material should restore the old system explanation');
+assert.match(nutritionHtml, /Мой главный совет: не пытайся “исправить” срыв жёсткостью/, 'stress material should restore the old expert note');
+assert.match(nutritionHtml, /запретила → терпела → сорвалась → обвинила себя → снова запретила/, 'cycle material should include the approved visual chain');
+assert.match(nutritionHtml, /Недоела/, 'cycle material should restore the old under-eating step');
+assert.match(nutritionHtml, /и цикл повторяется/, 'cycle material should restore the old loop note');
+assert.match(nutritionHtml, /Как остановить цикл раньше/, 'cycle material should restore the old interruption block');
+assert.match(nutritionHtml, /Когда это нормально/, 'swelling material should include normal swelling context');
+assert.match(nutritionHtml, /Когда лучше обратиться к специалисту/, 'swelling material should include specialist escalation');
+assert.match(nutritionHtml, /что не обещать/i, 'cellulite material should include honest promise boundaries');
+assert.match(nutritionHtml, /Белок/, 'daily base material should include protein');
+assert.match(nutritionHtml, /Менструация/, 'cycle training material should include phase guidance');
+assert.match(nutritionHtml, /что не нужно покупать без причины/i, 'supplements material should include no-reason purchase guidance');
+assert.match(nutritionHtml, /БАДы не заменяют питание, сон и тренировки/, 'supplements material should name the base priority');
 assert.match(nutritionHtml, /data-food-search/, 'nutrition guide should include food scanner search');
 assert.match(nutritionHtml, /nutrition-scanner/, 'nutrition guide should use the premium food scanner block');
 assert.match(nutritionHtml, /scanner-zone-grid/, 'nutrition guide should merge food zones into scanner block');
 assert.doesNotMatch(nutritionHtml, /Начни вводить продукт/, 'scanner empty state should not duplicate the search prompt');
-assert.match(nutritionHtml, /переедание и срывы/, 'nutrition guide should introduce the overeating cycle eyebrow');
-assert.match(nutritionHtml, /Срыв — это не отсутствие силы воли/, 'nutrition guide should introduce the overeating cycle block');
-assert.match(nutritionHtml, /Продукт — только часть картины/, 'overeating bridge should have a clear visual heading');
-assert.match(nutritionHtml, /Фудсканер помогает быстро сориентироваться с отдельным продуктом/, 'overeating bridge should connect from food scanner');
-assert.match(nutritionHtml, /почему вообще тянет сорваться/, 'overeating bridge should lead into the breakdown topic');
-assert.match(nutritionHtml, /сценарии дня — мало еды, много запретов и попытка держаться идеально/, 'overeating bridge should explain the daily scenario');
-assert.match(nutritionHtml, /я просто не выдержала/, 'overeating cycle should name the common self-blame thought');
-assert.match(nutritionHtml, /Недоела/, 'overeating cycle should include the under-eating step');
-assert.match(nutritionHtml, /весь день “держалась”/, 'overeating cycle should explain the under-eating step');
-assert.match(nutritionHtml, /Запретила/, 'overeating cycle should include the restriction step');
-assert.match(nutritionHtml, /любое отклонение считала провалом/, 'overeating cycle should explain the restriction step');
-assert.match(nutritionHtml, /Терпела/, 'overeating cycle should include the enduring hunger step');
-assert.match(nutritionHtml, /игнорировала голод, усталость и желание нормально поесть/, 'overeating cycle should explain the enduring step');
-assert.match(nutritionHtml, /Сорвалась/, 'overeating cycle should include the overeating step');
-assert.match(nutritionHtml, /слишком долго держалась/, 'overeating cycle should explain the overeating step');
-assert.match(nutritionHtml, /Обвинила себя/, 'overeating cycle should include the self-blame step');
-assert.match(nutritionHtml, /снова захотела сделать всё ещё жёстче/, 'overeating cycle should explain the stricter restart');
-assert.match(nutritionHtml, /и цикл повторяется/, 'overeating cycle should show the repeated loop');
-assert.match(nutritionHtml, /Где ломается система/, 'overeating cycle should explain why the system breaks');
-assert.match(nutritionHtml, /не хватило еды/, 'overeating cycle should include the food shortage reason');
-assert.match(nutritionHtml, /слишком много запретов/, 'overeating cycle should include the restriction overload reason');
-assert.match(nutritionHtml, /нет обычного возврата к еде/, 'overeating cycle should include the missing return-to-food reason');
-assert.match(nutritionHtml, /Как остановить цикл раньше/, 'overeating cycle should include an early interruption scenario');
-assert.match(nutritionHtml, /поесть до сильного голода/, 'overeating cycle should include the first practical action');
-assert.match(nutritionHtml, /не делить еду на “хорошую” и “плохую”/, 'overeating cycle should include the flexible food action');
-assert.match(nutritionHtml, /оставить место для обычной жизни/, 'overeating cycle should include the real-life flexibility action');
-assert.match(nutritionHtml, /вернуться к следующему нормальному приёму пищи/, 'overeating cycle should include the calm return action');
-assert.match(nutritionHtml, /не хватает дисциплины/, 'overeating cycle should include the stronger final conclusion');
-assert.match(nutritionHtml, /не через боль и наказание/, 'overeating cycle should explain that nutrition is not built through punishment');
-assert.match(nutritionHtml, /через заботу к себе/, 'overeating cycle should frame the solution as self-care');
-assert.match(nutritionHtml, /торт или бургер/, 'overeating cycle should allow flexible foods without shame');
-assert.match(nutritionHtml, /вернуться к балансу/, 'overeating cycle should explain balance after flexible foods');
-assert.match(nutritionHtml, /регулярными приёмами пищи/, 'overeating cycle should include regular meals as a course skill');
-assert.match(nutritionHtml, /без наказания после сложного дня/, 'overeating cycle should include a clear replacement for plan B');
-assert.match(nutritionHtml, /не пытайся “исправить” срыв жёсткостью/, 'overeating cycle should close with expert advice');
-assert.match(nutritionHtml, /продолжить строить лучшую версию себя без откатов/, 'overeating cycle should close with the approved author framing');
-assert.doesNotMatch(nutritionHtml, /совет автора/, 'overeating cycle expert note should not use an extra label');
 assert.doesNotMatch(nutritionHtml, /план Б/i, 'overeating cycle should not use unclear plan B wording');
-assert.match(nutritionHtml, /overeating-cycle/, 'nutrition guide should use scoped overeating-cycle styles');
 assert.doesNotMatch(nutritionHtml, /Собери тарелку за 10 секунд/, 'nutrition guide should remove the old protein plate builder');
 assert.doesNotMatch(nutritionHtml, /data-protein-tab/, 'nutrition guide should remove old protein tabs');
 assert.match(nutritionJs, /foodItems/, 'nutrition JS should include food scanner data');
@@ -193,15 +189,14 @@ assert.doesNotMatch(scanner.scan('масло'), /Варианты:/, 'clarificat
 assert.doesNotMatch(scanner.scan('масло'), /сливочное.*сливочное/s, 'clarification should not repeat the same option twice');
 assert.doesNotMatch(scanner.scan('непонятный продукт'), /Пока нет в базе/, 'unknown product should not show a missing database dead end');
 
-assert.match(bodyHtml, /data-water-weight/, 'body guide should include water calculator');
-assert.match(bodyHtml, /data-body-check/, 'body guide should include daily checklist');
-assert.match(bodyHtml, /Менструация/, 'body guide should include cycle guidance');
-assert.match(bodyHtml, /Протеин/, 'body guide should include supplement guidance');
+assert.match(bodyHtml, /Полезные материалы/, 'body guide navigation should point users to the unified materials guide');
 assert.match(bodyJs, /localStorage/, 'body guide JS should persist checklist state');
 
 assert.match(css, /guide-hero/, 'shared CSS should style guide pages');
 assert.match(css, /margin-left:\s*auto;[\s\S]*margin-right:\s*auto;/, 'hero titles should be centered within their content');
 assert.match(css, /nutrition-scanner/, 'shared CSS should style the premium food scanner');
+assert.match(css, /materials-library/, 'shared CSS should style the materials library');
+assert.match(css, /material-panel/, 'shared CSS should style active material panels');
 assert.ok(!fs.existsSync(path.join(root, 'free-mini.html')), 'mini collection should be removed from the main project');
 
 console.log('material guide checks passed');

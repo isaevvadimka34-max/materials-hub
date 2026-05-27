@@ -224,6 +224,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const search = document.querySelector('[data-food-search]');
   const result = document.querySelector('[data-food-result]');
+  const library = document.querySelector('[data-material-library]');
+  const reader = document.querySelector('[data-material-reader]');
+  const materialTitle = document.querySelector('[data-material-title]');
+  const materialCards = [...document.querySelectorAll('[data-material-card]')];
+  const materialPanels = [...document.querySelectorAll('[data-material-panel]')];
+
+  function materialIdFromHash() {
+    if (typeof window === 'undefined') return '';
+    return decodeURIComponent(window.location.hash.replace('#', ''));
+  }
+
+  function showLibrary() {
+    library?.removeAttribute('hidden');
+    if (reader) reader.hidden = true;
+    materialCards.forEach((card) => card.classList.remove('is-active'));
+    materialPanels.forEach((panel) => {
+      panel.hidden = true;
+    });
+  }
+
+  function showMaterial(id, shouldScroll = true) {
+    const activePanel = materialPanels.find((panel) => panel.dataset.materialPanel === id);
+    if (!activePanel) {
+      showLibrary();
+      return;
+    }
+
+    if (library) library.hidden = true;
+    if (reader) reader.hidden = false;
+
+    materialPanels.forEach((panel) => {
+      panel.hidden = panel !== activePanel;
+    });
+
+    materialCards.forEach((card) => {
+      card.classList.toggle('is-active', card.dataset.materialCard === id);
+    });
+
+    if (materialTitle) {
+      materialTitle.textContent = activePanel.dataset.title || '';
+    }
+
+    if (shouldScroll && reader?.scrollIntoView) {
+      reader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function syncMaterialFromHash(shouldScroll = false) {
+    const id = materialIdFromHash();
+    if (!id || id === 'materials') {
+      showLibrary();
+      return;
+    }
+
+    showMaterial(id, shouldScroll);
+  }
+
+  if (typeof window !== 'undefined') {
+    syncMaterialFromHash(false);
+
+    window.addEventListener('hashchange', () => {
+      syncMaterialFromHash(true);
+    });
+
+    document.querySelector('[data-material-back]')?.addEventListener('click', () => {
+      if (window.history?.pushState) {
+        window.history.pushState(null, '', `${window.location.pathname}${window.location.search}`);
+      }
+      showLibrary();
+      library?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
+    });
+  }
 
   function writeState(value) {
     localStorage.setItem(storageKey, JSON.stringify(value));
