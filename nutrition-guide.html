@@ -90,7 +90,7 @@
 
         <div class="material-reader" data-material-reader hidden>
           <div class="material-reader__bar">
-            <button class="text-button material-reader__back" type="button" data-material-back>Все материалы</button>
+            <button class="text-button material-reader__back" type="button" data-material-back>← Все материалы</button>
             <span data-material-title>Материал</span>
           </div>
 
@@ -188,56 +188,77 @@
             </div>
           </section>
 
-          <section class="material-panel" id="overeating-cycle" data-material-panel="overeating-cycle" data-title="Цикл срывов" hidden>
+          <section class="material-panel material-panel--compact" id="overeating-cycle" data-material-panel="overeating-cycle" data-title="Цикл срывов" hidden>
             <div class="material-panel__head">
-              <span class="hub-eyebrow">визуальная схема</span>
-              <h2>Цикл срывов</h2>
-              <p>Срыв часто начинается не в момент еды, а раньше — когда появляется жёсткий запрет и попытка терпеть любой ценой</p>
+              <span class="hub-eyebrow">ПЕРЕЕДАНИЕ И СРЫВЫ</span>
+              <h2>Срыв — это не отсутствие силы воли</h2>
+              <p>Обычно кажется: “я просто не выдержала”, но чаще срыв начинается намного раньше — когда весь день терпела, запрещала и пыталась быть идеальной.</p>
             </div>
 
-            <div class="overeating-chain" aria-label="Цикл ограничений и срывов">
-              <article class="overeating-step">
-                <span class="overeating-step__number">01</span>
-                <h3>Недоела</h3>
-                <p>весь день “держалась”, ела мало или пропускала нормальные приёмы пищи</p>
-              </article>
-              <article class="overeating-step">
-                <span class="overeating-step__number">02</span>
-                <h3>Запретила</h3>
-                <p>делила еду на “можно” и “нельзя”, а любое отклонение считала провалом</p>
-              </article>
-              <article class="overeating-step">
-                <span class="overeating-step__number">03</span>
-                <h3>Терпела</h3>
-                <p>игнорировала голод, усталость и желание нормально поесть</p>
-              </article>
-              <article class="overeating-step">
-                <span class="overeating-step__number">04</span>
-                <h3>Сорвалась</h3>
-                <p>съела больше, чем хотела, потому что слишком долго держалась</p>
-              </article>
-              <article class="overeating-step">
-                <span class="overeating-step__number">05</span>
-                <h3>Обвинила себя</h3>
-                <p>решила, что проблема в тебе — и снова захотела сделать всё ещё жёстче</p>
-              </article>
-              <div class="overeating-loop-note">
-                <span>дальше</span>
-                <strong>и цикл повторяется</strong>
-                <p>становится ещё жёстче, хотя тебе нужна не строгость, а опора</p>
+            <section class="overeating-system overeating-system--compact" aria-labelledby="overeating-system-title">
+              <div class="overeating-system__intro">
+                <span class="guide-kicker">Где ломается система</span>
+                <p id="overeating-system-title">Срыв часто выглядит как проблема сладкого или “слабой силы воли”, но обычно перегружается вся система: мало еды, много запретов, усталость, стресс и мысль “теперь уже всё испорчено”.</p>
               </div>
-            </div>
-            <p class="material-quote">запретила → терпела → сорвалась → обвинила себя → снова запретила</p>
 
-            <div class="overeating-interrupt">
-              <h3>Как остановить цикл раньше</h3>
-              <ul>
-                <li>поесть до сильного голода</li>
-                <li>не делить еду на “хорошую” и “плохую”</li>
-                <li>оставить место для обычной жизни, а не идеального дня</li>
-                <li>после переедания вернуться к следующему нормальному приёму пищи</li>
-              </ul>
+              <div class="overeating-system__reasons" aria-label="Что перегружает систему">
+                <article>
+                  <span>01</span>
+                  <strong>Не хватило еды</strong>
+                  <p>Телу сложно держаться на голоде.</p>
+                </article>
+                <article>
+                  <span>02</span>
+                  <strong>Слишком много запретов</strong>
+                  <p>Любое отклонение ощущается как конец системы.</p>
+                </article>
+                <article>
+                  <span>03</span>
+                  <strong>Нет обычного возврата к еде</strong>
+                  <p>После срыва хочется наказать себя жёстче.</p>
+                </article>
+              </div>
+            </section>
+
+            <div class="overeating-cycle__conclusion overeating-cycle__conclusion--compact">
+              <span>Главная мысль</span>
+              <p><strong>Проблема не в том, что тебе “не хватает дисциплины”.</strong> Проблема в системе, где слишком много запретов, голода и чувства вины.</p>
+              <p>Спокойное питание строится не через боль и наказание, а через заботу к себе: можно съесть торт или бургер, вернуться к балансу и не загонять себя в режим “теперь всё идеально”.</p>
             </div>
+
+            <div class="overeating-cycle__tools">
+              <span>Главный принцип курса</span>
+              <p>На курсе мы учимся выстраивать питание спокойнее: с регулярными приёмами пищи, насыщением, гибкостью и без наказания после сложного дня.</p>
+            </div>
+
+            <section class="overeating-protocol" data-overeating-protocol data-overeating-state="start" aria-labelledby="overeating-protocol-title">
+              <div class="overeating-protocol__flow" data-overeating-flow>
+                <div class="overeating-protocol__screen overeating-protocol__screen--start" data-overeating-screen="start">
+                  <h3 id="overeating-protocol-title">Срыв — это физиология, а не слабость</h3>
+                  <button class="button button--primary overeating-protocol__primary" type="button" data-overeating-start>Снять напряжение</button>
+                </div>
+
+                <div class="overeating-protocol__screen" data-overeating-screen="impulse" hidden>
+                  <h4>Что хочется сделать прямо сейчас из чувства вины?</h4>
+                  <div class="overeating-chip-list" data-overeating-impulses>
+                    <button type="button" data-overeating-impulse="restrict-food">Урезать еду завтра</button>
+                    <button type="button" data-overeating-impulse="train-off">Жестко отработать на тренировке</button>
+                    <button type="button" data-overeating-impulse="weigh">Взвеситься и расстроиться</button>
+                    <button type="button" data-overeating-impulse="monday">Забить на всё до понедельника</button>
+                  </div>
+                </div>
+
+                <div class="overeating-protocol__screen overeating-protocol__screen--solution" data-overeating-screen="solution" hidden>
+                  <p data-overeating-solution></p>
+                  <button class="button button--primary overeating-protocol__primary" type="button" data-overeating-complete>Договорились, завтра возвращаюсь в режим</button>
+                </div>
+              </div>
+
+              <div class="overeating-protocol__final" data-overeating-final hidden>
+                <span aria-hidden="true">✓</span>
+                <p>План зафиксирован. Выдохни и со спокойной душой иди отдыхать</p>
+              </div>
+            </section>
           </section>
 
           <section class="material-panel" id="swelling" data-material-panel="swelling" data-title="Отёки" hidden>

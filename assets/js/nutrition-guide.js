@@ -229,6 +229,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const materialTitle = document.querySelector('[data-material-title]');
   const materialCards = [...document.querySelectorAll('[data-material-card]')];
   const materialPanels = [...document.querySelectorAll('[data-material-panel]')];
+  const overeatingProtocolKey = 'ggc_material_overeating_cycle';
+  const overeatingProtocol = document.querySelector('[data-overeating-protocol]');
+  const overeatingFlow = document.querySelector('[data-overeating-flow]');
+  const overeatingScreens = [...document.querySelectorAll('[data-overeating-screen]')];
+  const overeatingStart = document.querySelector('[data-overeating-start]');
+  const overeatingImpulseButtons = [...document.querySelectorAll('[data-overeating-impulse]')];
+  const overeatingSolution = document.querySelector('[data-overeating-solution]');
+  const overeatingComplete = document.querySelector('[data-overeating-complete]');
+  const overeatingFinal = document.querySelector('[data-overeating-final]');
+
+  const overeatingImpulseCopyById = {
+    'restrict-food': 'Голод завтра почти всегда запускает новый круг. Тебе нужен обычный первый прием пищи, а не наказание',
+    'train-off': 'Жесткая тренировка из чувства вины усилит напряжение. Завтра обычный день, возвращайся к привычной активности',
+    weigh: 'Вес завтра покажет задержку воды от углеводов и соли. Это не жир. Убери весы на 3 дня',
+    monday: 'Срыв — это всего лишь один прием пищи. Он не перечеркивает неделю работы. Завтра просто возвращаемся к базе',
+  };
+
+  const emptyOvereatingState = {
+    impulse: '',
+    completed: false,
+    completedDate: '',
+  };
 
   function materialIdFromHash() {
     if (typeof window === 'undefined') return '';
@@ -267,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (shouldScroll && reader?.scrollIntoView) {
-      reader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      reader.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
     }
   }
 
@@ -293,7 +315,116 @@ document.addEventListener('DOMContentLoaded', () => {
         window.history.pushState(null, '', `${window.location.pathname}${window.location.search}`);
       }
       showLibrary();
-      library?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
+      library?.scrollIntoView?.({ behavior: scrollBehavior(), block: 'start' });
+    });
+  }
+
+  function scrollBehavior() {
+    if (typeof window === 'undefined') return 'auto';
+    return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  }
+
+  function todayStamp() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  function readOvereatingState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(overeatingProtocolKey)) || {};
+      const completedDate = typeof saved.completedDate === 'string' ? saved.completedDate : '';
+      const isCompletedToday = Boolean(saved.completed) && completedDate === todayStamp();
+
+      return {
+        ...emptyOvereatingState,
+        impulse: typeof saved.impulse === 'string' ? saved.impulse : '',
+        completed: isCompletedToday,
+        completedDate: isCompletedToday ? completedDate : '',
+      };
+    } catch {
+      return { ...emptyOvereatingState };
+    }
+  }
+
+  function writeOvereatingState(state) {
+    try {
+      localStorage.setItem(overeatingProtocolKey, JSON.stringify(state));
+    } catch {
+      // The protocol still works without persistence if storage is blocked.
+    }
+  }
+
+  function setOvereatingScreen(screenName) {
+    overeatingScreens.forEach((screen) => {
+      const isActive = screen.dataset.overeatingScreen === screenName;
+      if (isActive) {
+        screen.hidden = false;
+        requestAnimationFrame(() => {
+          screen.classList.add('is-active');
+        });
+        return;
+      }
+
+      screen.classList.remove('is-active');
+      window.setTimeout(() => {
+        if (!screen.classList.contains('is-active')) screen.hidden = true;
+      }, scrollBehavior() === 'smooth' ? 260 : 0);
+    });
+  }
+
+  function renderOvereatingProtocol(state) {
+    const solutionCopy = overeatingImpulseCopyById[state.impulse] || '';
+    const isComplete = Boolean(state.completed);
+
+    overeatingProtocol?.classList.toggle('is-complete', isComplete);
+    overeatingProtocol?.setAttribute('data-overeating-state', isComplete ? 'complete' : state.impulse ? 'solution' : 'start');
+
+    if (overeatingFlow) overeatingFlow.hidden = isComplete;
+    if (overeatingFinal) overeatingFinal.hidden = !isComplete;
+
+    overeatingImpulseButtons.forEach((button) => {
+      button.classList.toggle('is-active', button.dataset.overeatingImpulse === state.impulse);
+    });
+
+    if (overeatingSolution) overeatingSolution.textContent = solutionCopy;
+
+    if (isComplete) return;
+    setOvereatingScreen(state.impulse ? 'solution' : 'start');
+  }
+
+  if (overeatingProtocol) {
+    let overeatingState = readOvereatingState();
+    renderOvereatingProtocol(overeatingState);
+
+    overeatingStart?.addEventListener('click', () => {
+      overeatingState = { ...emptyOvereatingState };
+      renderOvereatingProtocol(overeatingState);
+      setOvereatingScreen('impulse');
+      overeatingProtocol.setAttribute('data-overeating-state', 'impulse');
+    });
+
+    overeatingImpulseButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        overeatingState = {
+          ...emptyOvereatingState,
+          impulse: button.dataset.overeatingImpulse || '',
+        };
+        writeOvereatingState(overeatingState);
+        renderOvereatingProtocol(overeatingState);
+      });
+    });
+
+    overeatingComplete?.addEventListener('click', () => {
+      overeatingState = {
+        impulse: overeatingState.impulse,
+        completed: true,
+        completedDate: todayStamp(),
+      };
+      writeOvereatingState(overeatingState);
+      renderOvereatingProtocol(overeatingState);
     });
   }
 
