@@ -335,7 +335,6 @@ function createOvereatingProtocolHarness(savedState = null) {
 
 for (const materialId of [
   'food-scanner',
-  'stress-overeating',
   'overeating-cycle',
   'swelling',
   'cellulite',
@@ -351,13 +350,10 @@ for (const materialId of [
 assert.match(nutritionHtml, /data-material-library/, 'nutrition guide should include the materials library view');
 assert.match(nutritionHtml, /data-material-back/, 'nutrition guide should include a return to library action');
 assert.match(nutritionHtml, /data-material-title/, 'nutrition guide should expose the active material title');
-assert.match(nutritionHtml, /Стресс и переедание/, 'materials guide should include stress overeating material');
-assert.match(nutritionHtml, /Продукт — только часть картины/, 'stress material should restore the old bridge heading');
-assert.match(nutritionHtml, /Фудсканер помогает быстро сориентироваться с отдельным продуктом/, 'stress material should restore the old food scanner bridge copy');
-assert.match(nutritionHtml, /Срыв — это не отсутствие силы воли/, 'stress material should restore the old overeating headline');
-assert.match(nutritionHtml, /я просто не выдержала/, 'stress material should restore the old self-blame framing');
-assert.match(nutritionHtml, /Срыв часто выглядит как проблема сладкого или “слабой силы воли”/, 'stress material should restore the old system explanation');
-assert.match(nutritionHtml, /Мой главный совет: не пытайся “исправить” срыв жёсткостью/, 'stress material should restore the old expert note');
+assert.doesNotMatch(nutritionHtml, /data-material-card="stress-overeating"/, 'materials guide should remove stress overeating card');
+assert.doesNotMatch(nutritionHtml, /data-material-panel="stress-overeating"/, 'materials guide should remove stress overeating panel');
+assert.doesNotMatch(nutritionHtml, /href="#stress-overeating"/, 'materials guide should remove stress overeating link');
+assert.doesNotMatch(nutritionHtml, /Продукт — только часть картины/, 'materials guide should remove duplicated stress bridge');
 assert.match(nutritionHtml, /data-overeating-protocol/, 'cycle material should include the return protocol');
 assert.match(nutritionHtml, /Разберем срыв и соберем план/, 'cycle protocol should use the diagnostic plan title');
 assert.match(nutritionHtml, /data-overeating-start/, 'cycle protocol should include the start action');
