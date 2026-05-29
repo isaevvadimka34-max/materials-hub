@@ -231,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const materialPanels = [...document.querySelectorAll('[data-material-panel]')];
   const overeatingProtocolKey = 'ggc_material_overeating_cycle';
   const overeatingProtocol = document.querySelector('[data-overeating-protocol]');
+  const overeatingInteractiveDisclosure = document.querySelector('[data-overeating-interactive-disclosure]');
   const overeatingFlow = document.querySelector('[data-overeating-flow]');
   const overeatingScreens = [...document.querySelectorAll('[data-overeating-screen]')];
   const overeatingStart = document.querySelector('[data-overeating-start]');
@@ -253,9 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const overeatingFinalPlan = document.querySelector('[data-overeating-final-plan]');
   const overeatingFinalSupport = document.querySelector('[data-overeating-final-support]');
   const overeatingFinalBalance = document.querySelector('[data-overeating-final-balance]');
+  const overeatingChecklist = document.querySelector('[data-overeating-checklist]');
   const overeatingChecklistIntro = document.querySelector('[data-overeating-checklist-intro]');
-  const overeatingChecklistItems = [...document.querySelectorAll('[data-overeating-check]')];
-  const overeatingChecklistLabels = [...document.querySelectorAll('[data-overeating-check-label]')];
   const overeatingFinalHint = document.querySelector('[data-overeating-final-hint]');
   const overeatingChooseAgain = document.querySelector('[data-overeating-choose-again]');
 
@@ -268,10 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
       now: 'Остановись на этом приеме пищи, выпей воды и дай телу спокойно переварить еду',
       tomorrow: 'Сделай обычный завтрак с белком, добавь воду и спокойные шаги по самочувствию',
       avoid: 'Не урезать еду, не отрабатывать тренировкой и не вставать на весы утром',
-      checklist: {
-        'scenario-one': 'Добавь 1-2 стакана воды в течение дня',
-        'scenario-two': 'Сделай спокойную прогулку без идеи отработать фастфуд',
-      },
     },
     sweets: {
       label: 'Сладкое',
@@ -281,23 +277,15 @@ document.addEventListener('DOMContentLoaded', () => {
       now: 'Закрой прием пищи, убери сладкое с глаз и переключись на спокойное действие без еды',
       tomorrow: 'Верни обычный завтрак с белком и углеводами, чтобы не запускать новую тягу',
       avoid: 'Не запрещать углеводы, не объявлять сахар врагом и не начинать день с голода',
-      checklist: {
-        'scenario-one': 'Оставь нормальные углеводы в завтраке или обеде',
-        'scenario-two': 'Не запрещай сладкое навсегда, верни спокойный баланс',
-      },
     },
     night: {
-      label: 'Ночной зажор',
+      label: 'Ночной жор',
       title: 'Ночной срыв чаще про усталость',
       event: 'Ночью контроль ниже, а усталость и недоедание днем легко превращаются в сильную тягу',
       body: 'Утром может быть отек, тяжесть и чувство вины. Телу важнее восстановление, чем разбор до трех ночи',
       now: 'Останови анализ, почисти зубы и иди спать. Сон сейчас полезнее любых компенсаций',
       tomorrow: 'Запланируй регулярные приемы пищи и нормальный ужин, чтобы вечер не стал экзаменом на силу воли',
       avoid: 'Не пропускать завтрак, не ругать себя ночью и не пытаться срочно все исправить',
-      checklist: {
-        'scenario-one': 'Запланируй нормальный ужин заранее',
-        'scenario-two': 'Ляг спать раньше, если снова тянет разбирать себя ночью',
-      },
     },
     volume: {
       label: 'Переела до тяжести',
@@ -307,10 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
       now: 'Сделай паузу, расстегни давление на живот, выпей немного воды и при желании спокойно пройдись',
       tomorrow: 'Вернись к обычным порциям и ешь по голоду, без попытки компенсировать вчерашний объем',
       avoid: 'Не голодать, не пить слабительные и не делать тренировку через дискомфорт',
-      checklist: {
-        'scenario-one': 'Собери обычную порцию без попытки наказать себя',
-        'scenario-two': 'Остановись на комфортной сытости, не на идеальной чистоте дня',
-      },
     },
     drinks: {
       label: 'Алкоголь или сладкие напитки',
@@ -320,10 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
       now: 'Остановись на воде, не продолжай добирать еду по инерции и дай телу восстановиться',
       tomorrow: 'Верни обычный режим, добавь воду, белок и мягкую активность без героизма',
       avoid: 'Не взвешиваться, не сушиться и не ставить жесткую тренировку как наказание',
-      checklist: {
-        'scenario-one': 'Поставь воду рядом и пей небольшими порциями',
-        'scenario-two': 'Выбери мягкую активность без жесткой тренировки',
-      },
     },
   };
 
@@ -360,13 +340,86 @@ document.addEventListener('DOMContentLoaded', () => {
     checkedItems: [],
   };
 
-  const baseOvereatingChecklist = {
-    breakfast: 'Съесть обычный завтрак, без урезания еды',
-    water: 'Выпить воду и не пытаться сушиться',
-    protein: 'Добавить белок в 1-2 приема пищи',
-    movement: 'Сделать спокойную активность по самочувствию',
-    'no-compensation': 'Не взвешиваться и не компенсировать срыв наказанием',
+  const overeatingTypeChecklist = {
+    fastfood: {
+      firstMeal: 'На первый прием еды собери тарелку без “отработки”: яйца или творог + каша/хлеб + овощи.',
+      hydration: 'Поставь воду рядом и выпей 1-2 стакана утром; соль после доставки чаще дает отек, а не “откат”.',
+      plate: 'В обед добавь белок на выбор: курица, рыба, яйца, творог, йогурт без сахара или бобовые.',
+      movement: 'Выбери 10-20 минут прогулки после еды или бытовую ходьбу, без тренировки “за бургер”.',
+      bodyCheck: 'Не оценивай день по утреннему весу после соли: верни режим и посмотри динамику позже.',
+    },
+    sweets: {
+      firstMeal: 'Начни день с еды, которая держит сытость: омлет/творог/йогурт + каша, хлеб или фрукт.',
+      hydration: 'Выпей стакан воды утром и еще один рядом с кофе/чаем, чтобы не путать жажду с новой тягой.',
+      plate: 'Оставь углеводы в 2-3 приемах: каша, рис, картофель, хлеб или фрукты вместо нового запрета.',
+      movement: 'Сделай 10 минут прогулки или растяжки, чтобы переключиться, а не “сжечь сладкое”.',
+      bodyCheck: 'Не оценивай себя по тяге к сладкому: сахар не враг, задача завтра — вернуться к ритму.',
+    },
+    night: {
+      firstMeal: 'Не пропускай завтрак: творог с фруктом, яйца с хлебом или каша с йогуртом помогут не сорваться вечером.',
+      hydration: 'Поставь стакан воды у кровати и второй утром; после ночной еды телу нужен спокойный старт.',
+      plate: 'Запланируй ужин заранее: белок + гарнир, например рыба с картофелем или курица с рисом.',
+      movement: 'Оставь только легкое движение: 10-15 минут прогулки днем или растяжка перед сном.',
+      bodyCheck: 'Не разбирай себя ночью и не проверяй вес утром: сон и режим важнее срочного контроля.',
+    },
+    volume: {
+      firstMeal: 'Первый прием сделай комфортным по объему: яйца/творог/йогурт + фрукт или небольшая порция каши.',
+      hydration: 'Выпей воду маленькими порциями: стакан утром и стакан днем, без попытки “промыть” переедание.',
+      plate: 'Верни обычную тарелку: белок + гарнир + овощи, например курица с рисом и салатом.',
+      movement: 'Если есть тяжесть, выбери 10-20 минут спокойной ходьбы, без прыжков и жесткой тренировки.',
+      bodyCheck: 'Не сравнивай утренний вес после большого объема еды: это не оценка прогресса.',
+    },
+    drinks: {
+      firstMeal: 'На первый прием добавь белок и углеводы: яйца с хлебом, творог с фруктом или курица с картофелем.',
+      hydration: 'Поставь бутылку воды рядом и выпей 2-3 стакана за утро маленькими порциями.',
+      plate: 'В течение дня добавь соленое/жирное без крайностей: суп, рыба, яйца или йогурт + гарнир.',
+      movement: 'Выбери мягкое восстановление: прогулка 10-15 минут, душ, растяжка, без “героической” тренировки.',
+      bodyCheck: 'Не оценивай вес после алкоголя или сладких напитков: вода может задержаться, режим вернется.',
+    },
   };
+
+  const overeatingReasonChecklist = {
+    hunger: {
+      rhythm: 'Поставь минимум 3 точки еды завтра: завтрак, обед и ужин; перекус — йогурт, фрукт или творог.',
+      environment: 'Заранее реши, что будет на обед: например курица/рыба/бобовые + рис/картофель/хлеб.',
+      boundary: 'Не начинай день с урезания: голод был причиной срыва, поэтому завтра нужен регулярный ритм.',
+    },
+    stress: {
+      rhythm: 'Упрости день: выбери 2 готовых приема еды, например творог с фруктом и курица с гарниром.',
+      environment: 'Сделай паузу без еды на 5 минут: душ, дыхание, короткая прогулка или лечь раньше.',
+      boundary: 'Не добавляй героизм: завтра задача восстановиться, а не доказывать дисциплину.',
+    },
+    restriction: {
+      rhythm: 'Верни разрешение на базовую еду: каша, хлеб, картофель, рис или фрукт в 2-3 приемах.',
+      environment: 'Запланируй один понятный вкусный элемент, например йогурт, фрукт или кусочек сладкого после еды.',
+      boundary: 'Не запускай новый запрет “с понедельника”: запрет усиливает тягу, баланс держится гибкостью.',
+    },
+    available: {
+      rhythm: 'Подготовь видимый вариант еды: яйца, творог, йогурт, курица или бобовые + хлеб/рис/фрукт.',
+      environment: 'Убери триггеры с глаз: переложи сладкое/снеки в шкаф и поставь вперед воду или фрукт.',
+      boundary: 'Не держи себя на силе воли весь день: среда должна помогать, а не проверять.',
+    },
+    social: {
+      rhythm: 'Верни свой ритм с ближайшего приема еды: белок + гарнир, например рыба с картофелем или творог с фруктом.',
+      environment: 'Если снова встреча, заранее выбери опору: вода рядом, пауза перед добавкой, один любимый продукт без гонки.',
+      boundary: 'Не “отрабатывай” еду за компанию: социальная еда не отменяет твой общий прогресс.',
+    },
+  };
+
+  function getOvereatingChecklist(typeKey, reasonKey) {
+    const typeChecklist = overeatingTypeChecklist[typeKey];
+    const reasonChecklist = overeatingReasonChecklist[reasonKey];
+    if (!typeChecklist || !reasonChecklist) return [];
+
+    return [
+      { id: 'first-meal', text: typeChecklist.firstMeal },
+      { id: 'hydration', text: typeChecklist.hydration },
+      { id: 'protein-carbs', text: typeChecklist.plate },
+      { id: 'reason-rhythm', text: reasonChecklist.rhythm },
+      { id: 'movement-reset', text: `${typeChecklist.movement} ${reasonChecklist.environment}` },
+      { id: 'no-punishment', text: `${typeChecklist.bodyCheck} ${reasonChecklist.boundary}` },
+    ];
+  }
 
   function materialIdFromHash() {
     if (typeof window === 'undefined') return '';
@@ -548,10 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
       now: type.now,
       tomorrow: type.tomorrow,
       avoid: type.avoid,
-      checklist: {
-        ...baseOvereatingChecklist,
-        ...type.checklist,
-      },
+      checklist: getOvereatingChecklist(state.bingeType, state.reason),
       summary: `${type.label}: ${type.tomorrow}. ${type.avoid}`,
     };
   }
@@ -571,19 +621,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderOvereatingChecklist(state, plan) {
+    if (!overeatingChecklist) return;
     const checkedItems = new Set(state.checkedItems || []);
-    overeatingChecklistItems.forEach((item) => {
-      const id = item.dataset.overeatingCheck;
-      const text = plan?.checklist?.[id] || '';
-      item.checked = checkedItems.has(id);
-      item.textContent = text;
-      item.hidden = !text;
+    const checklist = Array.isArray(plan?.checklist) ? plan.checklist : [];
+    const checklistNodes = [];
+
+    if (overeatingChecklistIntro) {
+      checklistNodes.push(overeatingChecklistIntro);
+    }
+
+    checklist.forEach(({ id, text }) => {
+      if (!id || !text) return;
+
+      const label = document.createElement('label');
+      label.className = 'overeating-next-checklist__item';
+
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.dataset.overeatingCheck = id;
+      input.checked = checkedItems.has(id);
+
+      const textNode = document.createElement('span');
+      textNode.textContent = text;
+
+      label.append(input, textNode);
+      checklistNodes.push(label);
     });
 
-    overeatingChecklistLabels.forEach((label) => {
-      const id = label.dataset.overeatingCheckLabel;
-      label.textContent = plan?.checklist?.[id] || '';
-    });
+    overeatingChecklist.replaceChildren(...checklistNodes);
   }
 
   function renderOvereatingProtocol(state) {
@@ -594,16 +659,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     overeatingProtocol?.classList.toggle('is-complete', isComplete);
     overeatingProtocol?.setAttribute('data-overeating-state', activeScreen);
+    if (isComplete && overeatingInteractiveDisclosure) overeatingInteractiveDisclosure.open = true;
 
     if (overeatingFlow) overeatingFlow.hidden = isComplete;
     if (overeatingFinal) overeatingFinal.hidden = !isComplete;
-    if (overeatingFinalTitle) overeatingFinalTitle.textContent = 'План на завтра зафиксирован';
+    if (overeatingFinalTitle) overeatingFinalTitle.textContent = 'Чек-лист готов';
     if (overeatingFinalType) overeatingFinalType.textContent = plan?.typeLabel || overeatingTypes[state.bingeType]?.label || '';
     if (overeatingFinalReason) overeatingFinalReason.textContent = plan?.reasonLabel || overeatingReasons[state.reason]?.label || '';
-    if (overeatingFinalPlan) overeatingFinalPlan.textContent = solutionCopy;
-    if (overeatingFinalSupport) overeatingFinalSupport.textContent = 'Один срыв не перечеркивает прогресс. Ты не виновата, тебе нужно вернуться к заботе, а не к наказанию';
-    if (overeatingFinalBalance) overeatingFinalBalance.textContent = 'Держим баланс 80/20: 80% база и режим, 20% гибкость без чувства вины';
-    if (overeatingChecklistIntro) overeatingChecklistIntro.textContent = 'Чек-лист заботы на завтра';
+    if (overeatingFinalPlan) overeatingFinalPlan.textContent = solutionCopy ? `Фокус плана: ${solutionCopy}` : '';
+    if (overeatingFinalSupport) overeatingFinalSupport.textContent = 'Один срыв не перечеркивает прогресс. Сейчас задача — вернуться к заботе, а не к наказанию.';
+    if (overeatingFinalBalance) overeatingFinalBalance.textContent = '80/20: база и режим остаются опорой, гибкость не превращаем в чувство вины.';
+    if (overeatingChecklistIntro) overeatingChecklistIntro.textContent = 'Мой чек-лист на завтра';
     if (overeatingFinalHint) overeatingFinalHint.textContent = 'План будет доступен до конца завтрашнего дня';
     if (overeatingTypeContext) overeatingTypeContext.textContent = overeatingTypes[state.bingeType]?.label || '';
     renderOvereatingChoiceTrail(overeatingPlanChoice, plan);
@@ -628,8 +694,45 @@ document.addEventListener('DOMContentLoaded', () => {
     setOvereatingScreen(plan ? 'plan' : state.bingeType ? 'reason' : 'start');
   }
 
+  let overeatingState = { ...emptyOvereatingState };
+
+  function showOvereatingStep(screenName) {
+    if (screenName === 'start') {
+      overeatingState = { ...emptyOvereatingState };
+      clearOvereatingState();
+    } else if (screenName === 'type') {
+      overeatingState = {
+        ...emptyOvereatingState,
+        bingeType: overeatingState.bingeType,
+      };
+      writeOvereatingState(overeatingState);
+    } else if (screenName === 'reason') {
+      overeatingState = {
+        ...emptyOvereatingState,
+        bingeType: overeatingState.bingeType,
+      };
+      writeOvereatingState(overeatingState);
+    } else if (screenName === 'plan') {
+      overeatingState = {
+        ...overeatingState,
+        completed: false,
+        completedDate: '',
+        expiresDate: '',
+        checkedItems: [],
+      };
+      writeOvereatingState(overeatingState);
+    }
+
+    if (overeatingInteractiveDisclosure) overeatingInteractiveDisclosure.open = true;
+    renderOvereatingProtocol(overeatingState);
+    if (screenName !== 'plan' || activeOvereatingPlan(overeatingState)) {
+      setOvereatingScreen(screenName);
+      overeatingProtocol?.setAttribute('data-overeating-state', screenName);
+    }
+  }
+
   if (overeatingProtocol) {
-    let overeatingState = readOvereatingState();
+    overeatingState = readOvereatingState();
     renderOvereatingProtocol(overeatingState);
 
     overeatingStart?.addEventListener('click', () => {
@@ -682,25 +785,34 @@ document.addEventListener('DOMContentLoaded', () => {
       renderOvereatingProtocol(overeatingState);
     });
 
-    overeatingChecklistItems.forEach((item) => {
-      item.addEventListener('change', (event) => {
-        const id = event.target?.dataset?.overeatingCheck || item.dataset.overeatingCheck;
-        if (!id) return;
+    overeatingProtocol.addEventListener('click', (event) => {
+      const backButton = event.target?.closest?.('[data-overeating-back]')
+        || (event.target?.dataset?.overeatingBack ? event.target : null);
+      if (!backButton) return;
 
-        const checkedItems = new Set(overeatingState.checkedItems || []);
-        if (event.target?.checked ?? item.checked) {
-          checkedItems.add(id);
-        } else {
-          checkedItems.delete(id);
-        }
+      event.preventDefault?.();
+      showOvereatingStep(backButton.dataset.overeatingBack || 'start');
+    });
 
-        overeatingState = {
-          ...overeatingState,
-          checkedItems: [...checkedItems],
-        };
-        writeOvereatingState(overeatingState);
-        renderOvereatingProtocol(overeatingState);
-      });
+    overeatingChecklist?.addEventListener('change', (event) => {
+      const target = event.target;
+      const id = target?.dataset?.overeatingCheck;
+      if (!id) return;
+
+      const activeChecklistIds = new Set(activeOvereatingPlan(overeatingState)?.checklist.map((item) => item.id) || []);
+      const checkedItems = new Set((overeatingState.checkedItems || []).filter((item) => activeChecklistIds.has(item)));
+      if (target.checked) {
+        checkedItems.add(id);
+      } else {
+        checkedItems.delete(id);
+      }
+
+      overeatingState = {
+        ...overeatingState,
+        checkedItems: [...checkedItems],
+      };
+      writeOvereatingState(overeatingState);
+      renderOvereatingProtocol(overeatingState);
     });
   }
 

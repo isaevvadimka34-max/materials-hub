@@ -21,14 +21,28 @@ const css = read('assets/css/materials.css');
 
 function createElementStub() {
   const classes = new Set();
-  return {
+  const element = {
     className: '',
+    children: [],
     dataset: {},
     hidden: false,
     innerHTML: '',
     textContent: '',
+    type: '',
     value: '',
     checked: false,
+    open: false,
+    append(...nodes) {
+      this.children.push(...nodes);
+      nodes.forEach((node, index) => {
+        if (node?.dataset?.overeatingCheck && nodes[index + 1]?.textContent) {
+          node.textContent = nodes[index + 1].textContent;
+        }
+      });
+    },
+    replaceChildren(...nodes) {
+      this.children = [...nodes];
+    },
     addEventListener(event, callback) {
       this[`on${event}`] = callback;
     },
@@ -58,6 +72,7 @@ function createElementStub() {
     },
     scrollIntoView() {},
   };
+  return element;
 }
 
 function createFoodScannerHarness() {
@@ -107,6 +122,7 @@ function createOvereatingProtocolHarness(savedState = null) {
   let domReady;
   const store = savedState ? { ggc_material_overeating_cycle: JSON.stringify(savedState) } : {};
   const protocol = createElementStub();
+  const interactiveDisclosure = createElementStub();
   const flow = createElementStub();
   const final = createElementStub();
   final.hidden = true;
@@ -118,6 +134,14 @@ function createOvereatingProtocolHarness(savedState = null) {
   const finalPlan = createElementStub();
   const chooseAgain = createElementStub();
   const finalHint = createElementStub();
+  const backToStart = createElementStub();
+  backToStart.dataset.overeatingBack = 'start';
+  const backToType = createElementStub();
+  backToType.dataset.overeatingBack = 'type';
+  const backToReason = createElementStub();
+  backToReason.dataset.overeatingBack = 'reason';
+  const backToPlan = createElementStub();
+  backToPlan.dataset.overeatingBack = 'plan';
 
   const startScreen = createElementStub();
   startScreen.dataset.overeatingScreen = 'start';
@@ -164,46 +188,28 @@ function createOvereatingProtocolHarness(savedState = null) {
   const planChoice = createElementStub();
   const finalSupport = createElementStub();
   const finalBalance = createElementStub();
+  const finalChecklist = createElementStub();
   const finalChecklistIntro = createElementStub();
+  finalChecklist.children = [finalChecklistIntro];
 
-  const checklistBreakfast = createElementStub();
-  checklistBreakfast.dataset.overeatingCheck = 'breakfast';
-  const checklistWater = createElementStub();
-  checklistWater.dataset.overeatingCheck = 'water';
-  const checklistProtein = createElementStub();
-  checklistProtein.dataset.overeatingCheck = 'protein';
-  const checklistMovement = createElementStub();
-  checklistMovement.dataset.overeatingCheck = 'movement';
-  const checklistNoCompensation = createElementStub();
-  checklistNoCompensation.dataset.overeatingCheck = 'no-compensation';
-  const checklistScenarioOne = createElementStub();
-  checklistScenarioOne.dataset.overeatingCheck = 'scenario-one';
-  const checklistScenarioTwo = createElementStub();
-  checklistScenarioTwo.dataset.overeatingCheck = 'scenario-two';
-  const checklistItems = [
-    checklistBreakfast,
-    checklistWater,
-    checklistProtein,
-    checklistMovement,
-    checklistNoCompensation,
-    checklistScenarioOne,
-    checklistScenarioTwo,
-  ];
-
-  const checklistLabels = checklistItems.map((item) => {
-    const label = createElementStub();
-    label.dataset.overeatingCheckLabel = item.dataset.overeatingCheck;
-    return label;
-  });
+  function currentChecklistItems() {
+    return finalChecklist.children
+      .flatMap((child) => child.children || [])
+      .filter((child) => child.dataset?.overeatingCheck);
+  }
 
   const document = {
     documentElement: { clientHeight: 600 },
     addEventListener(event, callback) {
       if (event === 'DOMContentLoaded') domReady = callback;
     },
+    createElement() {
+      return createElementStub();
+    },
     querySelector(selector) {
       const map = {
         '[data-overeating-protocol]': protocol,
+        '[data-overeating-interactive-disclosure]': interactiveDisclosure,
         '[data-overeating-flow]': flow,
         '[data-overeating-start]': start,
         '[data-overeating-type-context]': typeContext,
@@ -223,6 +229,7 @@ function createOvereatingProtocolHarness(savedState = null) {
         '[data-overeating-final-plan]': finalPlan,
         '[data-overeating-final-support]': finalSupport,
         '[data-overeating-final-balance]': finalBalance,
+        '[data-overeating-checklist]': finalChecklist,
         '[data-overeating-checklist-intro]': finalChecklistIntro,
         '[data-overeating-choose-again]': chooseAgain,
         '[data-overeating-final-hint]': finalHint,
@@ -233,8 +240,8 @@ function createOvereatingProtocolHarness(savedState = null) {
       if (selector === '[data-overeating-screen]') return [startScreen, typeScreen, reasonScreen, planScreen];
       if (selector === '[data-overeating-type]') return [typeFastfood, typeSweets, typeNight, typeVolume, typeDrinks];
       if (selector === '[data-overeating-reason]') return [reasonHunger, reasonStress, reasonRestriction, reasonAvailable, reasonSocial];
-      if (selector === '[data-overeating-check]') return checklistItems;
-      if (selector === '[data-overeating-check-label]') return checklistLabels;
+      if (selector === '[data-overeating-check]') return currentChecklistItems();
+      if (selector === '[data-overeating-back]') return [backToStart, backToType, backToReason, backToPlan];
       return [];
     },
   };
@@ -276,7 +283,9 @@ function createOvereatingProtocolHarness(savedState = null) {
   domReady();
 
   return {
+    protocol,
     flow,
+    interactiveDisclosure,
     final,
     start,
     complete,
@@ -286,6 +295,10 @@ function createOvereatingProtocolHarness(savedState = null) {
     finalPlan,
     chooseAgain,
     finalHint,
+    backToStart,
+    backToType,
+    backToReason,
+    backToPlan,
     startScreen,
     typeScreen,
     reasonScreen,
@@ -311,16 +324,11 @@ function createOvereatingProtocolHarness(savedState = null) {
     planChoice,
     finalSupport,
     finalBalance,
+    finalChecklist,
     finalChecklistIntro,
-    checklistBreakfast,
-    checklistWater,
-    checklistProtein,
-    checklistMovement,
-    checklistNoCompensation,
-    checklistScenarioOne,
-    checklistScenarioTwo,
-    checklistItems,
-    checklistLabels,
+    get checklistItems() {
+      return currentChecklistItems();
+    },
     store,
   };
 }
@@ -368,14 +376,27 @@ assert.match(nutritionHtml, /data-overeating-final-plan/, 'cycle protocol should
 assert.match(nutritionHtml, /data-overeating-final-support/, 'cycle protocol should render anti-guilt support copy');
 assert.match(nutritionHtml, /data-overeating-final-balance/, 'cycle protocol should render 80/20 balance copy');
 assert.match(nutritionHtml, /data-overeating-checklist-intro/, 'cycle protocol should include checklist intro');
-assert.match(nutritionHtml, /data-overeating-check="breakfast"/, 'cycle protocol should include breakfast checklist item');
-assert.match(nutritionHtml, /data-overeating-check="scenario-one"/, 'cycle protocol should include scenario checklist item');
+assert.match(nutritionHtml, /data-overeating-checklist/, 'cycle protocol should include dynamic checklist container');
+assert.doesNotMatch(nutritionHtml, /data-overeating-check="/, 'cycle protocol should render checklist items dynamically');
 assert.match(nutritionHtml, /data-overeating-final-type/, 'cycle protocol should show chosen type in the final state');
 assert.match(nutritionHtml, /data-overeating-final-reason/, 'cycle protocol should show chosen reason in the final state');
 assert.match(nutritionHtml, /data-overeating-choose-again/, 'cycle protocol should allow choosing another option');
+assert.match(nutritionHtml, /data-overeating-theory-disclosure/, 'cycle material should include collapsible theory panel');
+assert.match(nutritionHtml, /Всё, что нужно знать про срывы/, 'cycle theory panel should have the approved title');
+assert.match(nutritionHtml, /data-overeating-interactive-disclosure/, 'cycle material should include collapsible interactive panel');
+assert.match(nutritionHtml, /Собери план после срыва/, 'cycle interactive panel should have the approved title');
+assert.doesNotMatch(nutritionHtml, /data-overeating-cycle-exit-disclosure/, 'cycle material should remove the separate cycle-exit panel');
+assert.doesNotMatch(nutritionHtml, /<strong>Выйти из цикла/, 'cycle material should remove the separate cycle-exit title');
+assert.match(nutritionHtml, /Что делать после срыва/, 'cycle theory panel should introduce the recovery actions');
+assert.match(nutritionHtml, /overeating-recovery-route/, 'cycle theory recovery actions should use a route layout');
+assert.doesNotMatch(nutritionHtml, /overeating-practice-list/, 'cycle theory should replace the old practice card list');
+assert.match(nutritionHtml, /data-overeating-theory-disclosure[\s\S]*Не уходить в чувство вины после срыва[\s\S]*data-overeating-interactive-disclosure/, 'cycle theory panel should address guilt after a slip');
+assert.match(nutritionHtml, /data-overeating-theory-disclosure[\s\S]*Что делать на следующий день после переедания[\s\S]*data-overeating-interactive-disclosure/, 'cycle theory panel should address the next day after overeating');
+assert.match(nutritionHtml, /data-overeating-theory-disclosure[\s\S]*Как вернуться в режим без жестких ограничений[\s\S]*data-overeating-interactive-disclosure/, 'cycle theory panel should address returning without hard restrictions');
+assert.match(nutritionHtml, /data-overeating-theory-disclosure[\s\S]*Что делать, если сорвалась на сладкое[\s\S]*data-overeating-interactive-disclosure/, 'cycle theory panel should address sweets slips');
+assert.match(nutritionHtml, /data-overeating-theory-disclosure[\s\S]*Как встроить сладкое без нового запрета[\s\S]*data-overeating-interactive-disclosure/, 'cycle theory panel should address fitting sweets into the plan');
 assert.match(nutritionHtml, /План будет доступен до конца завтрашнего дня/, 'cycle protocol should explain checklist availability');
 assert.doesNotMatch(nutritionHtml, /запретила → терпела → сорвалась → обвинила себя → снова запретила/, 'cycle material should remove the long old visual chain');
-assert.doesNotMatch(nutritionHtml, /data-overeating-checklist(?!-intro)/, 'cycle protocol should remove old checklist output');
 assert.doesNotMatch(nutritionHtml, /data-overeating-reset/, 'cycle protocol should remove reset action');
 assert.match(nutritionJs, /ggc_material_overeating_cycle/, 'cycle protocol should persist to the approved localStorage key');
 assert.match(nutritionJs, /completedDate/, 'cycle protocol should persist completion date');
@@ -396,6 +417,15 @@ assert.match(css, /overeating-protocol__final/, 'cycle protocol should style fix
 assert.match(css, /overeating-chip-list button\.is-active/, 'cycle protocol should style active chips');
 assert.match(css, /overeating-choice-trail/, 'cycle protocol should style selected path chips');
 assert.match(css, /overeating-next-checklist/, 'cycle protocol should style next-day checklist');
+assert.match(css, /overeating-recovery-route[\s\S]*::before/, 'cycle theory route should draw a vertical guide line');
+assert.match(css, /overeating-recovery-route__step[\s\S]*grid-template-columns/, 'cycle theory route steps should have a structured route layout');
+assert.match(css, /@media \(max-width:\s*520px\)[\s\S]*\.overeating-protocol__final[\s\S]*text-align:\s*left/, 'cycle final screen should stay compact and left-aligned on mobile');
+assert.match(css, /#overeating-cycle\s+\.material-panel__head[\s\S]*text-align:\s*center/, 'cycle material head should be centered on desktop');
+assert.match(css, /\.overeating-disclosures[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/, 'cycle disclosure cards should use two columns on desktop');
+assert.match(css, /@media \(max-width:\s*980px\)[\s\S]*\.overeating-disclosures[\s\S]*grid-template-columns:\s*1fr/, 'cycle disclosure cards should collapse to one column on tablet and mobile');
+assert.match(css, /@media \(max-width:\s*640px\)[\s\S]*#overeating-cycle\s+\.material-panel__head[\s\S]*text-align:\s*left/, 'cycle material head should return to left alignment on mobile');
+assert.match(css, /@media \(max-width:\s*640px\)[\s\S]*\.hub-lead[\s\S]*max-width:\s*100%/, 'materials hero lead should stay inside the mobile viewport');
+assert.match(css, /@media \(max-width:\s*640px\)[\s\S]*\.material-reader__bar[\s\S]*grid-template-columns:\s*1fr/, 'material reader bar should stack inside the mobile viewport');
 assert.match(nutritionHtml, /Когда это нормально/, 'swelling material should include normal swelling context');
 assert.match(nutritionHtml, /Когда лучше обратиться к специалисту/, 'swelling material should include specialist escalation');
 assert.match(nutritionHtml, /что не обещать/i, 'cellulite material should include honest promise boundaries');
@@ -466,27 +496,46 @@ assert.match(completedState.chosenPlan, /Алкоголь|напит/i, 'complet
 assert.deepEqual(completedState.checkedItems, [], 'completion should initialize empty checklist state');
 assert.equal(overeatingHarness.flow.hidden, true, 'completion should collapse the choice flow');
 assert.equal(overeatingHarness.final.hidden, false, 'completion should show final fixed-plan state');
-assert.match(overeatingHarness.finalTitle.textContent, /План на завтра зафиксирован/, 'completion should render final title');
+assert.match(overeatingHarness.finalTitle.textContent, /Чек-лист готов/, 'completion should render compact checklist-first title');
 assert.match(overeatingHarness.finalType.textContent, /Алкоголь|напит/i, 'completion should render selected type in final state');
 assert.match(overeatingHarness.finalReason.textContent, /за компанию/i, 'completion should render selected reason in final state');
-assert.match(overeatingHarness.finalPlan.textContent, /обычный режим/i, 'completion should render chosen plan in final state');
-assert.match(overeatingHarness.finalSupport.textContent, /не перечеркивает прогресс/i, 'completion should render anti-guilt support copy');
-assert.match(overeatingHarness.finalBalance.textContent, /80.*20/s, 'completion should render 80/20 balance copy');
-assert.match(overeatingHarness.finalChecklistIntro.textContent, /завтра/i, 'completion should render next-day checklist intro');
-assert.match(overeatingHarness.checklistBreakfast.textContent, /завтрак/i, 'completion should render base checklist item');
-assert.match(overeatingHarness.checklistScenarioOne.textContent, /вод|напит/i, 'completion should render scenario checklist item');
-assert.equal(overeatingHarness.checklistBreakfast.checked, false, 'checklist should start unchecked');
+assert.match(overeatingHarness.finalPlan.textContent, /Фокус плана/i, 'completion should render a compact plan focus');
+assert.match(overeatingHarness.finalSupport.textContent, /Один срыв/i, 'completion should render short anti-guilt support copy');
+assert.match(overeatingHarness.finalBalance.textContent, /80.*20/s, 'completion should keep compact 80/20 balance copy');
+assert.match(overeatingHarness.finalChecklistIntro.textContent, /Мой чек-лист на завтра/i, 'completion should render checklist-first intro');
+assert.equal(overeatingHarness.checklistItems.length, 6, 'completion should render six concrete checklist items');
+assert.match(overeatingHarness.checklistItems.map((item) => item.textContent).join('\n'), /например|яйц|творог|куриц|рыб|йогурт|бобов|картоф|прогул/i, 'completion should render concrete checklist examples');
+assert.equal(overeatingHarness.checklistItems[0].checked, false, 'checklist should start unchecked');
 
- overeatingHarness.checklistBreakfast.checked = true;
- overeatingHarness.checklistBreakfast.onchange({ target: overeatingHarness.checklistBreakfast });
+ overeatingHarness.checklistItems[0].checked = true;
+ overeatingHarness.finalChecklist.onchange({ target: overeatingHarness.checklistItems[0] });
 let checkedState = JSON.parse(overeatingHarness.store.ggc_material_overeating_cycle);
-assert.deepEqual(checkedState.checkedItems, ['breakfast'], 'checking item should persist checklist state');
-assert.equal(overeatingHarness.checklistBreakfast.checked, true, 'checking item should update local checkbox state');
- overeatingHarness.checklistBreakfast.checked = false;
- overeatingHarness.checklistBreakfast.onchange({ target: overeatingHarness.checklistBreakfast });
+assert.deepEqual(checkedState.checkedItems, ['first-meal'], 'checking item should persist checklist state');
+assert.equal(overeatingHarness.checklistItems[0].checked, true, 'checking item should update local checkbox state');
+ overeatingHarness.checklistItems[0].checked = false;
+ overeatingHarness.finalChecklist.onchange({ target: overeatingHarness.checklistItems[0] });
 checkedState = JSON.parse(overeatingHarness.store.ggc_material_overeating_cycle);
 assert.deepEqual(checkedState.checkedItems, [], 'unchecking item should remove it from checklist state');
 assert.match(overeatingHarness.finalHint.textContent, /до конца завтрашнего дня/i, 'completion should render availability hint');
+
+overeatingHarness.protocol.onclick({ target: overeatingHarness.backToPlan });
+assert.equal(overeatingHarness.flow.hidden, false, 'back to plan should reopen the flow');
+assert.equal(overeatingHarness.final.hidden, true, 'back to plan should hide final state');
+assert.equal(overeatingHarness.planScreen.hidden, false, 'back to plan should show plan screen');
+assert.equal(JSON.parse(overeatingHarness.store.ggc_material_overeating_cycle).completed, false, 'back to plan should remove completed lock from storage');
+
+overeatingHarness.protocol.onclick({ target: overeatingHarness.backToReason });
+assert.equal(overeatingHarness.reasonScreen.hidden, false, 'back to reason should show reason screen');
+assert.equal(overeatingHarness.planScreen.classList.contains('is-active'), false, 'back to reason should deactivate plan screen');
+assert.equal(JSON.parse(overeatingHarness.store.ggc_material_overeating_cycle).reason, '', 'back to reason should clear selected reason');
+
+overeatingHarness.protocol.onclick({ target: overeatingHarness.backToType });
+assert.equal(overeatingHarness.typeScreen.hidden, false, 'back to type should show type screen');
+assert.equal(JSON.parse(overeatingHarness.store.ggc_material_overeating_cycle).reason, '', 'back to type should keep reason cleared');
+
+overeatingHarness.protocol.onclick({ target: overeatingHarness.backToStart });
+assert.equal(overeatingHarness.startScreen.hidden, false, 'back to start should show start screen');
+assert.equal(overeatingHarness.store.ggc_material_overeating_cycle, undefined, 'back to start should clear stored scenario');
 
 const now = new Date();
 const today = [
@@ -508,15 +557,15 @@ const savedOvereatingHarness = createOvereatingProtocolHarness({
   bingeType: 'fastfood',
   reason: 'hunger',
   chosenPlan: 'Фастфуд: завтра обычный завтрак, вода и шаги. Не урезать еду и не отрабатывать',
-  checkedItems: ['breakfast', 'scenario-one'],
+  checkedItems: ['first-meal', 'hydration'],
 });
 assert.equal(savedOvereatingHarness.flow.hidden, true, 'completed today should show only final state on reload');
 assert.equal(savedOvereatingHarness.final.hidden, false, 'completed today should keep final state visible on reload');
 assert.match(savedOvereatingHarness.finalType.textContent, /Фастфуд/, 'completed today should restore selected binge type');
 assert.match(savedOvereatingHarness.finalReason.textContent, /долго не ела/i, 'completed today should restore selected reason');
 assert.match(savedOvereatingHarness.finalPlan.textContent, /обычный завтрак/, 'completed today should restore chosen plan text');
-assert.equal(savedOvereatingHarness.checklistBreakfast.checked, true, 'completed today should restore checked base item');
-assert.equal(savedOvereatingHarness.checklistScenarioOne.checked, true, 'completed today should restore checked scenario item');
+assert.equal(savedOvereatingHarness.checklistItems[0].checked, true, 'completed today should restore checked first item');
+assert.equal(savedOvereatingHarness.checklistItems[1].checked, true, 'completed today should restore checked hydration item');
 
 savedOvereatingHarness.chooseAgain.onclick();
 assert.equal(savedOvereatingHarness.store.ggc_material_overeating_cycle, undefined, 'choosing again should clear stored completion');
@@ -530,12 +579,12 @@ const nextDayAvailableHarness = createOvereatingProtocolHarness({
   bingeType: 'sweets',
   reason: 'restriction',
   chosenPlan: 'Сладкое: завтра обычный завтрак с белком и углеводами. Не запрещать углеводы',
-  checkedItems: ['protein'],
+  checkedItems: ['protein-carbs'],
 });
 assert.equal(nextDayAvailableHarness.flow.hidden, true, 'plan should stay available through expiration date');
 assert.equal(nextDayAvailableHarness.final.hidden, false, 'plan should show final checklist through expiration date');
 assert.match(nextDayAvailableHarness.finalType.textContent, /Сладкое/, 'available plan should restore selected type through expiration date');
-assert.equal(nextDayAvailableHarness.checklistProtein.checked, true, 'available plan should restore checked item through expiration date');
+assert.equal(nextDayAvailableHarness.checklistItems[2].checked, true, 'available plan should restore checked item through expiration date');
 
 const staleOvereatingHarness = createOvereatingProtocolHarness({
   completed: true,
@@ -559,6 +608,54 @@ const legacyOvereatingHarness = createOvereatingProtocolHarness({
 assert.equal(legacyOvereatingHarness.flow.hidden, false, 'legacy completion without new fields should return to the flow');
 assert.equal(legacyOvereatingHarness.final.hidden, true, 'legacy completion without new fields should not show final state');
 assert.equal(legacyOvereatingHarness.store.ggc_material_overeating_cycle, undefined, 'legacy completion without new fields should be cleared from storage');
+
+const overeatingTypeButtons = {
+  fastfood: 'typeFastfood',
+  sweets: 'typeSweets',
+  night: 'typeNight',
+  volume: 'typeVolume',
+  drinks: 'typeDrinks',
+};
+const overeatingReasonButtons = {
+  hunger: 'reasonHunger',
+  stress: 'reasonStress',
+  restriction: 'reasonRestriction',
+  available: 'reasonAvailable',
+  social: 'reasonSocial',
+};
+const vagueChecklistCopy = [
+  /съесть обычный завтрак/i,
+  /выпить воду и не пытаться сушиться/i,
+  /добавить белок в 1-2 приема пищи/i,
+  /сделать спокойную активность по самочувствию/i,
+  /не взвешиваться и не компенсировать/i,
+  /нормальные углеводы/i,
+  /верни спокойный баланс/i,
+];
+
+for (const [type, typeButton] of Object.entries(overeatingTypeButtons)) {
+  for (const [reason, reasonButton] of Object.entries(overeatingReasonButtons)) {
+    const branchHarness = createOvereatingProtocolHarness();
+    branchHarness[typeButton].onclick();
+    branchHarness[reasonButton].onclick();
+    branchHarness.complete.onclick();
+
+    const visibleChecklistItems = branchHarness.checklistItems
+      .filter((item) => !item.hidden)
+      .map((item) => item.textContent.trim())
+      .filter(Boolean);
+    const checklistCopy = visibleChecklistItems.join('\n');
+
+    assert.ok(
+      visibleChecklistItems.length >= 5 && visibleChecklistItems.length <= 6,
+      `${type}/${reason} should render 5-6 concrete checklist items, got ${visibleChecklistItems.length}`,
+    );
+    assert.match(checklistCopy, /например|яйц|творог|куриц|рыб|йогурт|бобов|каша|рис|картоф|хлеб|фрукт|прогул|растяж/i, `${type}/${reason} should include concrete examples`);
+    for (const vagueCopy of vagueChecklistCopy) {
+      assert.doesNotMatch(checklistCopy, vagueCopy, `${type}/${reason} should avoid vague checklist copy`);
+    }
+  }
+}
 
 const aliasCount = [...nutritionJs.matchAll(/names:\s*\[([^\]]+)\]/g)]
   .reduce((total, match) => total + (match[1].match(/'/g) || []).length / 2, 0);
