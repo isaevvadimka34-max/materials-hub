@@ -234,22 +234,138 @@ document.addEventListener('DOMContentLoaded', () => {
   const overeatingFlow = document.querySelector('[data-overeating-flow]');
   const overeatingScreens = [...document.querySelectorAll('[data-overeating-screen]')];
   const overeatingStart = document.querySelector('[data-overeating-start]');
-  const overeatingImpulseButtons = [...document.querySelectorAll('[data-overeating-impulse]')];
-  const overeatingSolution = document.querySelector('[data-overeating-solution]');
+  const overeatingTypeButtons = [...document.querySelectorAll('[data-overeating-type]')];
+  const overeatingReasonButtons = [...document.querySelectorAll('[data-overeating-reason]')];
+  const overeatingTypeContext = document.querySelector('[data-overeating-type-context]');
+  const overeatingPlanTitle = document.querySelector('[data-overeating-plan-title]');
+  const overeatingPlanEvent = document.querySelector('[data-overeating-plan-event]');
+  const overeatingPlanReason = document.querySelector('[data-overeating-plan-reason]');
+  const overeatingPlanBody = document.querySelector('[data-overeating-plan-body]');
+  const overeatingPlanNow = document.querySelector('[data-overeating-plan-now]');
+  const overeatingPlanTomorrow = document.querySelector('[data-overeating-plan-tomorrow]');
+  const overeatingPlanAvoid = document.querySelector('[data-overeating-plan-avoid]');
+  const overeatingPlanChoice = document.querySelector('[data-overeating-plan-choice]');
   const overeatingComplete = document.querySelector('[data-overeating-complete]');
   const overeatingFinal = document.querySelector('[data-overeating-final]');
+  const overeatingFinalTitle = document.querySelector('[data-overeating-final-title]');
+  const overeatingFinalType = document.querySelector('[data-overeating-final-type]');
+  const overeatingFinalReason = document.querySelector('[data-overeating-final-reason]');
+  const overeatingFinalPlan = document.querySelector('[data-overeating-final-plan]');
+  const overeatingFinalSupport = document.querySelector('[data-overeating-final-support]');
+  const overeatingFinalBalance = document.querySelector('[data-overeating-final-balance]');
+  const overeatingChecklistIntro = document.querySelector('[data-overeating-checklist-intro]');
+  const overeatingChecklistItems = [...document.querySelectorAll('[data-overeating-check]')];
+  const overeatingChecklistLabels = [...document.querySelectorAll('[data-overeating-check-label]')];
+  const overeatingFinalHint = document.querySelector('[data-overeating-final-hint]');
+  const overeatingChooseAgain = document.querySelector('[data-overeating-choose-again]');
 
-  const overeatingImpulseCopyById = {
-    'restrict-food': 'Голод завтра почти всегда запускает новый круг. Тебе нужен обычный первый прием пищи, а не наказание',
-    'train-off': 'Жесткая тренировка из чувства вины усилит напряжение. Завтра обычный день, возвращайся к привычной активности',
-    weigh: 'Вес завтра покажет задержку воды от углеводов и соли. Это не жир. Убери весы на 3 дня',
-    monday: 'Срыв — это всего лишь один прием пищи. Он не перечеркивает неделю работы. Завтра просто возвращаемся к базе',
+  const overeatingTypes = {
+    fastfood: {
+      label: 'Фастфуд или доставка',
+      title: 'Фастфуд не ломает неделю',
+      event: 'Соль, жир и плотные углеводы могут дать тяжесть, жажду и задержку воды',
+      body: 'Вес может временно подняться из-за воды и объема еды. Это не значит, что ты набрала жир за один прием',
+      now: 'Остановись на этом приеме пищи, выпей воды и дай телу спокойно переварить еду',
+      tomorrow: 'Сделай обычный завтрак с белком, добавь воду и спокойные шаги по самочувствию',
+      avoid: 'Не урезать еду, не отрабатывать тренировкой и не вставать на весы утром',
+      checklist: {
+        'scenario-one': 'Добавь 1-2 стакана воды в течение дня',
+        'scenario-two': 'Сделай спокойную прогулку без идеи отработать фастфуд',
+      },
+    },
+    sweets: {
+      label: 'Сладкое',
+      title: 'Сладкое не требует наказания',
+      event: 'Быстрые углеводы могут усилить желание продолжить, особенно если до этого был голод или запрет',
+      body: 'Может быть сонливость, жажда или скачок аппетита. Это нормальная реакция, а не провал',
+      now: 'Закрой прием пищи, убери сладкое с глаз и переключись на спокойное действие без еды',
+      tomorrow: 'Верни обычный завтрак с белком и углеводами, чтобы не запускать новую тягу',
+      avoid: 'Не запрещать углеводы, не объявлять сахар врагом и не начинать день с голода',
+      checklist: {
+        'scenario-one': 'Оставь нормальные углеводы в завтраке или обеде',
+        'scenario-two': 'Не запрещай сладкое навсегда, верни спокойный баланс',
+      },
+    },
+    night: {
+      label: 'Ночной зажор',
+      title: 'Ночной срыв чаще про усталость',
+      event: 'Ночью контроль ниже, а усталость и недоедание днем легко превращаются в сильную тягу',
+      body: 'Утром может быть отек, тяжесть и чувство вины. Телу важнее восстановление, чем разбор до трех ночи',
+      now: 'Останови анализ, почисти зубы и иди спать. Сон сейчас полезнее любых компенсаций',
+      tomorrow: 'Запланируй регулярные приемы пищи и нормальный ужин, чтобы вечер не стал экзаменом на силу воли',
+      avoid: 'Не пропускать завтрак, не ругать себя ночью и не пытаться срочно все исправить',
+      checklist: {
+        'scenario-one': 'Запланируй нормальный ужин заранее',
+        'scenario-two': 'Ляг спать раньше, если снова тянет разбирать себя ночью',
+      },
+    },
+    volume: {
+      label: 'Переела до тяжести',
+      title: 'Тяжесть пройдет без жестких мер',
+      event: 'Срыв мог быть не про конкретный продукт, а про объем: тело получило больше еды, чем комфортно',
+      body: 'Объем еды может дать растяжение, сонливость или тяжесть. Это временно и обычно проходит без вмешательства',
+      now: 'Сделай паузу, расстегни давление на живот, выпей немного воды и при желании спокойно пройдись',
+      tomorrow: 'Вернись к обычным порциям и ешь по голоду, без попытки компенсировать вчерашний объем',
+      avoid: 'Не голодать, не пить слабительные и не делать тренировку через дискомфорт',
+      checklist: {
+        'scenario-one': 'Собери обычную порцию без попытки наказать себя',
+        'scenario-two': 'Остановись на комфортной сытости, не на идеальной чистоте дня',
+      },
+    },
+    drinks: {
+      label: 'Алкоголь или сладкие напитки',
+      title: 'Напитки тоже часть рациона, но не катастрофа',
+      event: 'Алкоголь и сладкие напитки дают калории, задержку воды и часто усиливают аппетит',
+      body: 'На следующий день возможны отек, жажда, слабость и тяга к плотной еде',
+      now: 'Остановись на воде, не продолжай добирать еду по инерции и дай телу восстановиться',
+      tomorrow: 'Верни обычный режим, добавь воду, белок и мягкую активность без героизма',
+      avoid: 'Не взвешиваться, не сушиться и не ставить жесткую тренировку как наказание',
+      checklist: {
+        'scenario-one': 'Поставь воду рядом и пей небольшими порциями',
+        'scenario-two': 'Выбери мягкую активность без жесткой тренировки',
+      },
+    },
+  };
+
+  const overeatingReasons = {
+    hunger: {
+      label: 'Долго не ела',
+      copy: 'Если долго не ела, тело закономерно тянет к быстрой и плотной энергии',
+    },
+    stress: {
+      label: 'Стресс или усталость',
+      copy: 'Стресс и усталость снижают контроль, поэтому еда становится быстрым способом выдохнуть',
+    },
+    restriction: {
+      label: 'Слишком много запретов',
+      copy: 'Чем жестче запрет, тем сильнее ощущение “уже сорвалась, можно продолжать”',
+    },
+    available: {
+      label: 'Еда была под рукой',
+      copy: 'Когда еда рядом и решение не подготовлено, мозг выбирает самый легкий сценарий',
+    },
+    social: {
+      label: 'За компанию или на эмоциях',
+      copy: 'Компания и эмоции легко сдвигают фокус с голода на автоматическое продолжение',
+    },
   };
 
   const emptyOvereatingState = {
-    impulse: '',
     completed: false,
     completedDate: '',
+    expiresDate: '',
+    bingeType: '',
+    reason: '',
+    chosenPlan: '',
+    checkedItems: [],
+  };
+
+  const baseOvereatingChecklist = {
+    breakfast: 'Съесть обычный завтрак, без урезания еды',
+    water: 'Выпить воду и не пытаться сушиться',
+    protein: 'Добавить белок в 1-2 приема пищи',
+    movement: 'Сделать спокойную активность по самочувствию',
+    'no-compensation': 'Не взвешиваться и не компенсировать срыв наказанием',
   };
 
   function materialIdFromHash() {
@@ -325,7 +441,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function todayStamp() {
-    const now = new Date();
+    return dateStamp(new Date());
+  }
+
+  function tomorrowStamp() {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return dateStamp(tomorrow);
+  }
+
+  function dateStamp(date) {
+    const now = date;
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
@@ -336,15 +462,39 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const saved = JSON.parse(localStorage.getItem(overeatingProtocolKey)) || {};
       const completedDate = typeof saved.completedDate === 'string' ? saved.completedDate : '';
-      const isCompletedToday = Boolean(saved.completed) && completedDate === todayStamp();
+      const expiresDate = typeof saved.expiresDate === 'string' ? saved.expiresDate : '';
+      const bingeType = typeof saved.bingeType === 'string' ? saved.bingeType : '';
+      const reason = typeof saved.reason === 'string' ? saved.reason : '';
+      const chosenPlan = typeof saved.chosenPlan === 'string' ? saved.chosenPlan : '';
+      const checkedItems = Array.isArray(saved.checkedItems)
+        ? saved.checkedItems.filter((item) => typeof item === 'string')
+        : [];
+      const today = todayStamp();
+      const isCompletedToday = Boolean(saved.completed)
+        && Boolean(completedDate)
+        && Boolean(expiresDate)
+        && today <= expiresDate
+        && Boolean(overeatingTypes[bingeType])
+        && Boolean(overeatingReasons[reason])
+        && Boolean(chosenPlan)
+        && Array.isArray(saved.checkedItems);
+
+      if (saved.completed && !isCompletedToday) {
+        clearOvereatingState();
+      }
 
       return {
         ...emptyOvereatingState,
-        impulse: typeof saved.impulse === 'string' ? saved.impulse : '',
         completed: isCompletedToday,
         completedDate: isCompletedToday ? completedDate : '',
+        expiresDate: isCompletedToday ? expiresDate : '',
+        bingeType: isCompletedToday ? bingeType : '',
+        reason: isCompletedToday ? reason : '',
+        chosenPlan: isCompletedToday ? chosenPlan : '',
+        checkedItems: isCompletedToday ? checkedItems : [],
       };
     } catch {
+      clearOvereatingState();
       return { ...emptyOvereatingState };
     }
   }
@@ -352,6 +502,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function writeOvereatingState(state) {
     try {
       localStorage.setItem(overeatingProtocolKey, JSON.stringify(state));
+    } catch {
+      // The protocol still works without persistence if storage is blocked.
+    }
+  }
+
+  function clearOvereatingState() {
+    try {
+      localStorage.removeItem(overeatingProtocolKey);
     } catch {
       // The protocol still works without persistence if storage is blocked.
     }
@@ -375,24 +533,99 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function activeOvereatingPlan(state) {
+    const type = overeatingTypes[state.bingeType];
+    const reason = overeatingReasons[state.reason];
+    if (!type || !reason) return null;
+
+    return {
+      typeLabel: type.label,
+      reasonLabel: reason.label,
+      title: type.title,
+      event: type.event,
+      reason: reason.copy,
+      body: type.body,
+      now: type.now,
+      tomorrow: type.tomorrow,
+      avoid: type.avoid,
+      checklist: {
+        ...baseOvereatingChecklist,
+        ...type.checklist,
+      },
+      summary: `${type.label}: ${type.tomorrow}. ${type.avoid}`,
+    };
+  }
+
+  function renderOvereatingChoiceTrail(target, plan) {
+    if (!target) return;
+    target.textContent = '';
+    target.innerHTML = '';
+    if (!plan) return;
+
+    target.textContent = `Твой выбор ${plan.typeLabel} ${plan.reasonLabel}`;
+    target.innerHTML = `
+      <span>Твой выбор</span>
+      <strong>${plan.typeLabel}</strong>
+      <strong>${plan.reasonLabel}</strong>
+    `;
+  }
+
+  function renderOvereatingChecklist(state, plan) {
+    const checkedItems = new Set(state.checkedItems || []);
+    overeatingChecklistItems.forEach((item) => {
+      const id = item.dataset.overeatingCheck;
+      const text = plan?.checklist?.[id] || '';
+      item.checked = checkedItems.has(id);
+      item.textContent = text;
+      item.hidden = !text;
+    });
+
+    overeatingChecklistLabels.forEach((label) => {
+      const id = label.dataset.overeatingCheckLabel;
+      label.textContent = plan?.checklist?.[id] || '';
+    });
+  }
+
   function renderOvereatingProtocol(state) {
-    const solutionCopy = overeatingImpulseCopyById[state.impulse] || '';
+    const plan = activeOvereatingPlan(state);
+    const solutionCopy = state.chosenPlan || plan?.summary || '';
     const isComplete = Boolean(state.completed);
+    const activeScreen = isComplete ? 'complete' : plan ? 'plan' : state.bingeType ? 'reason' : 'start';
 
     overeatingProtocol?.classList.toggle('is-complete', isComplete);
-    overeatingProtocol?.setAttribute('data-overeating-state', isComplete ? 'complete' : state.impulse ? 'solution' : 'start');
+    overeatingProtocol?.setAttribute('data-overeating-state', activeScreen);
 
     if (overeatingFlow) overeatingFlow.hidden = isComplete;
     if (overeatingFinal) overeatingFinal.hidden = !isComplete;
+    if (overeatingFinalTitle) overeatingFinalTitle.textContent = 'План на завтра зафиксирован';
+    if (overeatingFinalType) overeatingFinalType.textContent = plan?.typeLabel || overeatingTypes[state.bingeType]?.label || '';
+    if (overeatingFinalReason) overeatingFinalReason.textContent = plan?.reasonLabel || overeatingReasons[state.reason]?.label || '';
+    if (overeatingFinalPlan) overeatingFinalPlan.textContent = solutionCopy;
+    if (overeatingFinalSupport) overeatingFinalSupport.textContent = 'Один срыв не перечеркивает прогресс. Ты не виновата, тебе нужно вернуться к заботе, а не к наказанию';
+    if (overeatingFinalBalance) overeatingFinalBalance.textContent = 'Держим баланс 80/20: 80% база и режим, 20% гибкость без чувства вины';
+    if (overeatingChecklistIntro) overeatingChecklistIntro.textContent = 'Чек-лист заботы на завтра';
+    if (overeatingFinalHint) overeatingFinalHint.textContent = 'План будет доступен до конца завтрашнего дня';
+    if (overeatingTypeContext) overeatingTypeContext.textContent = overeatingTypes[state.bingeType]?.label || '';
+    renderOvereatingChoiceTrail(overeatingPlanChoice, plan);
+    if (overeatingPlanTitle) overeatingPlanTitle.textContent = plan?.title || '';
+    if (overeatingPlanEvent) overeatingPlanEvent.textContent = plan?.event || '';
+    if (overeatingPlanReason) overeatingPlanReason.textContent = plan?.reason || '';
+    if (overeatingPlanBody) overeatingPlanBody.textContent = plan?.body || '';
+    if (overeatingPlanNow) overeatingPlanNow.textContent = plan?.now || '';
+    if (overeatingPlanTomorrow) overeatingPlanTomorrow.textContent = plan?.tomorrow || '';
+    if (overeatingPlanAvoid) overeatingPlanAvoid.textContent = plan?.avoid || '';
+    renderOvereatingChecklist(state, plan);
 
-    overeatingImpulseButtons.forEach((button) => {
-      button.classList.toggle('is-active', button.dataset.overeatingImpulse === state.impulse);
+    overeatingTypeButtons.forEach((button) => {
+      button.classList.toggle('is-active', button.dataset.overeatingType === state.bingeType);
     });
 
-    if (overeatingSolution) overeatingSolution.textContent = solutionCopy;
+    overeatingReasonButtons.forEach((button) => {
+      button.classList.toggle('is-active', button.dataset.overeatingReason === state.reason);
+    });
 
     if (isComplete) return;
-    setOvereatingScreen(state.impulse ? 'solution' : 'start');
+    setOvereatingScreen(plan ? 'plan' : state.bingeType ? 'reason' : 'start');
   }
 
   if (overeatingProtocol) {
@@ -402,29 +635,72 @@ document.addEventListener('DOMContentLoaded', () => {
     overeatingStart?.addEventListener('click', () => {
       overeatingState = { ...emptyOvereatingState };
       renderOvereatingProtocol(overeatingState);
-      setOvereatingScreen('impulse');
-      overeatingProtocol.setAttribute('data-overeating-state', 'impulse');
+      setOvereatingScreen('type');
+      overeatingProtocol.setAttribute('data-overeating-state', 'type');
     });
 
-    overeatingImpulseButtons.forEach((button) => {
+    overeatingTypeButtons.forEach((button) => {
       button.addEventListener('click', () => {
         overeatingState = {
           ...emptyOvereatingState,
-          impulse: button.dataset.overeatingImpulse || '',
+          bingeType: button.dataset.overeatingType || '',
         };
-        writeOvereatingState(overeatingState);
+        renderOvereatingProtocol(overeatingState);
+      });
+    });
+
+    overeatingReasonButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        overeatingState = {
+          ...overeatingState,
+          reason: button.dataset.overeatingReason || '',
+        };
         renderOvereatingProtocol(overeatingState);
       });
     });
 
     overeatingComplete?.addEventListener('click', () => {
+      const plan = activeOvereatingPlan(overeatingState);
+      if (!plan) return;
+
       overeatingState = {
-        impulse: overeatingState.impulse,
         completed: true,
         completedDate: todayStamp(),
+        expiresDate: tomorrowStamp(),
+        bingeType: overeatingState.bingeType,
+        reason: overeatingState.reason,
+        chosenPlan: plan.summary,
+        checkedItems: [],
       };
       writeOvereatingState(overeatingState);
       renderOvereatingProtocol(overeatingState);
+    });
+
+    overeatingChooseAgain?.addEventListener('click', () => {
+      overeatingState = { ...emptyOvereatingState };
+      clearOvereatingState();
+      renderOvereatingProtocol(overeatingState);
+    });
+
+    overeatingChecklistItems.forEach((item) => {
+      item.addEventListener('change', (event) => {
+        const id = event.target?.dataset?.overeatingCheck || item.dataset.overeatingCheck;
+        if (!id) return;
+
+        const checkedItems = new Set(overeatingState.checkedItems || []);
+        if (event.target?.checked ?? item.checked) {
+          checkedItems.add(id);
+        } else {
+          checkedItems.delete(id);
+        }
+
+        overeatingState = {
+          ...overeatingState,
+          checkedItems: [...checkedItems],
+        };
+        writeOvereatingState(overeatingState);
+        renderOvereatingProtocol(overeatingState);
+      });
     });
   }
 
