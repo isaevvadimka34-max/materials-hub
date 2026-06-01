@@ -227,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const library = document.querySelector('[data-material-library]');
   const reader = document.querySelector('[data-material-reader]');
   const materialTitle = document.querySelector('[data-material-title]');
+  const backTop = document.querySelector('.back-top');
   const materialCards = [...document.querySelectorAll('[data-material-card]')];
   const materialPanels = [...document.querySelectorAll('[data-material-panel]')];
   const overeatingProtocolKey = 'ggc_material_overeating_cycle';
@@ -429,6 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function showLibrary() {
     library?.removeAttribute('hidden');
     if (reader) reader.hidden = true;
+    backTop?.setAttribute('href', '#top');
     materialCards.forEach((card) => card.classList.remove('is-active'));
     materialPanels.forEach((panel) => {
       panel.hidden = true;
@@ -456,6 +458,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (materialTitle) {
       materialTitle.textContent = activePanel.dataset.title || '';
     }
+
+    backTop?.setAttribute('href', `#${id}`);
 
     if (shouldScroll && reader?.scrollIntoView) {
       reader.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
@@ -485,6 +489,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       showLibrary();
       library?.scrollIntoView?.({ behavior: scrollBehavior(), block: 'start' });
+    });
+
+    backTop?.addEventListener('click', (event) => {
+      event.preventDefault();
+      const activePanel = materialPanels.find((panel) => !panel.hidden);
+      const target = activePanel || document.querySelector('#top');
+      target?.scrollIntoView?.({ behavior: scrollBehavior(), block: 'start' });
     });
   }
 

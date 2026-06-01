@@ -420,6 +420,10 @@ assert.match(css, /#overeating-cycle\s+\.material-panel__head[\s\S]*text-align:\
 assert.match(css, /\.overeating-disclosures[\s\S]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/, 'cycle disclosure cards should use two columns on desktop');
 assert.match(css, /@media \(max-width:\s*980px\)[\s\S]*\.overeating-disclosures[\s\S]*grid-template-columns:\s*1fr/, 'cycle disclosure cards should collapse to one column on tablet and mobile');
 assert.match(css, /@media \(max-width:\s*640px\)[\s\S]*#overeating-cycle\s+\.material-panel__head[\s\S]*text-align:\s*left/, 'cycle material head should return to left alignment on mobile');
+assert.match(css, /\.overeating-disclosure--interactive\[open\][\s\S]*justify-self:\s*center/, 'cycle interactive disclosure should center when open on desktop');
+assert.match(css, /\.overeating-disclosure--interactive\[open\][\s\S]*max-width:\s*900px/, 'cycle interactive disclosure should keep a readable desktop width when open');
+assert.match(nutritionJs, /backTop\?\.addEventListener\('click'/, 'back top control should use JS instead of hash navigation');
+assert.match(nutritionJs, /event\.preventDefault\(\)/, 'back top control should not trigger hashchange to the library');
 assert.match(css, /@media \(max-width:\s*640px\)[\s\S]*\.hub-lead[\s\S]*max-width:\s*100%/, 'materials hero lead should stay inside the mobile viewport');
 assert.match(css, /@media \(max-width:\s*640px\)[\s\S]*\.material-reader__bar[\s\S]*grid-template-columns:\s*1fr/, 'material reader bar should stack inside the mobile viewport');
 assert.match(nutritionHtml, /Когда это нормально/, 'swelling material should include normal swelling context');
@@ -704,6 +708,9 @@ assert.match(css, /margin-left:\s*auto;[\s\S]*margin-right:\s*auto;/, 'hero titl
 assert.match(css, /nutrition-scanner/, 'shared CSS should style the premium food scanner');
 assert.match(css, /materials-library/, 'shared CSS should style the materials library');
 assert.match(css, /material-panel/, 'shared CSS should style active material panels');
+assert.match(nutritionHtml, /Назад к материалам/, 'material back action should use a clearer back label');
+assert.match(css, /\.material-reader__back[\s\S]*background:\s*var\(--dusty-rose\)/, 'material back action should use a rose pill');
+assert.match(css, /@media \(max-width:\s*640px\)[\s\S]*\.material-reader__back span:last-child[\s\S]*text-overflow:\s*ellipsis/, 'material back action should compact on mobile');
 assert.ok(!fs.existsSync(path.join(root, 'free-mini.html')), 'mini collection should be removed from the main project');
 
 console.log('material guide checks passed');
