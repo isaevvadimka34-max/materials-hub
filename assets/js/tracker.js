@@ -1,170 +1,134 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const storageKey = 'ggc-tracker-rhythm-v1';
-  const rhythmStatuses = ['full', 'minimum', 'recovery'];
-
-  const focusMeta = {
-    workout: {
-      label: 'Тренировка',
-      title: 'Тренировка «Ноги и ягодицы»',
-      full: '35 минут',
-      minimum: '10 минут разминки или 15 минут прогулки',
-    },
-    activity: {
-      label: 'Активность',
-      title: 'Прогулка или легкая активность',
-      full: '30 минут движения',
-      minimum: '10 минут спокойной ходьбы',
-    },
-    recovery: {
-      label: 'Восстановление',
-      title: 'День восстановления',
-      full: 'Сон, мягкая растяжка и спокойный режим',
-      minimum: 'Лечь раньше или сделать 5 минут разгрузки',
-    },
-    nutrition: {
-      label: 'Питание',
-      title: 'Спокойная база по питанию',
-      full: 'Белок и нормальные приемы пищи',
-      minimum: 'Один понятный прием пищи без наказания',
-    },
-    selfcare: {
-      label: 'Забота',
-      title: 'Забота о себе',
-      full: '30 минут без спешки для себя',
-      minimum: '5 минут паузы, душ или короткая прогулка',
-    },
-  };
-
-  const statusMeta = {
-    full: {
-      label: 'Полный шаг',
-      short: 'Полностью',
-      copy: 'Отлично. Полный шаг засчитан, но не превращаем его в новую планку обязательности.',
-    },
-    minimum: {
-      label: 'Минимум',
-      short: 'Минимум',
-      copy: 'Минимум дня засчитан. Это не провал, а способ остаться в процессе в сложный день.',
-    },
-    recovery: {
-      label: 'Восстановление',
-      short: 'Восстановление',
-      copy: 'Восстановление отмечено. Хороший ритм — это чередовать нагрузку и заботу о теле.',
-    },
-    skipped: {
-      label: 'Пропуск',
-      short: 'Пропуск',
-      copy: 'Ок, день не потерян. Отметь, что помешало, и выбери мягкий шаг на завтра.',
-    },
-    empty: {
-      label: 'План',
-      short: 'План',
-      copy: 'День еще не отмечен. Можно начать с минимума дня.',
-    },
-  };
-
-  const skipReasonMeta = {
-    time: {
-      label: 'Не было времени',
-      copy: 'Главный барьер — время. На завтра лучше поставить короткий вариант: 10–15 минут.',
-    },
-    tired: {
-      label: 'Устала',
-      copy: 'Похоже, телу нужен более мягкий вход. Завтра выбери минимум дня или короткую тренировку без перегруза.',
-    },
-    health: {
-      label: 'Плохо себя чувствовала',
-      copy: 'Самочувствие важнее плана. Возвращайся через восстановление или самый маленький шаг.',
-    },
-    mood: {
-      label: 'Не было настроя',
-      copy: 'Настрой не обязан быть идеальным. Поможет действие на 5–10 минут без давления.',
-    },
-    forgot: {
-      label: 'Забыла',
-      copy: 'Так бывает. Поставь один видимый ориентир на завтра и начни с минимума.',
-    },
-    other: {
-      label: 'Другое',
-      copy: 'Не нужно догонять. Достаточно вернуться через один реалистичный шаг.',
-    },
-  };
-
-  const progressLabels = {
-    endurance: 'Больше выносливости',
-    better_sleep: 'Лучше сон',
-    more_energy: 'Больше энергии',
-    less_swelling: 'Меньше отеков',
-    more_regular: 'Стала регулярнее',
-    returned_after_skip: 'Вернулась после пропуска',
-  };
-
-  const dayTemplates = [
-    { id: 'mon', dayLabel: 'Пн', date: '1', focus: 'workout', status: 'empty', skipReason: null, note: '' },
-    { id: 'tue', dayLabel: 'Вт', date: '2', focus: 'activity', status: 'minimum', skipReason: null, note: 'Сделала короткую прогулку.' },
-    { id: 'wed', dayLabel: 'Ср', date: '3', focus: 'recovery', status: 'recovery', skipReason: null, note: '' },
-    { id: 'thu', dayLabel: 'Чт', date: '4', focus: 'nutrition', status: 'skipped', skipReason: 'tired', note: '' },
-    { id: 'fri', dayLabel: 'Пт', date: '5', focus: 'workout', status: 'full', skipReason: null, note: 'Вернулась после паузы.' },
-    { id: 'sat', dayLabel: 'Сб', date: '6', focus: 'activity', status: 'empty', skipReason: null, note: '' },
-    { id: 'sun', dayLabel: 'Вс', date: '7', focus: 'selfcare', status: 'empty', skipReason: null, note: '' },
+  const storageKey = 'ggc-tracker-program-v1';
+  const workoutsPerWeek = 3;
+  const weeksPerCycle = 6;
+  const progressTags = [
+    { id: 'easier_start', title: 'Легче начать тренировку' },
+    { id: 'endurance', title: 'Больше выносливости' },
+    { id: 'core_feel', title: 'Лучше чувствую мышцы кора' },
+    { id: 'posture', title: 'Легче держать осанку' },
+    { id: 'back_relief', title: 'Меньше напряжения в спине' },
+    { id: 'breathing', title: 'Лучше дыхание' },
+    { id: 'pelvic_control', title: 'Лучше контроль тазового дна' },
+    { id: 'regularity', title: 'Больше регулярности' },
+    { id: 'returned', title: 'Вернулась после паузы' },
+    { id: 'self_kindness', title: 'Стала мягче к себе' },
+  ];
+  const complexTemplates = [
+    { key: 'posture', title: 'Осанка', fullTitle: 'Комплекс на осанку' },
+    { key: 'pelvic-floor', title: 'Тазовое дно', fullTitle: 'Комплекс на тазовое дно' },
+    { key: 'core', title: 'Кор', fullTitle: 'Комплекс на мышцы кора' },
+    { key: 'breathing', title: 'Дыхание', fullTitle: 'Дыхательная практика' },
   ];
 
   const els = {
-    weekGoal: document.querySelector('[data-tracker-week-goal]'),
-    weekSummary: document.querySelector('[data-tracker-week-summary]'),
-    today: document.querySelector('[data-tracker-today]'),
-    todayFocus: document.querySelector('[data-tracker-today-focus]'),
-    focusTitle: document.querySelector('[data-tracker-focus-title]'),
-    focusFull: document.querySelector('[data-tracker-focus-full]'),
-    focusMinimum: document.querySelector('[data-tracker-focus-minimum]'),
-    statusButtons: [...document.querySelectorAll('[data-tracker-status]')],
-    skipReasons: document.querySelector('[data-tracker-skip-reasons]'),
-    skipReasonButtons: [...document.querySelectorAll('[data-tracker-skip-reason]')],
-    dayNote: document.querySelector('[data-tracker-day-note]'),
-    weekGrid: document.querySelector('[data-tracker-week-grid]'),
-    recommendation: document.querySelector('[data-tracker-recommendation]'),
-    barriers: document.querySelector('[data-tracker-barriers]'),
-    weeklyProgress: document.querySelector('[data-tracker-weekly-progress]'),
-    weekResult: document.querySelector('[data-tracker-week-result]'),
-    nextStep: document.querySelector('[data-tracker-next-step]'),
+    cycleButtons: [...document.querySelectorAll('[data-tracker-cycle]')],
+    cycleSummary: document.querySelector('[data-tracker-cycle-summary]'),
+    metrics: [...document.querySelectorAll('[data-tracker-metric]')],
+    map: document.querySelector('[data-tracker-program-map]'),
+    detail: document.querySelector('[data-tracker-week-detail]'),
+    progressTags: document.querySelector('[data-tracker-progress-tags]'),
+    diaryFields: [...document.querySelectorAll('[data-tracker-diary-field]')],
     reset: document.querySelector('[data-tracker-reset]'),
   };
 
-  function cloneDay(day) {
+  function createWeek(cycleId, weekNumber) {
+    const firstWorkoutNumber = (weekNumber - 1) * workoutsPerWeek + 1;
     return {
-      status: day.status,
-      focus: day.focus,
-      skipReason: day.skipReason,
-      note: day.note,
+      id: weekNumber,
+      title: `Неделя ${weekNumber}`,
+      workouts: Array.from({ length: workoutsPerWeek }, (_, index) => {
+        const number = firstWorkoutNumber + index;
+        return {
+          id: `m${cycleId}-w${weekNumber}-t${index + 1}`,
+          title: `Тренировка ${number}`,
+          completed: false,
+        };
+      }),
+      complexes: complexTemplates.map((complex) => ({
+        id: `m${cycleId}-w${weekNumber}-${complex.key}`,
+        title: complex.title,
+        fullTitle: complex.fullTitle,
+        completed: false,
+      })),
+      note: '',
+      win: '',
+      diaryWorked: '',
+      diaryHard: '',
+      diaryNext: '',
+      progressTags: [],
     };
   }
 
   function getDefaultState() {
     return {
-      weekGoal: '3 тренировки · 2 мягких дня · 1 день восстановления',
-      weekFocus: 'регулярность',
-      days: Object.fromEntries(dayTemplates.map((day) => [day.id, cloneDay(day)])),
-      weeklyNonWeightProgress: [],
+      activeCycle: 1,
+      selectedWeeks: { 1: 1, 2: 1 },
+      cycles: [1, 2].map((cycleId) => ({
+        id: cycleId,
+        title: `Мезоцикл ${cycleId}`,
+        weeks: Array.from({ length: weeksPerCycle }, (_, index) => createWeek(cycleId, index + 1)),
+      })),
     };
+  }
+
+  function mergeWeek(defaultWeek, savedWeek = {}) {
+    const mergeItems = (defaultItems, savedItems = []) => defaultItems.map((item) => {
+      const savedItem = savedItems.find((candidate) => candidate?.id === item.id);
+      return { ...item, completed: Boolean(savedItem?.completed) };
+    });
+
+    return {
+      ...defaultWeek,
+      workouts: mergeItems(defaultWeek.workouts, savedWeek.workouts),
+      complexes: mergeItems(defaultWeek.complexes, savedWeek.complexes),
+      note: typeof savedWeek.note === 'string' ? savedWeek.note : '',
+      win: typeof savedWeek.win === 'string' ? savedWeek.win : '',
+      diaryWorked: typeof savedWeek.diaryWorked === 'string' ? savedWeek.diaryWorked : '',
+      diaryHard: typeof savedWeek.diaryHard === 'string' ? savedWeek.diaryHard : '',
+      diaryNext: typeof savedWeek.diaryNext === 'string' ? savedWeek.diaryNext : '',
+      progressTags: Array.isArray(savedWeek.progressTags)
+        ? savedWeek.progressTags.filter((tag) => progressTags.some((item) => item.id === tag))
+        : [],
+    };
+  }
+
+  function normalizeState(saved) {
+    const defaults = getDefaultState();
+    const activeCycle = [1, 2].includes(Number(saved?.activeCycle)) ? Number(saved.activeCycle) : defaults.activeCycle;
+    const selectedWeeks = {
+      1: clampWeek(saved?.selectedWeeks?.[1] || saved?.selectedWeekId || defaults.selectedWeeks[1]),
+      2: clampWeek(saved?.selectedWeeks?.[2] || defaults.selectedWeeks[2]),
+    };
+
+    return {
+      activeCycle,
+      selectedWeeks,
+      cycles: defaults.cycles.map((cycle) => {
+        const savedCycle = Array.isArray(saved?.cycles)
+          ? saved.cycles.find((candidate) => Number(candidate?.id) === cycle.id)
+          : null;
+        return {
+          ...cycle,
+          weeks: cycle.weeks.map((week) => {
+            const savedWeek = savedCycle?.weeks?.find((candidate) => Number(candidate?.id) === week.id);
+            return mergeWeek(week, savedWeek);
+          }),
+        };
+      }),
+    };
+  }
+
+  function clampWeek(value) {
+    const week = Number(value);
+    return week >= 1 && week <= weeksPerCycle ? week : 1;
   }
 
   function readState() {
     try {
-      const saved = JSON.parse(localStorage.getItem(storageKey)) || {};
-      const defaults = getDefaultState();
-      return {
-        ...defaults,
-        ...saved,
-        days: {
-          ...defaults.days,
-          ...(saved.days || {}),
-        },
-        weeklyNonWeightProgress: Array.isArray(saved.weeklyNonWeightProgress)
-          ? saved.weeklyNonWeightProgress
-          : [],
-      };
+      return normalizeState(JSON.parse(localStorage.getItem(storageKey)) || {});
     } catch {
       return getDefaultState();
     }
@@ -174,250 +138,336 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(storageKey, JSON.stringify(next));
   }
 
-  function getTodayId() {
-    return dayTemplates[(new Date().getDay() + 6) % 7].id;
+  function getActiveCycle(state) {
+    return state.cycles.find((cycle) => cycle.id === state.activeCycle) || state.cycles[0];
   }
 
-  function getDayState(state, dayId) {
-    return state.days?.[dayId] || cloneDay(dayTemplates.find((day) => day.id === dayId));
+  function getSelectedWeek(state) {
+    const cycle = getActiveCycle(state);
+    const selectedWeek = state.selectedWeeks?.[cycle.id] || 1;
+    return cycle.weeks.find((week) => week.id === selectedWeek) || cycle.weeks[0];
   }
 
-  function getDayList(state) {
-    return dayTemplates.map((day) => ({
-      ...day,
-      ...getDayState(state, day.id),
-    }));
+  function isWeekStarted(week) {
+    return [...week.workouts, ...week.complexes].some((item) => item.completed);
   }
 
-  function analyzeWeek(state) {
-    const days = getDayList(state);
-    const rhythmDays = days.filter((day) => rhythmStatuses.includes(day.status)).length;
-    const skippedDays = days.filter((day) => day.status === 'skipped').length;
-    const hasConsecutiveSkips = days.some((day, index) => (
-      day.status === 'skipped' && days[index - 1]?.status === 'skipped'
-    ));
-    const returnedAfterSkip = days.some((day, index) => (
-      ['full', 'minimum'].includes(day.status) && days[index - 1]?.status === 'skipped'
-    ));
-    const reasons = days
-      .filter((day) => day.status === 'skipped' && skipReasonMeta[day.skipReason])
-      .map((day) => day.skipReason);
-    const topReason = reasons
-      .sort((a, b) => reasons.filter((reason) => reason === b).length - reasons.filter((reason) => reason === a).length)[0] || '';
-
-    return { days, rhythmDays, skippedDays, hasConsecutiveSkips, returnedAfterSkip, topReason };
+  function isWeekCompleted(week) {
+    return week.workouts.every((workout) => workout.completed);
   }
 
-  function buildRecommendation(state) {
-    const today = getDayState(state, getTodayId());
-    const metrics = analyzeWeek(state);
-
-    if (today.status === 'skipped' && today.skipReason) {
-      return skipReasonMeta[today.skipReason]?.copy || statusMeta.skipped.copy;
-    }
-
-    if (today.status === 'skipped') {
-      return statusMeta.skipped.copy;
-    }
-
-    if (metrics.hasConsecutiveSkips) {
-      return 'Пауза затянулась, но это не откат. Следующий лучший шаг — минимум дня.';
-    }
-
-    if (metrics.returnedAfterSkip) {
-      return 'Ты вернулась после паузы. Это важный прогресс, даже если шаг был небольшим.';
-    }
-
-    if (metrics.skippedDays >= 2) {
-      return 'Неделя получилась неровной. Выбери минимум дня, чтобы мягко вернуться.';
-    }
-
-    if (metrics.rhythmDays >= 4) {
-      return 'Ты в ритме. Неделя идет устойчиво.';
-    }
-
-    return statusMeta[today.status]?.copy || 'Выбери статус дня — и трекер подскажет следующий спокойный шаг.';
+  function hasWeekNote(week) {
+    return Boolean(
+      week.note.trim()
+      || week.win.trim()
+      || week.diaryWorked.trim()
+      || week.diaryHard.trim()
+      || week.diaryNext.trim()
+      || week.progressTags.length,
+    );
   }
 
-  function renderToday(state) {
-    const todayId = getTodayId();
-    const today = getDayState(state, todayId);
-    const focus = focusMeta[today.focus] || focusMeta.workout;
+  function analyzeCycle(cycle) {
+    const workoutsDone = cycle.weeks.flatMap((week) => week.workouts).filter((workout) => workout.completed).length;
+    const workoutsTotal = cycle.weeks.length * workoutsPerWeek;
+    const startedWeeks = cycle.weeks.filter(isWeekStarted).length;
+    const completedWeeks = cycle.weeks.filter(isWeekCompleted).length;
+    const complexesDone = cycle.weeks.flatMap((week) => week.complexes).filter((complex) => complex.completed).length;
+    const notesCount = cycle.weeks.filter(hasWeekNote).length;
 
-    if (els.todayFocus) els.todayFocus.textContent = focus.label;
-    if (els.focusTitle) els.focusTitle.textContent = focus.title;
-    if (els.focusFull) els.focusFull.textContent = focus.full;
-    if (els.focusMinimum) els.focusMinimum.textContent = focus.minimum;
-    if (els.dayNote) els.dayNote.value = today.note || '';
+    return { workoutsDone, workoutsTotal, startedWeeks, completedWeeks, complexesDone, notesCount };
+  }
 
-    els.statusButtons.forEach((button) => {
-      const isActive = button.dataset.trackerStatus === today.status;
+  function updateState(updater) {
+    const next = updater(readState());
+    writeState(next);
+    render(next);
+  }
+
+  function saveState(updater) {
+    const next = updater(readState());
+    writeState(next);
+    renderMetrics(getActiveCycle(next));
+  }
+
+  function updateSelectedWeek(state, updater) {
+    const cycleId = state.activeCycle;
+    const weekId = state.selectedWeeks?.[cycleId] || 1;
+    return {
+      ...state,
+      cycles: state.cycles.map((cycle) => {
+        if (cycle.id !== cycleId) return cycle;
+        return {
+          ...cycle,
+          weeks: cycle.weeks.map((week) => (week.id === weekId ? updater(week) : week)),
+        };
+      }),
+    };
+  }
+
+  function updateWeekById(state, weekId, updater) {
+    const cycleId = state.activeCycle;
+    return {
+      ...state,
+      cycles: state.cycles.map((cycle) => {
+        if (cycle.id !== cycleId) return cycle;
+        return {
+          ...cycle,
+          weeks: cycle.weeks.map((week) => (week.id === weekId ? updater(week) : week)),
+        };
+      }),
+    };
+  }
+
+  function toggleItem(week, itemId, type) {
+    return {
+      ...week,
+      [type]: week[type].map((item) => (
+        item.id === itemId ? { ...item, completed: !item.completed } : item
+      )),
+    };
+  }
+
+  function renderMetrics(cycle) {
+    const metrics = analyzeCycle(cycle);
+    const copy = {
+      workouts: [`${metrics.workoutsDone}/${metrics.workoutsTotal}`, 'Основная линия программы'],
+      weeks: [`${metrics.completedWeeks}/${cycle.weeks.length}`, `${metrics.startedWeeks} недель начато`],
+      complexes: [String(metrics.complexesDone), 'Дополнительные практики'],
+      notes: [String(metrics.notesCount), 'Заметки прогресса'],
+    };
+
+    els.metrics.forEach((card) => {
+      const metric = copy[card.dataset.trackerMetric];
+      if (!metric) return;
+      card.querySelector('strong').textContent = metric[0];
+      card.querySelector('p').textContent = metric[1];
+    });
+
+    if (els.cycleSummary) {
+      els.cycleSummary.textContent = '6 недель · 18 тренировок · поддерживающие комплексы';
+    }
+  }
+
+  function renderCycleButtons(state) {
+    els.cycleButtons.forEach((button) => {
+      const isActive = Number(button.dataset.trackerCycle) === state.activeCycle;
       button.classList.toggle('is-active', isActive);
       button.setAttribute('aria-pressed', String(isActive));
     });
-
-    if (els.skipReasons) {
-      els.skipReasons.hidden = today.status !== 'skipped';
-    }
-
-    els.skipReasonButtons.forEach((button) => {
-      const isActive = button.dataset.trackerSkipReason === today.skipReason;
-      button.classList.toggle('is-active', isActive);
-      button.setAttribute('aria-pressed', String(isActive));
-    });
   }
 
-  function renderWeekGrid(state) {
-    if (!els.weekGrid) return;
+  function renderProgramMap(state) {
+    if (!els.map) return;
 
-    const todayId = getTodayId();
-    const days = getDayList(state);
-    els.weekGrid.replaceChildren();
+    const cycle = getActiveCycle(state);
+    const selectedWeek = getSelectedWeek(state);
+    els.map.replaceChildren();
 
-    days.forEach((day) => {
-      const status = statusMeta[day.status] || statusMeta.empty;
-      const focus = focusMeta[day.focus] || focusMeta.workout;
+    cycle.weeks.forEach((week) => {
+      const workoutsDone = week.workouts.filter((workout) => workout.completed).length;
+      const complexesDone = week.complexes.filter((complex) => complex.completed).length;
       const card = document.createElement('article');
-      card.className = 'tracker-day tracker-day--' + day.status;
-      if (day.id === todayId) card.classList.add('is-today');
+      card.className = 'tracker-week-card';
+      card.classList.toggle('is-selected', week.id === selectedWeek.id);
+      card.classList.toggle('is-complete', isWeekCompleted(week));
+      card.dataset.trackerWeekCard = String(week.id);
 
-      const head = document.createElement('div');
-      head.className = 'tracker-day__head';
+      card.innerHTML = `
+        <button class="tracker-week-card__select" type="button" data-week-select="${week.id}">
+          <span>${week.title}</span>
+          <strong>${workoutsDone}/3</strong>
+        </button>
+        <p>Основная линия недели</p>
+        <div class="tracker-mini-list tracker-mini-list--workouts">
+          ${week.workouts.map((workout) => renderMiniItem(workout, 'workout', week.id)).join('')}
+        </div>
+        <div class="tracker-mini-practices">
+          <span>Поддерживающие практики</span>
+          <strong>${complexesDone}/${week.complexes.length}</strong>
+        </div>
+        <div class="tracker-mini-list tracker-mini-list--complexes">
+          ${week.complexes.map((complex) => renderMiniItem(complex, 'complex', week.id)).join('')}
+        </div>
+      `;
 
-      const title = document.createElement('h3');
-      title.textContent = day.id === todayId ? day.dayLabel + ' · сегодня' : day.dayLabel;
-
-      const date = document.createElement('span');
-      date.textContent = day.date;
-      head.append(title, date);
-
-      const badge = document.createElement('strong');
-      badge.textContent = status.short;
-
-      const copy = document.createElement('p');
-      copy.textContent = day.status === 'skipped' && day.skipReason
-        ? (skipReasonMeta[day.skipReason]?.label || status.short)
-        : focus.label;
-
-      card.append(head, badge, copy);
-      els.weekGrid.append(card);
+      els.map.append(card);
     });
   }
 
-  function renderInsights(state) {
-    const metrics = analyzeWeek(state);
-    const progress = state.weeklyNonWeightProgress || [];
+  function renderMiniItem(item, type, weekId) {
+    const attr = type === 'workout' ? 'data-tracker-workout' : 'data-tracker-complex';
+    return `
+      <button class="tracker-mini-check ${item.completed ? 'is-complete' : ''}" type="button" ${attr}="${item.id}" data-week-id="${weekId}" aria-pressed="${String(item.completed)}">
+        <span></span>${item.title}
+      </button>
+    `;
+  }
 
-    if (els.weekSummary) {
-      els.weekSummary.textContent = 'В ритме: ' + metrics.rhythmDays + ' из 7 дней';
-    }
+  function renderWeekDetail(state) {
+    if (!els.detail) return;
 
-    if (els.recommendation) {
-      els.recommendation.textContent = buildRecommendation(state);
-    }
+    const week = getSelectedWeek(state);
+    els.detail.innerHTML = `
+      <div class="tracker-section-head tracker-section-head--split">
+        <div>
+          <span class="guide-kicker">Детальная карточка</span>
+          <h2>${week.title}</h2>
+        </div>
+        <p>Комплексы не блокируют завершение недели. Они помогают усилить результат, но не превращают неделю в провал.</p>
+      </div>
+      <div class="tracker-detail-grid">
+        <section class="tracker-detail-block tracker-detail-block--primary">
+          <span class="guide-kicker">Основные тренировки</span>
+          <h3>3 тренировки — главная линия недели.</h3>
+          <div class="tracker-check-list">
+            ${week.workouts.map((workout) => renderDetailItem(workout, 'workout')).join('')}
+          </div>
+        </section>
+        <section class="tracker-detail-block tracker-detail-block--support">
+          <span class="guide-kicker">Поддерживающие практики</span>
+          <h3>Можно делать отдельно от тренировок, в удобный день.</h3>
+          <div class="tracker-check-list tracker-check-list--soft">
+            ${week.complexes.map((complex) => renderDetailItem(complex, 'complex')).join('')}
+          </div>
+        </section>
+      </div>
+      <div class="tracker-week-notes">
+        <label class="tracker-field">
+          <span>Заметка недели</span>
+          <textarea data-tracker-week-note rows="4" placeholder="Что заметила в теле, настроении или регулярности?">${escapeHtml(week.note)}</textarea>
+        </label>
+        <label class="tracker-field">
+          <span>Маленькая победа недели</span>
+          <textarea data-tracker-week-win rows="4" placeholder="Например: прошла 2 тренировки, вернулась после паузы, стало легче держать осанку">${escapeHtml(week.win)}</textarea>
+        </label>
+      </div>
+    `;
+  }
 
-    if (els.barriers) {
-      els.barriers.textContent = metrics.topReason
-        ? 'Чаще всего мешало: ' + skipReasonMeta[metrics.topReason].label.toLowerCase() + '. Это сигнал для более мягкого планирования.'
-        : 'Пока нет повторяющегося барьера. Отметки помогут увидеть, что реально мешает.';
-    }
+  function renderDetailItem(item, type) {
+    const attr = type === 'workout' ? 'data-tracker-workout' : 'data-tracker-complex';
+    const title = item.fullTitle || item.title;
+    return `
+      <button class="tracker-check ${item.completed ? 'is-complete' : ''}" type="button" ${attr}="${item.id}" aria-pressed="${String(item.completed)}">
+        <span></span>
+        <strong>${title}</strong>
+      </button>
+    `;
+  }
 
-    if (els.weekResult) {
-      const selected = progress.map((id) => progressLabels[id]).filter(Boolean);
-      els.weekResult.textContent = selected.length
-        ? 'Ты отметила: ' + selected.join(', ').toLowerCase() + '. Это тоже прогресс.'
-        : 'Неделя в ритме: ' + metrics.rhythmDays + ' из 7 дней. Даже минимум и восстановление засчитываются.';
-    }
+  function renderProgressTags(week) {
+    if (!els.progressTags) return;
+    els.progressTags.innerHTML = progressTags.map((tag) => {
+      const isActive = week.progressTags.includes(tag.id);
+      return `
+        <button type="button" data-tracker-progress-tag="${tag.id}" class="${isActive ? 'is-active' : ''}" aria-pressed="${String(isActive)}">
+          ${tag.title}
+        </button>
+      `;
+    }).join('');
+  }
 
-    if (els.nextStep) {
-      els.nextStep.textContent = metrics.skippedDays >= 2
-        ? 'На следующей неделе начни с короткого варианта и одного восстановительного дня.'
-        : 'Продолжай через реалистичный фокус дня: полный шаг или минимум — оба варианта работают.';
-    }
-
-    els.weeklyProgress?.querySelectorAll('[data-progress]').forEach((button) => {
-      const isActive = progress.includes(button.dataset.progress);
-      button.classList.toggle('is-active', isActive);
-      button.setAttribute('aria-pressed', String(isActive));
+  function renderDiaryFields(week) {
+    els.diaryFields.forEach((field) => {
+      field.value = week[field.dataset.trackerDiaryField] || '';
     });
   }
 
   function render(state = readState()) {
-    if (els.weekGoal) els.weekGoal.value = state.weekGoal || '';
-    renderToday(state);
-    renderWeekGrid(state);
-    renderInsights(state);
+    const cycle = getActiveCycle(state);
+    const week = getSelectedWeek(state);
+    renderCycleButtons(state);
+    renderMetrics(cycle);
+    renderProgramMap(state);
+    renderWeekDetail(state);
+    renderProgressTags(week);
+    renderDiaryFields(week);
   }
 
-  function updateToday(updater) {
-    const current = readState();
-    const todayId = getTodayId();
-    const today = getDayState(current, todayId);
-    const nextDay = updater(today);
-    const next = {
-      ...current,
-      days: {
-        ...current.days,
-        [todayId]: nextDay,
-      },
-    };
-    writeState(next);
-    render(next);
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;');
   }
 
-  els.weekGoal?.addEventListener('input', () => {
-    const current = readState();
-    writeState({ ...current, weekGoal: els.weekGoal.value });
-  });
-
-  els.statusButtons.forEach((button) => {
+  els.cycleButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      updateToday((today) => ({
-        ...today,
-        status: button.dataset.trackerStatus,
-        skipReason: button.dataset.trackerStatus === 'skipped' ? today.skipReason : null,
+      updateState((state) => ({
+        ...state,
+        activeCycle: Number(button.dataset.trackerCycle),
       }));
     });
   });
 
-  els.skipReasonButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      updateToday((today) => ({
-        ...today,
-        status: 'skipped',
-        skipReason: button.dataset.trackerSkipReason,
-      }));
-    });
-  });
+  els.map?.addEventListener('click', (event) => {
+    const itemButton = event.target.closest('[data-tracker-workout], [data-tracker-complex]');
+    if (itemButton) {
+      const weekId = Number(itemButton.dataset.weekId);
+      const type = itemButton.matches('[data-tracker-workout]') ? 'workouts' : 'complexes';
+      const itemId = itemButton.dataset.trackerWorkout || itemButton.dataset.trackerComplex;
+      updateState((state) => updateWeekById(state, weekId, (week) => toggleItem(week, itemId, type)));
+      return;
+    }
 
-  els.dayNote?.addEventListener('input', () => {
-    updateToday((today) => ({
-      ...today,
-      note: els.dayNote.value,
+    const select = event.target.closest('[data-week-select], [data-tracker-week-card]');
+    if (!select) return;
+    const weekId = Number(select.dataset.weekSelect || select.dataset.trackerWeekCard);
+    updateState((state) => ({
+      ...state,
+      selectedWeeks: { ...state.selectedWeeks, [state.activeCycle]: weekId },
     }));
   });
 
-  els.weeklyProgress?.addEventListener('click', (event) => {
-    const button = event.target.closest('[data-progress]');
+  els.detail?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-tracker-workout], [data-tracker-complex]');
     if (!button) return;
 
-    const current = readState();
-    const progress = current.weeklyNonWeightProgress || [];
-    const value = button.dataset.progress;
-    const nextProgress = progress.includes(value)
-      ? progress.filter((item) => item !== value)
-      : [...progress, value];
-    const next = { ...current, weeklyNonWeightProgress: nextProgress };
-    writeState(next);
-    render(next);
+    const type = button.matches('[data-tracker-workout]') ? 'workouts' : 'complexes';
+    const itemId = button.dataset.trackerWorkout || button.dataset.trackerComplex;
+    updateState((state) => updateSelectedWeek(state, (week) => toggleItem(week, itemId, type)));
+  });
+
+  els.detail?.addEventListener('input', (event) => {
+    const note = event.target.closest('[data-tracker-week-note]');
+    const win = event.target.closest('[data-tracker-week-win]');
+    if (!note && !win) return;
+
+    saveState((state) => updateSelectedWeek(state, (week) => ({
+      ...week,
+      note: note ? note.value : week.note,
+      win: win ? win.value : week.win,
+    })));
+  });
+
+  els.progressTags?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-tracker-progress-tag]');
+    if (!button) return;
+
+    updateState((state) => updateSelectedWeek(state, (week) => {
+      const tag = button.dataset.trackerProgressTag;
+      const nextTags = week.progressTags.includes(tag)
+        ? week.progressTags.filter((item) => item !== tag)
+        : [...week.progressTags, tag];
+      return { ...week, progressTags: nextTags };
+    }));
+  });
+
+  els.diaryFields.forEach((field) => {
+    field.addEventListener('input', () => {
+      saveState((state) => updateSelectedWeek(state, (week) => ({
+        ...week,
+        [field.dataset.trackerDiaryField]: field.value,
+      })));
+    });
   });
 
   els.reset?.addEventListener('click', () => {
-    const shouldReset = window.confirm('Сбросить отметки недели? Цель недели сохранится.');
+    const shouldReset = window.confirm('Очистить все отметки, заметки и выбранные теги прогресса?');
     if (!shouldReset) return;
-
-    const current = readState();
-    const next = { ...getDefaultState(), weekGoal: current.weekGoal };
+    const next = getDefaultState();
     writeState(next);
     render(next);
   });

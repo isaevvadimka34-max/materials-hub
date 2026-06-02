@@ -3279,51 +3279,52 @@ body.is-modal-open {
   font-size: clamp(52px, 9vw, 112px);
 }
 
-.tracker-shell {
-  display: grid;
-  gap: 22px;
-}
-
 .tracker-shell,
 .tracker-shell * {
   box-sizing: border-box;
 }
 
+.tracker-shell {
+  display: grid;
+  gap: 22px;
+}
+
 .tracker-card {
   min-width: 0;
-  border: 1px solid rgba(62, 39, 35, 0.1);
+  border: 1px solid rgba(62, 39, 35, 0.09);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.74);
+  background: rgba(255, 255, 255, 0.76);
   box-shadow: var(--shadow);
   padding: clamp(18px, 3vw, 28px);
 }
 
-.tracker-week-hero {
+.tracker-program-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
   gap: 18px;
   align-items: stretch;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(244, 201, 214, 0.18)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(244, 201, 214, 0.2)),
     var(--surface);
 }
 
-.tracker-week-hero__copy,
-.tracker-week-hero__status,
-.tracker-today-card,
-.tracker-recommendation-card,
-.tracker-barriers-card,
-.tracker-progress-card,
-.tracker-week-result-card,
-.tracker-next-step-card {
+.tracker-program-hero__copy,
+.tracker-cycle-switch,
+.tracker-metric-card,
+.tracker-week-card,
+.tracker-detail-block,
+.tracker-progress-journal,
+.tracker-diary-card {
   display: grid;
   gap: 14px;
   align-content: start;
 }
 
-.tracker-week-hero h2,
+.tracker-program-hero h2,
 .tracker-section-head h2,
-.tracker-insights h2 {
+.tracker-week-detail h2,
+.tracker-progress-journal h2,
+.tracker-diary-card h2 {
   margin: 4px 0 0;
   color: var(--espresso);
   font-family: Georgia, "Times New Roman", serif;
@@ -3334,37 +3335,68 @@ body.is-modal-open {
   line-height: 0.98;
 }
 
-.tracker-week-hero p,
+.tracker-program-hero p,
 .tracker-section-head p,
-.tracker-insights p,
-.tracker-focus-box p,
-.tracker-focus-box small,
-.tracker-recommendation-card div {
+.tracker-week-card p,
+.tracker-detail-block h3,
+.tracker-detail-block p,
+.tracker-metric-card p,
+.tracker-cycle-switch p {
   margin: 0;
   color: var(--muted);
   font-weight: 740;
   line-height: 1.45;
 }
 
-.tracker-week-hero__status {
+.tracker-cycle-switch {
   border-radius: 8px;
   background: rgba(255, 248, 243, 0.78);
   padding: clamp(16px, 2.5vw, 24px);
 }
 
-.tracker-week-hero__status strong {
+.tracker-cycle-switch button {
+  min-height: 48px;
+  border: 1px solid rgba(201, 123, 148, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 253, 250, 0.9);
   color: var(--espresso);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(34px, 5vw, 58px);
-  font-style: italic;
   font-weight: 900;
-  line-height: 0.95;
+  cursor: pointer;
 }
 
-.tracker-main-grid {
+.tracker-cycle-switch button.is-active {
+  background: var(--dusty-rose);
+  color: #fffdfa;
+  box-shadow: 0 16px 30px rgba(132, 39, 60, 0.16);
+}
+
+.tracker-metrics {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
-  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.tracker-metric-card {
+  background:
+    linear-gradient(180deg, rgba(255, 248, 243, 0.92), rgba(255, 255, 255, 0.72)),
+    var(--surface);
+}
+
+.tracker-metric-card span,
+.tracker-mini-practices span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tracker-metric-card strong {
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 5vw, 54px);
+  font-style: italic;
+  line-height: 0.95;
 }
 
 .tracker-section-head {
@@ -3374,94 +3406,178 @@ body.is-modal-open {
 }
 
 .tracker-section-head--split {
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.55fr);
   align-items: start;
   gap: 14px;
 }
 
-.tracker-pill {
-  display: inline-flex;
-  align-items: center;
-  min-height: 34px;
-  border: 1px solid rgba(201, 123, 148, 0.24);
-  border-radius: 999px;
-  background: rgba(244, 201, 214, 0.24);
-  color: var(--dusty-rose);
-  padding: 0 13px;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.tracker-program-map {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
 }
 
-.tracker-focus-box {
-  display: grid;
-  gap: 8px;
-  border: 1px solid rgba(96, 118, 106, 0.16);
+.tracker-week-card {
+  border: 1px solid rgba(62, 39, 35, 0.1);
   border-radius: 8px;
-  background: rgba(236, 242, 235, 0.62);
+  background: rgba(255, 248, 243, 0.6);
   padding: 16px;
 }
 
-.tracker-focus-box h3 {
-  margin: 0;
-  color: var(--espresso);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(26px, 3.2vw, 40px);
-  font-style: italic;
-  line-height: 1;
+.tracker-week-card.is-selected {
+  border-color: rgba(201, 123, 148, 0.42);
+  background: rgba(244, 201, 214, 0.16);
+  box-shadow: 0 16px 34px rgba(132, 39, 60, 0.1);
 }
 
-.tracker-status-actions,
-.tracker-skip-reasons div,
-.tracker-progress-options {
+.tracker-week-card.is-complete {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(236, 242, 235, 0.48)),
+    rgba(255, 248, 243, 0.6);
+}
+
+.tracker-week-card__select {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--espresso);
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
 }
 
-.tracker-status-actions button,
-.tracker-skip-reasons button,
-.tracker-progress-options button {
-  min-height: 44px;
-  border: 1px solid rgba(62, 39, 35, 0.12);
+.tracker-week-card__select span {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 900;
+}
+
+.tracker-week-card__select strong,
+.tracker-mini-practices strong {
   border-radius: 999px;
-  background: rgba(255, 248, 243, 0.82);
+  background: rgba(62, 39, 35, 0.08);
+  padding: 7px 10px;
   color: var(--espresso);
-  padding: 0 15px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.tracker-mini-list,
+.tracker-check-list,
+.tracker-progress-options {
+  display: grid;
+  gap: 9px;
+}
+
+.tracker-mini-check,
+.tracker-check,
+.tracker-progress-options button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 42px;
+  border: 1px solid rgba(62, 39, 35, 0.11);
+  border-radius: 999px;
+  background: rgba(255, 253, 250, 0.82);
+  color: var(--espresso);
+  padding: 8px 12px;
+  text-align: left;
   font-weight: 850;
   cursor: pointer;
 }
 
-.tracker-status-actions button:hover,
-.tracker-status-actions button:focus-visible,
-.tracker-skip-reasons button:hover,
-.tracker-skip-reasons button:focus-visible,
-.tracker-progress-options button:hover,
-.tracker-progress-options button:focus-visible {
-  border-color: rgba(201, 123, 148, 0.36);
-  box-shadow: 0 0 0 3px rgba(201, 123, 148, 0.12);
+.tracker-mini-check span,
+.tracker-check span {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(201, 123, 148, 0.36);
+  border-radius: 50%;
+  background: rgba(255, 248, 243, 0.78);
 }
 
-.tracker-status-actions button.is-active,
-.tracker-skip-reasons button.is-active,
+.tracker-mini-check.is-complete,
+.tracker-check.is-complete,
 .tracker-progress-options button.is-active {
-  border-color: rgba(96, 118, 106, 0.28);
+  border-color: rgba(96, 118, 106, 0.26);
   background: var(--sage-soft);
-  color: var(--espresso);
 }
 
-.tracker-skip-reasons {
-  display: grid;
+.tracker-mini-check.is-complete span,
+.tracker-check.is-complete span {
+  border-color: var(--sage);
+  background: var(--sage);
+  box-shadow: inset 0 0 0 4px var(--sage-soft);
+}
+
+.tracker-mini-list--complexes .tracker-mini-check,
+.tracker-check-list--soft .tracker-check {
+  background: rgba(255, 248, 243, 0.66);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.tracker-mini-practices {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 10px;
-  border: 1px dashed rgba(201, 123, 148, 0.26);
-  border-radius: 8px;
-  background: rgba(255, 248, 243, 0.62);
-  padding: 14px;
+  border-top: 1px solid rgba(62, 39, 35, 0.08);
+  padding-top: 10px;
 }
 
-.tracker-skip-reasons[hidden] {
-  display: none;
+.tracker-detail-grid,
+.tracker-week-notes,
+.tracker-diary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.tracker-detail-block {
+  border: 1px solid rgba(62, 39, 35, 0.09);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.tracker-detail-block--primary {
+  background: rgba(255, 248, 243, 0.68);
+}
+
+.tracker-detail-block--support {
+  background: rgba(236, 242, 235, 0.48);
+}
+
+.tracker-detail-block h3 {
+  color: var(--deep-text);
+  font-size: 16px;
+}
+
+.tracker-check {
+  min-height: 50px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.tracker-check strong {
+  font-weight: 900;
+}
+
+.tracker-progress-options {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.tracker-progress-options button {
+  display: inline-flex;
+  justify-content: center;
+  min-height: 44px;
+  border-radius: 999px;
+  text-align: center;
 }
 
 .tracker-field {
@@ -3493,117 +3609,22 @@ body.is-modal-open {
   box-shadow: 0 0 0 3px rgba(201, 123, 148, 0.16);
 }
 
-.tracker-field--compact textarea {
-  min-height: 92px;
-}
-
-.tracker-recommendation-card {
+.tracker-diary-card {
   background:
-    linear-gradient(180deg, rgba(255, 248, 243, 0.9), rgba(255, 255, 255, 0.76)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(244, 201, 214, 0.14)),
     var(--surface);
 }
 
-.tracker-recommendation-card div {
-  color: var(--espresso);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(24px, 3vw, 38px);
-  font-style: italic;
-  font-weight: 900;
-  line-height: 1.08;
-}
-
-.tracker-grid {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(120px, 1fr));
-  gap: 10px;
-}
-
-.tracker-day {
-  display: grid;
-  gap: 10px;
-  min-width: 0;
-  min-height: 154px;
-  border: 1px solid rgba(62, 39, 35, 0.1);
-  border-radius: 8px;
-  background: rgba(255, 248, 243, 0.58);
-  padding: 12px;
-}
-
-.tracker-day.is-today {
-  border-color: rgba(201, 123, 148, 0.42);
-  box-shadow: 0 16px 34px rgba(132, 39, 60, 0.1);
-}
-
-.tracker-day__head {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.tracker-day h3,
-.tracker-day__head span {
-  margin: 0;
-  color: var(--espresso);
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.tracker-day strong {
-  align-self: start;
+.tracker-reset-link {
+  justify-self: start;
   width: fit-content;
-  border-radius: 999px;
-  background: rgba(62, 39, 35, 0.08);
-  color: var(--espresso);
-  padding: 7px 10px;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.tracker-day p {
-  margin: 0;
+  border: 0;
+  background: transparent;
   color: var(--muted);
-  font-size: 13px;
-  font-weight: 760;
-  line-height: 1.35;
-}
-
-.tracker-day--full strong {
-  background: rgba(96, 118, 106, 0.18);
-  color: var(--sage);
-}
-
-.tracker-day--minimum strong {
-  background: rgba(244, 201, 214, 0.36);
-  color: var(--dusty-rose);
-}
-
-.tracker-day--recovery strong {
-  background: rgba(180, 194, 176, 0.26);
-  color: var(--sage);
-}
-
-.tracker-day--skipped strong {
-  background: rgba(226, 210, 190, 0.42);
-  color: var(--espresso);
-}
-
-.tracker-insights {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.tracker-progress-card {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(236, 242, 235, 0.48)),
-    var(--surface);
-}
-
-.tracker-reset {
-  width: fit-content;
-  margin-top: auto;
+  padding: 0;
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 
@@ -4192,5 +4213,64 @@ body.is-modal-open {
   .tracker-focus-box,
   .tracker-week-hero__status {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 980px) {
+  .tracker-program-hero,
+  .tracker-section-head--split,
+  .tracker-detail-grid,
+  .tracker-week-notes,
+  .tracker-diary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tracker-metrics,
+  .tracker-program-map {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tracker-progress-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .tracker-program-hero h2,
+  .tracker-section-head h2,
+  .tracker-week-detail h2,
+  .tracker-progress-journal h2,
+  .tracker-diary-card h2 {
+    max-width: 100%;
+    font-size: clamp(28px, 9vw, 36px);
+    line-height: 1.02;
+    overflow-wrap: anywhere;
+  }
+
+  .tracker-metrics,
+  .tracker-program-map,
+  .tracker-progress-options {
+    grid-template-columns: 1fr;
+  }
+
+  .tracker-cycle-switch button,
+  .tracker-progress-options button {
+    width: 100%;
+  }
+
+  .tracker-week-card,
+  .tracker-detail-block {
+    padding: 14px;
+  }
+
+  .tracker-week-card__select span {
+    font-size: 24px;
+  }
+
+  .tracker-mini-check,
+  .tracker-check,
+  .tracker-progress-options button {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 }
