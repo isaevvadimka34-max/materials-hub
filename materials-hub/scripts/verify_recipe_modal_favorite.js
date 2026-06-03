@@ -6,7 +6,7 @@ const assert = require('node:assert/strict');
 
 const root = path.resolve(__dirname, '..');
 const mainJs = fs.readFileSync(path.join(root, 'assets/js/materials.js'), 'utf8');
-const miniHtml = fs.readFileSync(path.join(root, 'free-mini.html'), 'utf8');
+const miniPath = path.join(root, 'free-mini.html');
 
 assert.match(
   mainJs,
@@ -23,10 +23,6 @@ assert.match(
   /syncModalStatusButtons\(id, name\)/,
   'modal status button should update without closing the recipe',
 );
-assert.doesNotMatch(
-  miniHtml,
-  /recipe-modal__actions/,
-  'mini collection should not be changed by this feature',
-);
+assert.ok(!fs.existsSync(miniPath), 'mini collection should be removed from the main project');
 
 console.log('recipe modal favorite checks passed');

@@ -1,0 +1,17 @@
+﻿# Local/system files
+.DS_Store
+Thumbs.db
+*.log
+
+# Draft preorder export files
+getcourse-preorder.html
+getcourse-preorder-instructions.md
+assets/css/getcourse-preorder.css
+scripts/verify_preorder_template.js
+
+# Browser render temp profiles
+reports/social-post-square/assets/edge-profile*/
+reports/social-post-square/edge-render-profile*/
+
+# Generated marketing images
+reports/social-post-square/

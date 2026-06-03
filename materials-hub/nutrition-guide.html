@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Гид по питанию QMELLZ: фуд-сканер, продукты, белок и быстрые решения для рациона.">
-  <title>Gym Girls Club — гид по питанию</title>
-  <link rel="stylesheet" href="assets/css/materials.css?v=hub-5">
+  <meta name="description" content="Полезные материалы QMELLZ: фудсканер, отёки, целлюлит, ежедневная база, женский цикл и БАДы">
+  <title>Gym Girls Club — полезные материалы</title>
+  <link rel="stylesheet" href="assets/css/materials.css?v=hub-18">
 </head>
 <body>
   <div class="materials-hub">
@@ -16,97 +16,490 @@
         <nav class="hub-nav">
           <a class="hub-nav__item" href="index.html#recipes">Сборник рецептов</a>
           <a class="hub-nav__item" href="calculator.html">Калькулятор КБЖУ</a>
-          <a class="hub-nav__item is-active" href="nutrition-guide.html">Гид по питанию</a>
-          <a class="hub-nav__item" href="body-guide.html">Режим и тело</a>
+          <a class="hub-nav__item is-active" href="nutrition-guide.html">Полезные материалы</a>
           <a class="hub-nav__item" href="tracker.html">Мой трекер</a>
         </nav>
       </div>
 
       <div class="hub-hero__content">
-        <p class="hub-eyebrow">Питание без хаоса</p>
-        <h1>Гид по питанию</h1>
-        <p class="hub-lead">Что считать, где добрать белок и как быстро принять решение по продукту.</p>
+        <p class="hub-eyebrow">Коротко и по делу</p>
+        <h1>Полезные материалы</h1>
+        <p class="hub-lead">Выбирай тему под день: быстро проверить продукт, разобраться со срывом, отёками, циклом, базой или БАДами</p>
       </div>
     </header>
 
     <main>
-      <section class="section guide-shell" aria-label="Гид по питанию">
-        <div class="guide-grid guide-grid--intro">
-          <article class="guide-panel guide-panel--dark">
-            <span class="guide-kicker">Фуд-сканер</span>
-            <h2>Введи продукт и получи ответ</h2>
-            <label class="guide-search">
-              <span>Название продукта</span>
-              <input type="search" data-food-search placeholder="Например: банан, огурец, авокадо">
-            </label>
-            <div class="guide-result" data-food-result>
-              Начни вводить продукт, чтобы понять: считать, не считать или быть аккуратнее с порцией.
-            </div>
-          </article>
+      <section class="section guide-shell materials-guide" aria-label="Полезные материалы">
+        <div class="materials-library" id="materials" data-material-library>
+          <div class="section-heading materials-library__head">
+            <span class="hub-eyebrow">Библиотека</span>
+            <h2>Что открыть сейчас</h2>
+            <p>Материалы короткие: без сухой теории, с понятной пользой и действиями, которые можно применить сегодня</p>
+          </div>
 
-          <article class="guide-panel">
-            <span class="guide-kicker">Главное правило</span>
-            <h2>Вода и клетчатка легче, крахмал и жиры считаем</h2>
-            <p>Зеленые и водянистые овощи обычно не ломают рацион. Картофель, кукуруза, авокадо, фрукты, сухофрукты, масло и соусы уже дают заметную энергию.</p>
-            <a class="button button--primary guide-link" href="calculator.html">Проверить норму КБЖУ</a>
-          </article>
+          <div class="materials-library__grid">
+            <a class="material-card material-card--tool" href="#food-scanner" data-material-card="food-scanner">
+              <span>Инструмент</span>
+              <h3>Фудсканер</h3>
+              <p>Введи продукт и быстро пойми: считать, не считать или быть аккуратнее</p>
+            </a>
+
+            <a class="material-card" href="#overeating-cycle" data-material-card="overeating-cycle">
+              <span>Схема</span>
+              <h3>Цикл срывов</h3>
+              <p>Где ломается система “запретила — сорвалась — снова запретила”</p>
+            </a>
+
+            <a class="material-card" href="#swelling" data-material-card="swelling">
+              <span>Чеклист</span>
+              <h3>Отёки</h3>
+              <p>Когда это нормально, что влияет и чего лучше не делать</p>
+            </a>
+
+            <a class="material-card" href="#cellulite" data-material-card="cellulite">
+              <span>Мифы</span>
+              <h3>Целлюлит</h3>
+              <p>Что реально влияет, что помогает, а что продаёт лишние обещания</p>
+            </a>
+
+            <a class="material-card" href="#daily-base" data-material-card="daily-base">
+              <span>На день</span>
+              <h3>Ежедневная база</h3>
+              <p>Простой чеклист: белок, вода, сон, шаги, клетчатка и восстановление</p>
+            </a>
+
+            <a class="material-card" href="#cycle-training" data-material-card="cycle-training">
+              <span>Цикл</span>
+              <h3>Женский цикл и нагрузка</h3>
+              <p>Когда можно добавлять интенсивность, а когда нормально снизить темп</p>
+            </a>
+
+            <a class="material-card" href="#supplements" data-material-card="supplements">
+              <span>Справочник</span>
+              <h3>БАДы</h3>
+              <p>Что не покупать без причины и что обсуждать со специалистом</p>
+            </a>
+          </div>
         </div>
 
-        <section class="guide-section" aria-labelledby="food-zones-title">
-          <div class="section-heading">
-            <span class="hub-eyebrow">Зоны продуктов</span>
-            <h2 id="food-zones-title">Что считать</h2>
+        <div class="material-reader" data-material-reader hidden>
+          <div class="material-reader__bar">
+            <button class="text-button material-reader__back" type="button" data-material-back><span aria-hidden="true">←</span><span>Назад к материалам</span></button>
+            <span data-material-title>Материал</span>
           </div>
 
-          <div class="guide-zone-grid">
-            <article class="guide-zone guide-zone--green">
-              <span>Можно не считать</span>
-              <h3>Водянистые овощи</h3>
-              <p>Огурцы, помидоры, сельдерей, кабачки, капуста, брокколи, зелень, грибы.</p>
-            </article>
-            <article class="guide-zone guide-zone--amber">
-              <span>Считаем</span>
-              <h3>Плотные продукты</h3>
-              <p>Картофель, батат, кукуруза, бобовые, вареная свекла и морковь, авокадо, оливки.</p>
-            </article>
-            <article class="guide-zone guide-zone--rose">
-              <span>Осторожно</span>
-              <h3>Сладкое и концентраты</h3>
-              <p>Фрукты, виноград, бананы, манго, сухофрукты, соки, масло, сметана и соусы.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="guide-section" aria-labelledby="protein-title">
-          <div class="section-heading">
-            <span class="hub-eyebrow">Белок</span>
-            <h2 id="protein-title">Как быстро добрать белок</h2>
-            <p>Выбери ситуацию, а гид покажет простые варианты без сложной готовки.</p>
-          </div>
-
-          <div class="guide-filter-row" aria-label="Фильтр белковых решений">
-            <button class="chip is-active" type="button" data-protein-filter="all">Все</button>
-            <button class="chip" type="button" data-protein-filter="snack">Перекус</button>
-            <button class="chip" type="button" data-protein-filter="meal">Прием пищи</button>
-            <button class="chip" type="button" data-protein-filter="shop">Купить домой</button>
-          </div>
-
-          <div class="guide-card-list" data-protein-results></div>
-
-          <div class="guide-cta">
-            <div>
-              <span class="guide-kicker">Высокий белок</span>
-              <h3>Открой рецепты и выбирай блюда с белком</h3>
+          <section class="material-panel" id="food-scanner" data-material-panel="food-scanner" data-title="Фудсканер" hidden>
+            <div class="material-panel__head">
+              <span class="hub-eyebrow">инструмент</span>
+              <h2>Фудсканер</h2>
+              <p>Введи продукт и пойми, считать его или нет. Это быстрый ориентир для ежедневных решений, а не строгий запрет</p>
             </div>
-            <a class="button button--primary" href="index.html#recipes">К рецептам</a>
-          </div>
-        </section>
+
+            <section class="nutrition-scanner" aria-labelledby="food-scanner-title">
+              <div class="nutrition-scanner__main">
+                <span class="guide-kicker">Фудсканер</span>
+                <h2 id="food-scanner-title">Введи продукт и пойми, считать его или нет</h2>
+                <p>Быстрый ориентир для ежедневных решений: когда можно расслабиться, а где лучше учесть порцию</p>
+
+                <label class="guide-search">
+                  <span>Название продукта</span>
+                  <input type="search" data-food-search placeholder="Например: банан, огурец, авокадо">
+                </label>
+
+                <div class="guide-result scanner-result" data-food-result>
+                  <span class="scanner-result__status scanner-result__status--empty" data-food-status></span>
+                  <span class="scanner-result__advice" data-food-advice>Фудсканер подскажет: считать, не считать или быть аккуратнее</span>
+                  <span class="scanner-result__tip" data-food-tip>Совет появится здесь</span>
+                </div>
+              </div>
+
+              <div class="scanner-zone-grid" aria-label="Зоны продуктов">
+                <article class="guide-zone guide-zone--green">
+                  <span>Можно не считать</span>
+                  <h3>Лёгкая база</h3>
+                  <p>Огурцы, помидоры, зелень, кабачки, капуста, брокколи, грибы, вода, чай и кофе без добавок</p>
+                </article>
+                <article class="guide-zone guide-zone--amber">
+                  <span>Считаем</span>
+                  <h3>Обычные продукты рациона</h3>
+                  <p>Крупы, хлеб, паста, картофель, батат, кукуруза, свекла, морковь, бобовые, мясо, рыба, яйца, творог</p>
+                </article>
+                <article class="guide-zone guide-zone--rose">
+                  <span>Аккуратно</span>
+                  <h3>Калорийно плотное</h3>
+                  <p>Масла, орехи, семечки, авокадо, оливки, жирные соусы, сладкое, сухофрукты, соки, алкоголь, фастфуд</p>
+                </article>
+              </div>
+            </section>
+          </section>
+
+          <section class="material-panel material-panel--compact" id="overeating-cycle" data-material-panel="overeating-cycle" data-title="Цикл срывов" hidden>
+            <div class="material-panel__head">
+              <span class="hub-eyebrow">ПЕРЕЕДАНИЕ И СРЫВЫ</span>
+              <h2>Срыв — это не отсутствие силы воли</h2>
+              <p>Обычно кажется: “я просто не выдержала”, но чаще срыв начинается намного раньше — когда весь день терпела, запрещала и пыталась быть идеальной</p>
+            </div>
+
+            <div class="overeating-disclosures">
+              <details class="overeating-disclosure" data-overeating-theory-disclosure>
+                <summary>
+                  <span>Теория</span>
+                  <strong>Всё, что нужно знать про срывы</strong>
+                  <small>Почему это случается и как спокойно вернуться в режим</small>
+                </summary>
+
+            <section class="overeating-system overeating-system--compact" aria-labelledby="overeating-system-title">
+              <div class="overeating-system__intro">
+                <span class="guide-kicker">Где ломается система</span>
+                <p id="overeating-system-title">Срыв часто выглядит как проблема сладкого или “слабой силы воли”, но обычно перегружается вся система: мало еды, много запретов, усталость, стресс и мысль “теперь уже всё испорчено”</p>
+              </div>
+
+              <div class="overeating-system__reasons" aria-label="Что перегружает систему">
+                <article>
+                  <span>01</span>
+                  <strong>Не хватило еды</strong>
+                  <p>Телу сложно держаться на голоде</p>
+                </article>
+                <article>
+                  <span>02</span>
+                  <strong>Слишком много запретов</strong>
+                  <p>Любое отклонение ощущается как конец системы</p>
+                </article>
+                <article>
+                  <span>03</span>
+                  <strong>Нет обычного возврата к еде</strong>
+                  <p>После срыва хочется наказать себя жёстче</p>
+                </article>
+              </div>
+            </section>
+
+            <div class="overeating-cycle__conclusion overeating-cycle__conclusion--compact">
+              <span>Главная мысль</span>
+              <p><strong>Проблема не в том, что тебе “не хватает дисциплины”.</strong> Проблема в системе, где слишком много запретов, голода и чувства вины.</p>
+              <p>Спокойное питание строится не через боль и наказание, а через заботу к себе: можно съесть торт или бургер, вернуться к балансу и не загонять себя в режим “теперь всё идеально”</p>
+            </div>
+
+            <div class="overeating-cycle__tools">
+              <span>Главный принцип курса</span>
+              <p>На курсе мы учимся выстраивать питание спокойнее: с регулярными приёмами пищи, насыщением, гибкостью и без наказания после сложного дня</p>
+            </div>
+
+            <section class="overeating-recovery" aria-labelledby="overeating-recovery-title">
+              <div class="overeating-recovery__head">
+                <span>Что делать после срыва</span>
+                <h3 id="overeating-recovery-title">Не исправлять, а мягко вернуться</h3>
+                <p>Один неидеальный день не нужно отрабатывать голодом. Выбери ближайший спокойный шаг и продолжай режим без наказания.</p>
+              </div>
+
+              <div class="overeating-recovery-route" aria-label="Маршрут восстановления после срыва">
+                <article class="overeating-recovery-route__step">
+                  <span>01</span>
+                  <div>
+                    <strong>Не уходить в чувство вины после срыва</strong>
+                    <p>Назови факт спокойно: был неидеальный прием еды или день. Это не отменяет курс, прогресс и право продолжать без наказания.</p>
+                  </div>
+                </article>
+                <article class="overeating-recovery-route__step">
+                  <span>02</span>
+                  <div>
+                    <strong>Что делать на следующий день после переедания</strong>
+                    <p>Верни обычный завтрак, воду и 10-20 минут мягкой ходьбы. Не начинай день с голода, весов и попытки “исправить” вчера.</p>
+                  </div>
+                </article>
+                <article class="overeating-recovery-route__step">
+                  <span>03</span>
+                  <div>
+                    <strong>Как вернуться в режим без жестких ограничений</strong>
+                    <p>Собери ближайшую тарелку: белок, гарнир и овощи. Режим возвращается через следующий нормальный прием пищи, а не через новый запрет.</p>
+                  </div>
+                </article>
+                <article class="overeating-recovery-route__step">
+                  <span>04</span>
+                  <div>
+                    <strong>Что делать, если сорвалась на сладкое</strong>
+                    <p>Не объявляй сладкое врагом. На следующий прием добавь белок и углеводы: творог с фруктом, яйца с хлебом или курицу с рисом.</p>
+                  </div>
+                </article>
+                <article class="overeating-recovery-route__step">
+                  <span>05</span>
+                  <div>
+                    <strong>Как встроить сладкое без нового запрета</strong>
+                    <p>Оставь сладкое после еды, а не вместо еды: например, десерт после обеда 2-3 раза в неделю. Так оно перестает быть “последним шансом”.</p>
+                  </div>
+                </article>
+              </div>
+            </section>
+              </details>
+
+              <details class="overeating-disclosure overeating-disclosure--interactive" data-overeating-interactive-disclosure>
+                <summary>
+                  <span>Интерактив</span>
+                  <strong>Собери план после срыва</strong>
+                  <small>Выбери ситуацию, причину и получи чек-лист на завтра</small>
+                </summary>
+
+            <section class="overeating-protocol" data-overeating-protocol data-overeating-state="start" aria-labelledby="overeating-protocol-title">
+              <div class="overeating-protocol__flow" data-overeating-flow>
+                <div class="overeating-protocol__screen overeating-protocol__screen--start" data-overeating-screen="start">
+                  <h3 id="overeating-protocol-title">Разберем срыв и соберем план</h3>
+                  <p>Выбери, что произошло, почему это могло случиться, и получи конкретные шаги на сейчас и завтра</p>
+                  <button class="button button--primary overeating-protocol__primary" type="button" data-overeating-start>Начать разбор</button>
+                </div>
+
+                <div class="overeating-protocol__screen" data-overeating-screen="type" hidden>
+                  <h4>Что именно произошло?</h4>
+                  <div class="overeating-chip-list" data-overeating-types>
+                    <button type="button" data-overeating-type="fastfood">Фастфуд или доставка</button>
+                    <button type="button" data-overeating-type="sweets">Сладкое</button>
+                    <button type="button" data-overeating-type="night">Ночной жор</button>
+                    <button type="button" data-overeating-type="volume">Переела до тяжести</button>
+                    <button type="button" data-overeating-type="drinks">Алкоголь или сладкие напитки</button>
+                  </div>
+                  <button class="overeating-protocol__link" type="button" data-overeating-back="start">Назад к началу</button>
+                </div>
+
+                <div class="overeating-protocol__screen" data-overeating-screen="reason" hidden>
+                  <span class="overeating-protocol__context" data-overeating-type-context></span>
+                  <h4>Почему это могло случиться?</h4>
+                  <div class="overeating-chip-list" data-overeating-reasons>
+                    <button type="button" data-overeating-reason="hunger">Долго не ела</button>
+                    <button type="button" data-overeating-reason="stress">Стресс или усталость</button>
+                    <button type="button" data-overeating-reason="restriction">Слишком много запретов</button>
+                    <button type="button" data-overeating-reason="available">Еда была под рукой</button>
+                    <button type="button" data-overeating-reason="social">За компанию или на эмоциях</button>
+                  </div>
+                  <button class="overeating-protocol__link" type="button" data-overeating-back="type">Назад к типу срыва</button>
+                </div>
+
+                <div class="overeating-protocol__screen overeating-protocol__screen--plan" data-overeating-screen="plan" hidden>
+                  <article class="overeating-plan" data-overeating-plan>
+                    <h4 data-overeating-plan-title></h4>
+                    <div class="overeating-choice-trail" data-overeating-plan-choice aria-label="Твой выбор"></div>
+                    <div class="overeating-plan__grid">
+                      <div>
+                        <span>Что произошло</span>
+                        <p data-overeating-plan-event></p>
+                      </div>
+                      <div>
+                        <span>Почему могло случиться</span>
+                        <p data-overeating-plan-reason></p>
+                      </div>
+                      <div>
+                        <span>Что будет с телом</span>
+                        <p data-overeating-plan-body></p>
+                      </div>
+                      <div>
+                        <span>Что сделать сейчас</span>
+                        <p data-overeating-plan-now></p>
+                      </div>
+                      <div>
+                        <span>Что делать завтра</span>
+                        <p data-overeating-plan-tomorrow></p>
+                      </div>
+                      <div>
+                        <span>Что не делать</span>
+                        <p data-overeating-plan-avoid></p>
+                      </div>
+                    </div>
+                  </article>
+                  <button class="overeating-protocol__link" type="button" data-overeating-back="reason">Назад к причине</button>
+                  <button class="button button--primary overeating-protocol__primary" type="button" data-overeating-complete>Зафиксировать план на завтра</button>
+                </div>
+              </div>
+
+              <div class="overeating-protocol__final" data-overeating-final hidden>
+                <h3 data-overeating-final-title>План на завтра зафиксирован</h3>
+                <div class="overeating-protocol__summary">
+                  <span data-overeating-final-type></span>
+                  <span data-overeating-final-reason></span>
+                </div>
+                <div class="overeating-next-checklist" data-overeating-checklist>
+                  <span data-overeating-checklist-intro>Чек-лист заботы на завтра</span>
+                </div>
+                <div class="overeating-protocol__focus">
+                  <span>Фокус плана</span>
+                  <p data-overeating-final-plan></p>
+                </div>
+                <div class="overeating-protocol__support">
+                  <p data-overeating-final-support></p>
+                  <p data-overeating-final-balance></p>
+                </div>
+                <button class="overeating-protocol__link" type="button" data-overeating-choose-again>Выбрать другой вариант</button>
+                <button class="overeating-protocol__link" type="button" data-overeating-back="plan">Вернуться к плану</button>
+                <small data-overeating-final-hint>План будет доступен до конца завтрашнего дня</small>
+              </div>
+            </section>
+              </details>
+
+            </div>
+          </section>
+
+          <section class="material-panel" id="swelling" data-material-panel="swelling" data-title="Отёки" hidden>
+            <div class="material-panel__head">
+              <span class="hub-eyebrow">чеклист</span>
+              <h2>Отёки</h2>
+              <p>Отёки не всегда означают, что “что-то пошло не так”. Часто это реакция на цикл, соль, сон, стресс и нагрузку</p>
+            </div>
+
+            <div class="material-checklist-grid">
+              <article class="material-check-card">
+                <h3>Когда это нормально</h3>
+                <ul>
+                  <li>Перед менструацией</li>
+                  <li>После солёной еды или алкоголя</li>
+                  <li>После перелёта, жары или долгого сидения</li>
+                  <li>После новой тяжёлой тренировки</li>
+                </ul>
+              </article>
+              <article class="material-check-card">
+                <h3>Что может влиять</h3>
+                <ul>
+                  <li>Недосып и стресс</li>
+                  <li>Мало воды и много соли</li>
+                  <li>Резкие качели углеводов</li>
+                  <li>Низкая активность в течение дня</li>
+                </ul>
+              </article>
+              <article class="material-check-card">
+                <h3>Что делать</h3>
+                <ul>
+                  <li>Вернуть воду и обычное питание</li>
+                  <li>Добавить ходьбу и лёгкое движение</li>
+                  <li>Не урезать еду резко</li>
+                  <li>Дать телу 1-3 дня на стабилизацию</li>
+                </ul>
+              </article>
+              <article class="material-check-card">
+                <h3>Чего не делать</h3>
+                <ul>
+                  <li>Не пить мочегонные без назначения</li>
+                  <li>Не убирать полностью соль и углеводы</li>
+                  <li>Не наказывать себя голодом</li>
+                  <li>Не делать выводы по одному утру</li>
+                </ul>
+              </article>
+            </div>
+
+            <aside class="material-warning">
+              <h3>Когда лучше обратиться к специалисту</h3>
+              <p>Если отёки сильные, болезненные, односторонние, появились резко или держатся постоянно — лучше не гадать и обратиться к врачу</p>
+            </aside>
+          </section>
+
+          <section class="material-panel" id="cellulite" data-material-panel="cellulite" data-title="Целлюлит" hidden>
+            <div class="material-panel__head">
+              <span class="hub-eyebrow">честный разбор</span>
+              <h2>Целлюлит</h2>
+              <p>Целлюлит — нормальная особенность кожи и подкожной ткани. Задача не “стереть его”, а улучшать тонус, питание и регулярность без паники</p>
+            </div>
+
+            <div class="myth-grid">
+              <article class="material-note">
+                <span>Что реально влияет</span>
+                <p>Генетика, гормоны, процент жира, мышечный тонус, активность, питание, сон и стабильность режима</p>
+              </article>
+              <article class="material-note">
+                <span>Что может помочь</span>
+                <p>Силовые тренировки, шаги, белок, вода, клетчатка, сон, массаж как поддержка ощущения тела</p>
+              </article>
+              <article class="material-note">
+                <span>Что не решает проблему</span>
+                <p>Крем “за 7 дней”, обёртывания вместо базы, жёсткие детоксы, голод и бесконечное кардио</p>
+              </article>
+              <article class="material-note">
+                <span>Что не обещать</span>
+                <p>Не обещать полное исчезновение. Честная цель — кожа визуально ровнее, тело плотнее, самочувствие лучше</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="material-panel" id="daily-base" data-material-panel="daily-base" data-title="Ежедневная база" hidden>
+            <div class="material-panel__head">
+              <span class="hub-eyebrow">чеклист на день</span>
+              <h2>Ежедневная база</h2>
+              <p>Если день разваливается, не нужно спасать всё идеально. Верни базу — этого уже достаточно, чтобы не откатиться</p>
+            </div>
+
+            <div class="daily-base-list">
+              <label><input type="checkbox"> <span><strong>Белок</strong> в 2-4 приёмах пищи</span></label>
+              <label><input type="checkbox"> <span><strong>Вода</strong> равномерно в течение дня</span></label>
+              <label><input type="checkbox"> <span><strong>Сон</strong> или хотя бы более ранний отход ко сну</span></label>
+              <label><input type="checkbox"> <span><strong>Шаги</strong> или спокойная прогулка</span></label>
+              <label><input type="checkbox"> <span><strong>Овощи/клетчатка</strong> в удобном виде</span></label>
+              <label><input type="checkbox"> <span><strong>Тренировка/восстановление</strong> по состоянию, а не из наказания</span></label>
+            </div>
+          </section>
+
+          <section class="material-panel" id="cycle-training" data-material-panel="cycle-training" data-title="Женский цикл и нагрузка" hidden>
+            <div class="material-panel__head">
+              <span class="hub-eyebrow">карточки фаз</span>
+              <h2>Женский цикл и нагрузка</h2>
+              <p>Цикл не обязан управлять всей жизнью, но его удобно учитывать, чтобы не требовать от тела одинаковой мощности каждый день</p>
+            </div>
+
+            <div class="cycle-grid material-cycle-grid">
+              <article class="cycle-card">
+                <span>1-5 день</span>
+                <h3>Менструация</h3>
+                <p>Можно снизить интенсивность, оставить ходьбу, растяжку, лёгкую силовую или отдых по самочувствию</p>
+              </article>
+              <article class="cycle-card">
+                <span>6-14 день</span>
+                <h3>Фолликулярная фаза</h3>
+                <p>Часто легче повышать нагрузку, пробовать прогрессию и делать более энергичные тренировки</p>
+              </article>
+              <article class="cycle-card">
+                <span>14-16 день</span>
+                <h3>Овуляция</h3>
+                <p>Энергии может быть больше, но технику и разминку лучше не пропускать</p>
+              </article>
+              <article class="cycle-card">
+                <span>17-28 день</span>
+                <h3>Лютеиновая фаза</h3>
+                <p>Нормально чувствовать спад, отёки, голод и тягу к более спокойному режиму</p>
+              </article>
+            </div>
+
+            <aside class="material-action">
+              <h3>Как отслеживать состояние</h3>
+              <p>Отмечай энергию, сон, аппетит, отёки, настроение и качество тренировки. Через 2-3 цикла появится личная закономерность</p>
+            </aside>
+          </section>
+
+          <section class="material-panel" id="supplements" data-material-panel="supplements" data-title="БАДы" hidden>
+            <div class="material-panel__head">
+              <span class="hub-eyebrow">справочник</span>
+              <h2>БАДы</h2>
+              <p>БАДы могут быть поддержкой, но они не должны становиться заменой еды, сна, тренировок и диагностики</p>
+            </div>
+
+            <div class="supplement-grid">
+              <article class="material-note">
+                <span>Что не нужно покупать без причины</span>
+                <p>Жиросжигатели, детокс-комплексы, “дренажи”, слабительные чаи, мегадозы витаминов и всё, что обещает быстрый минус без базы</p>
+              </article>
+              <article class="material-note">
+                <span>Что можно обсуждать со специалистом</span>
+                <p>Витамин D, железо, ферритин, B12, магний, омега-3, если есть симптомы, анализы или конкретная задача</p>
+              </article>
+              <article class="material-note">
+                <span>Что может быть удобно в рационе</span>
+                <p>Протеин как быстрый белковый продукт, креатин для силовой работы, электролиты при жаре и активном потоотделении</p>
+              </article>
+            </div>
+
+            <aside class="material-warning">
+              <h3>Главная база</h3>
+              <p>БАДы не заменяют питание, сон и тренировки. Сначала регулярная еда, вода, движение и восстановление, потом точечная поддержка</p>
+            </aside>
+          </section>
+        </div>
       </section>
     </main>
 
     <a class="back-top" href="#top" aria-label="Наверх">↑</a>
   </div>
 
-  <script src="assets/js/nutrition-guide.js?v=hub-1"></script>
+  <script src="assets/js/nutrition-guide.js?v=hub-12"></script>
 </body>
 </html>

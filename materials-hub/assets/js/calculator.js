@@ -27,35 +27,35 @@ document.addEventListener('DOMContentLoaded', () => {
       factor: 0.9,
       proteinPerKg: 1.8,
       fatPerKg: 0.8,
-      summary: 'Комфортный дефицит: подойдет, если хочется снижать вес без жестких ограничений.',
+      summary: 'Комфортный дефицит: подойдет, если хочется снижать вес без жестких ограничений',
     },
     activeCut: {
       title: 'Активное похудение',
       factor: 0.82,
       proteinPerKg: 2,
       fatPerKg: 0.7,
-      summary: 'Более выраженный дефицит: следи за самочувствием, сном и восстановлением.',
+      summary: 'Более выраженный дефицит: следи за самочувствием, сном и восстановлением',
     },
     maintain: {
       title: 'Поддержание формы',
       factor: 1,
       proteinPerKg: 1.6,
       fatPerKg: 0.8,
-      summary: 'Норма для стабильного веса и понятного контроля рациона.',
+      summary: 'Норма для стабильного веса и понятного контроля рациона',
     },
     recomp: {
       title: 'Рекомпозиция',
       factor: 1,
       proteinPerKg: 2,
       fatPerKg: 0.8,
-      summary: 'Калории около поддержки, белок выше: вес может стоять, а качество тела меняться.',
+      summary: 'Калории около поддержки, белок выше: вес может стоять, а качество тела меняться',
     },
     shapeGain: {
       title: 'Набор формы',
       factor: 1.08,
       proteinPerKg: 1.8,
       fatPerKg: 0.9,
-      summary: 'Аккуратный профицит для набора формы без резкого скачка калорий.',
+      summary: 'Аккуратный профицит для набора формы без резкого скачка калорий',
     },
   };
 
@@ -108,18 +108,24 @@ document.addEventListener('DOMContentLoaded', () => {
     return Number.isFinite(value) && value > 0 ? value : 0;
   }
 
+  function cleanVisualCopy(value) {
+    return String(value || '')
+      .replace(/\.(?=\s+[А-ЯЁA-Z])/g, ',')
+      .replace(/[.!?]+$/g, '');
+  }
+
   function setError(message) {
-    if (error) error.textContent = message;
+    if (error) error.textContent = cleanVisualCopy(message);
   }
 
   function validate(values) {
     if (!values.weight || !values.height || !values.age) {
-      return 'Заполни вес, рост и возраст.';
+      return 'Заполни вес, рост и возраст';
     }
 
-    if (values.weight < 35 || values.weight > 220) return 'Проверь вес: нужен диапазон от 35 до 220 кг.';
-    if (values.height < 130 || values.height > 220) return 'Проверь рост: нужен диапазон от 130 до 220 см.';
-    if (values.age < 16 || values.age > 80) return 'Проверь возраст: нужен диапазон от 16 до 80 лет.';
+    if (values.weight < 35 || values.weight > 220) return 'Проверь вес: нужен диапазон от 35 до 220 кг';
+    if (values.height < 130 || values.height > 220) return 'Проверь рост: нужен диапазон от 130 до 220 см';
+    if (values.age < 16 || values.age > 80) return 'Проверь возраст: нужен диапазон от 16 до 80 лет';
 
     return '';
   }
@@ -178,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     output.mode.textContent = calculation.modeTitle;
     output.kcal.textContent = `${calculation.kcal} ккал`;
-    output.summary.textContent = calculation.summary;
+    output.summary.textContent = cleanVisualCopy(calculation.summary);
     output.protein.textContent = `${calculation.protein} г`;
     output.fat.textContent = `${calculation.fat} г`;
     output.carbs.textContent = `${calculation.carbs} г`;
