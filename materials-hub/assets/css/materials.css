@@ -1766,6 +1766,14 @@ body.is-modal-open {
   color: var(--cream);
 }
 
+.material-card--coming-soon {
+  position: relative;
+  padding-right: 84px;
+  cursor: default;
+  opacity: 0.74;
+  box-shadow: 0 14px 34px rgba(62, 39, 35, 0.08);
+}
+
 .material-card span,
 .material-panel__head span,
 .material-note span {
@@ -1778,6 +1786,31 @@ body.is-modal-open {
 
 .material-card--tool span {
   color: rgba(255, 248, 243, 0.72);
+}
+
+.material-card .material-card__badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 5px 10px;
+  border: 1px solid rgba(201, 123, 148, 0.28);
+  border-radius: 999px;
+  background: rgba(201, 123, 148, 0.1);
+  color: var(--dusty-rose);
+  font-size: 11px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.material-card--coming-soon:hover,
+.material-card--coming-soon:focus-visible,
+.material-card--coming-soon.is-active {
+  border-color: rgba(62, 39, 35, 0.12);
+  box-shadow: 0 14px 34px rgba(62, 39, 35, 0.08);
+  transform: none;
 }
 
 .material-card h3,
@@ -3279,6 +3312,19 @@ body.is-modal-open {
   font-size: clamp(52px, 9vw, 112px);
 }
 
+.tracker-hero {
+  min-height: auto;
+  padding-bottom: clamp(20px, 4vw, 34px);
+}
+
+.tracker-hero .hub-hero__content {
+  padding-top: clamp(18px, 4vw, 42px);
+}
+
+.tracker-hero h1 {
+  font-size: clamp(42px, 7vw, 82px);
+}
+
 .tracker-shell,
 .tracker-shell * {
   box-sizing: border-box;
@@ -3286,7 +3332,8 @@ body.is-modal-open {
 
 .tracker-shell {
   display: grid;
-  gap: 22px;
+  max-width: 920px;
+  gap: 18px;
 }
 
 .tracker-card {
@@ -3296,6 +3343,188 @@ body.is-modal-open {
   background: rgba(255, 255, 255, 0.76);
   box-shadow: var(--shadow);
   padding: clamp(18px, 3vw, 28px);
+}
+
+.tracker-planner-dashboard {
+  display: grid;
+  gap: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 250, 0.96), rgba(255, 255, 255, 0.82)),
+    var(--surface);
+  border-color: rgba(201, 123, 148, 0.18);
+  padding: clamp(18px, 3vw, 30px);
+}
+
+.tracker-planner-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: var(--dusty-rose);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.tracker-planner-title > span {
+  color: rgba(201, 123, 148, 0.58);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.tracker-planner-title strong {
+  display: block;
+  color: var(--dusty-rose);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(44px, 7vw, 82px);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 0.9;
+}
+
+.tracker-planner-title small {
+  display: block;
+  margin-top: 10px;
+  color: rgba(132, 39, 60, 0.58);
+  font-size: clamp(13px, 2vw, 18px);
+  font-weight: 800;
+  letter-spacing: 0.32em;
+}
+
+.tracker-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.58fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.tracker-dashboard-side {
+  display: grid;
+  gap: 14px;
+}
+
+.tracker-goal-card,
+.tracker-status-card {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  border: 1px solid rgba(201, 123, 148, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 253, 250, 0.74);
+  padding: clamp(16px, 2.5vw, 24px);
+}
+
+.tracker-goal-card span,
+.tracker-status-card span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tracker-goal-card textarea {
+  width: 100%;
+  min-height: 104px;
+  resize: vertical;
+  border: 0;
+  border-radius: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 30px,
+      rgba(62, 39, 35, 0.12) 31px
+    );
+  color: var(--espresso);
+  padding: 2px 0 0;
+  font-weight: 750;
+  line-height: 31px;
+  outline: 0;
+}
+
+.tracker-goal-card textarea::placeholder {
+  color: rgba(36, 23, 22, 0.34);
+}
+
+.tracker-manifest-card {
+  align-content: start;
+}
+
+.tracker-manifest-fields {
+  display: grid;
+  gap: 12px;
+}
+
+.tracker-manifest-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.tracker-manifest-field small {
+  color: rgba(62, 39, 35, 0.58);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tracker-manifest-field textarea {
+  min-height: 84px;
+  resize: vertical;
+  line-height: 27px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 26px,
+      rgba(62, 39, 35, 0.11) 27px
+    );
+}
+
+.tracker-status-card {
+  align-content: center;
+  min-height: 110px;
+  background:
+    linear-gradient(135deg, rgba(244, 201, 214, 0.32), rgba(255, 253, 250, 0.9)),
+    rgba(255, 253, 250, 0.8);
+}
+
+.tracker-status-card strong {
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(22px, 3vw, 34px);
+  font-style: italic;
+  line-height: 1.05;
+}
+
+.tracker-status-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.tracker-progress-card {
+  gap: 10px;
+}
+
+.tracker-progress-line {
+  width: 100%;
+  height: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(201, 123, 148, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 248, 250, 0.92);
+}
+
+.tracker-progress-line span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(201, 123, 148, 0.82), rgba(132, 39, 60, 0.72));
+  transition: width 180ms ease;
 }
 
 .tracker-program-hero {
@@ -3354,7 +3583,17 @@ body.is-modal-open {
   padding: clamp(16px, 2.5vw, 24px);
 }
 
-.tracker-cycle-switch button {
+.tracker-variant-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.78);
+  padding: 10px;
+}
+
+.tracker-cycle-switch button,
+.tracker-variant-switch button {
   min-height: 48px;
   border: 1px solid rgba(201, 123, 148, 0.18);
   border-radius: 999px;
@@ -3364,7 +3603,8 @@ body.is-modal-open {
   cursor: pointer;
 }
 
-.tracker-cycle-switch button.is-active {
+.tracker-cycle-switch button.is-active,
+.tracker-variant-switch button.is-active {
   background: var(--dusty-rose);
   color: #fffdfa;
   box-shadow: 0 16px 30px rgba(132, 39, 60, 0.16);
@@ -3372,14 +3612,18 @@ body.is-modal-open {
 
 .tracker-metrics {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
 }
 
 .tracker-metric-card {
+  border: 1px solid rgba(201, 123, 148, 0.14);
+  border-radius: 8px;
+  padding: 13px 14px;
   background:
-    linear-gradient(180deg, rgba(255, 248, 243, 0.92), rgba(255, 255, 255, 0.72)),
+    linear-gradient(180deg, rgba(255, 248, 250, 0.94), rgba(255, 255, 255, 0.76)),
     var(--surface);
+  box-shadow: 0 12px 28px rgba(132, 39, 60, 0.06);
 }
 
 .tracker-metric-card span,
@@ -3394,9 +3638,169 @@ body.is-modal-open {
 .tracker-metric-card strong {
   color: var(--espresso);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(34px, 5vw, 54px);
+  font-size: clamp(30px, 4vw, 44px);
   font-style: italic;
   line-height: 0.95;
+}
+
+.tracker-planner-table-section {
+  display: grid;
+  gap: 14px;
+  border: 1px solid rgba(201, 123, 148, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 253, 250, 0.7);
+  padding: clamp(14px, 2.5vw, 22px);
+}
+
+.tracker-planner-table-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.42fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.tracker-planner-table-copy {
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  text-align: left;
+}
+
+.tracker-planner-table-head h2 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(34px, 5vw, 54px);
+  font-style: italic;
+  line-height: 0.96;
+}
+
+.tracker-planner-table-head p {
+  max-width: 560px;
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-weight: 740;
+}
+
+.tracker-variant-switch--table {
+  align-self: end;
+  width: 100%;
+  background: rgba(255, 248, 250, 0.82);
+  padding: 8px;
+}
+
+.tracker-variant-switch--table button {
+  min-height: 42px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+.tracker-planner-table {
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow: hidden;
+  border: 1px solid rgba(201, 123, 148, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 248, 250, 0.42);
+}
+
+.tracker-planner-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 1.2fr) repeat(6, minmax(64px, 0.7fr));
+  min-width: 0;
+}
+
+.tracker-planner-row + .tracker-planner-row {
+  border-top: 1px solid rgba(201, 123, 148, 0.13);
+}
+
+.tracker-planner-row > strong,
+.tracker-planner-row > span:first-child,
+.tracker-planner-week,
+.tracker-planner-cell {
+  min-width: 0;
+  border: 0;
+  border-right: 1px solid rgba(201, 123, 148, 0.13);
+  background: rgba(255, 253, 250, 0.42);
+}
+
+.tracker-planner-row > :last-child {
+  border-right: 0;
+}
+
+.tracker-planner-row > strong {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  align-items: center;
+  min-height: 52px;
+  padding: 9px 12px;
+  color: rgba(62, 39, 35, 0.76);
+  font-size: 14px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.tracker-day-label__day {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tracker-day-label__title {
+  display: block;
+  width: 100%;
+  color: rgba(62, 39, 35, 0.78);
+  text-align: center;
+}
+
+.tracker-planner-row--head > span:first-child,
+.tracker-planner-week {
+  min-height: 40px;
+  background: rgba(244, 201, 214, 0.16);
+}
+
+.tracker-planner-week {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--espresso);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.05;
+  cursor: pointer;
+}
+
+.tracker-planner-week span,
+.tracker-planner-week small {
+  display: block;
+  font: inherit;
+}
+
+.tracker-planner-week small {
+  font-size: 10px;
+}
+
+.tracker-planner-week .tracker-week-short {
+  display: none;
+}
+
+.tracker-planner-week.is-selected {
+  background: rgba(201, 123, 148, 0.18);
+  color: #84273c;
+}
+
+.tracker-planner-cell {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
 }
 
 .tracker-section-head {
@@ -3417,10 +3821,17 @@ body.is-modal-open {
   gap: 14px;
 }
 
+.tracker-program-map.tracker-planner-table {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
 .tracker-week-card {
   border: 1px solid rgba(62, 39, 35, 0.1);
   border-radius: 8px;
-  background: rgba(255, 248, 243, 0.6);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 250, 0.92), rgba(255, 248, 250, 0.72)),
+    rgba(255, 248, 243, 0.6);
   padding: 16px;
 }
 
@@ -3474,6 +3885,14 @@ body.is-modal-open {
   gap: 9px;
 }
 
+.tracker-mini-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tracker-mini-list--complexes {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .tracker-mini-check,
 .tracker-check,
 .tracker-progress-options button {
@@ -3490,6 +3909,49 @@ body.is-modal-open {
   text-align: left;
   font-weight: 850;
   cursor: pointer;
+}
+
+.tracker-orbit {
+  display: grid;
+  place-items: center;
+  justify-items: center;
+  gap: 7px;
+  min-width: 26px;
+  min-height: 32px;
+  border: 0;
+  background: transparent;
+  padding: 0 2px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.15;
+}
+
+.tracker-orbit--day {
+  width: 100%;
+}
+
+.tracker-orbit--complex {
+  min-height: 52px;
+  color: rgba(36, 23, 22, 0.6);
+  font-size: 11px;
+}
+
+.tracker-orbit span {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(201, 123, 148, 0.38);
+  border-radius: 50%;
+  background: rgba(255, 248, 243, 0.78);
+}
+
+.tracker-orbit small {
+  display: none;
+}
+
+.tracker-orbit.is-complete span {
+  border-color: rgba(201, 123, 148, 0.72);
+  background: radial-gradient(circle at center, rgba(201, 123, 148, 0.82) 0 42%, rgba(255, 248, 243, 0.95) 45%);
 }
 
 .tracker-mini-check span,
@@ -3834,8 +4296,20 @@ body.is-modal-open {
   }
 
   .material-card {
+    min-width: 0;
     min-height: 154px;
     padding: 16px;
+    overflow-wrap: anywhere;
+  }
+
+  .material-card--coming-soon {
+    padding: 16px;
+  }
+
+  .material-card .material-card__badge {
+    position: static;
+    justify-self: start;
+    width: max-content;
   }
 
   .material-panel__head h2 {
@@ -4218,6 +4692,7 @@ body.is-modal-open {
 
 @media (max-width: 980px) {
   .tracker-program-hero,
+  .tracker-dashboard-grid,
   .tracker-section-head--split,
   .tracker-detail-grid,
   .tracker-week-notes,
@@ -4230,6 +4705,19 @@ body.is-modal-open {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .tracker-planner-table {
+    grid-template-columns: 1fr;
+  }
+
+  .tracker-planner-table-head {
+    grid-template-columns: 1fr;
+  }
+
+  .tracker-planner-table-copy {
+    justify-items: center;
+    text-align: center;
+  }
+
   .tracker-progress-options {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -4237,6 +4725,7 @@ body.is-modal-open {
 
 @media (max-width: 640px) {
   .tracker-program-hero h2,
+  .tracker-planner-title strong,
   .tracker-section-head h2,
   .tracker-week-detail h2,
   .tracker-progress-journal h2,
@@ -4247,15 +4736,118 @@ body.is-modal-open {
     overflow-wrap: anywhere;
   }
 
+  .tracker-shell,
+  .tracker-card,
+  .tracker-planner-dashboard,
+  .tracker-dashboard-grid,
+  .tracker-dashboard-side,
+  .tracker-goal-card,
+  .tracker-status-card,
+  .tracker-metric-card,
+  .tracker-map-card,
+  .tracker-week-card,
+  .tracker-cycle-switch,
+  .tracker-cycle-switch p,
+  .tracker-section-head,
+  .tracker-section-head p,
+  .tracker-field,
+  .tracker-field textarea {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
   .tracker-metrics,
   .tracker-program-map,
   .tracker-progress-options {
     grid-template-columns: 1fr;
   }
 
+  .tracker-planner-table {
+    grid-template-columns: 1fr;
+  }
+
+  .tracker-planner-row {
+    grid-template-columns: minmax(82px, 0.95fr) repeat(6, minmax(32px, 0.45fr));
+  }
+
+  .tracker-planner-row > strong {
+    min-height: 48px;
+    padding: 8px 5px;
+    font-size: 11px;
+  }
+
+  .tracker-day-label__day {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .tracker-planner-week {
+    min-height: 34px;
+    padding: 0 2px;
+    font-size: 10px;
+    letter-spacing: 0;
+    line-height: 1.05;
+  }
+
+  .tracker-planner-week small {
+    font-size: 8px;
+  }
+
+  .tracker-planner-week .tracker-week-full {
+    display: none;
+  }
+
+  .tracker-planner-week .tracker-week-short {
+    display: block;
+  }
+
+  .tracker-planner-cell {
+    gap: 2px;
+    min-height: 48px;
+  }
+
+  .tracker-manifest-field textarea {
+    min-height: 96px;
+  }
+
+  .tracker-orbit {
+    min-width: 18px;
+    min-height: 28px;
+    padding: 0;
+  }
+
+  .tracker-orbit span {
+    width: 17px;
+    height: 17px;
+    border-width: 2px;
+  }
+
   .tracker-cycle-switch button,
-  .tracker-progress-options button {
+  .tracker-progress-options button,
+  .tracker-variant-switch button {
     width: 100%;
+  }
+
+  .tracker-variant-switch {
+    grid-template-columns: 1fr;
+  }
+
+  .tracker-planner-title {
+    gap: 10px;
+  }
+
+  .tracker-planner-title > span {
+    display: none;
+  }
+
+  .tracker-planner-title strong {
+    font-size: clamp(36px, 14vw, 52px);
+    letter-spacing: 0.04em;
+  }
+
+  .tracker-planner-title small {
+    letter-spacing: 0.22em;
   }
 
   .tracker-week-card,
@@ -4272,5 +4864,9 @@ body.is-modal-open {
   .tracker-progress-options button {
     min-width: 0;
     overflow-wrap: anywhere;
+  }
+
+  .tracker-mini-list--complexes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

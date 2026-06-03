@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Мой трекер QMELLZ: карта прохождения программы, тренировки, поддерживающие практики и заметки прогресса.">
   <title>Gym Girls Club — мой трекер</title>
-  <link rel="stylesheet" href="assets/css/materials.css?v=hub-8">
+  <link rel="stylesheet" href="assets/css/materials.css?v=hub-12">
 </head>
 <body>
   <div class="materials-hub">
@@ -30,91 +30,87 @@
 
     <main>
       <section class="section tracker-shell" aria-label="Мой трекер прохождения программы">
-        <article class="tracker-card tracker-program-hero">
-          <div class="tracker-program-hero__copy">
-            <span class="guide-kicker">Личный planner</span>
-            <h2>Твой путь по программе</h2>
-            <p>Основные тренировки ведут прогресс мезоцикла. Поддерживающие практики идут отдельно и помогают телу мягче адаптироваться.</p>
-          </div>
-          <div class="tracker-cycle-switch" role="group" aria-label="Выбор мезоцикла">
-            <button type="button" data-tracker-cycle="1">Мезоцикл 1</button>
-            <button type="button" data-tracker-cycle="2">Мезоцикл 2</button>
-            <p data-tracker-cycle-summary>6 недель · 18 тренировок · поддерживающие комплексы</p>
-          </div>
-        </article>
-
-        <section class="tracker-metrics" aria-label="Прогресс выбранного мезоцикла">
-          <article class="tracker-card tracker-metric-card" data-tracker-metric="workouts">
-            <span>Тренировки</span>
-            <strong>0/18</strong>
-            <p>Основная линия программы</p>
-          </article>
-          <article class="tracker-card tracker-metric-card" data-tracker-metric="weeks">
-            <span>Недели</span>
-            <strong>0/6</strong>
-            <p>Завершены по 3 тренировкам</p>
-          </article>
-          <article class="tracker-card tracker-metric-card" data-tracker-metric="complexes">
-            <span>Комплексы</span>
-            <strong>0</strong>
-            <p>Отдельные практики поддержки</p>
-          </article>
-          <article class="tracker-card tracker-metric-card" data-tracker-metric="notes">
-            <span>Заметки</span>
-            <strong>0</strong>
-            <p>Личные наблюдения недели</p>
-          </article>
-        </section>
-
-        <section class="tracker-card tracker-map-card" aria-labelledby="tracker-map-title">
-          <div class="tracker-section-head tracker-section-head--split">
+        <article class="tracker-card tracker-planner-dashboard">
+          <div class="tracker-planner-title" aria-label="Мой прогресс">
+            <span aria-hidden="true">✦</span>
             <div>
-              <span class="guide-kicker">Карта мезоцикла</span>
-              <h2 id="tracker-map-title">6 недель программы</h2>
+              <strong>TRACKER</strong>
+              <small>мой прогресс</small>
             </div>
-            <p>Отмечай тренировки и комплексы в своем темпе. Не обязательно делать их строго по дням недели.</p>
+            <span aria-hidden="true">✦</span>
           </div>
-          <div class="tracker-program-map" data-tracker-program-map></div>
-        </section>
 
-        <section class="tracker-card tracker-week-detail" data-tracker-week-detail aria-live="polite"></section>
+          <div class="tracker-dashboard-grid">
+            <div class="tracker-goal-card tracker-manifest-card" aria-label="Мой мини-манифест">
+              <span>Мой мини-манифест</span>
+              <div class="tracker-manifest-fields">
+                <label class="tracker-manifest-field">
+                  <small>Моя цель на курс</small>
+                  <textarea data-tracker-goal data-tracker-manifest-field="goal" rows="3" placeholder="Например: пройти курс спокойно и регулярно"></textarea>
+                </label>
+                <label class="tracker-manifest-field">
+                  <small>Зачем мне это</small>
+                  <textarea data-tracker-manifest-field="goalWhy" rows="3" placeholder="Например: хочу чувствовать тело сильнее и увереннее"></textarea>
+                </label>
+                <label class="tracker-manifest-field">
+                  <small>Как я иду без гонки</small>
+                  <textarea data-tracker-manifest-field="goalPace" rows="3" placeholder="Например: отмечаю свой темп, а не идеальность"></textarea>
+                </label>
+              </div>
+            </div>
 
-        <section class="tracker-card tracker-progress-journal" aria-labelledby="tracker-progress-title">
-          <div class="tracker-section-head">
-            <span class="guide-kicker">Прогресс без веса</span>
-            <h2 id="tracker-progress-title">Что стало чуть лучше?</h2>
-            <p>Отметь в конце недели то, что хочется заметить. Это дневник прогресса, не список обязательств.</p>
+            <div class="tracker-dashboard-side">
+              <div class="tracker-cycle-switch" role="group" aria-label="Выбор мезоцикла">
+                <button type="button" data-tracker-cycle="1">Мезоцикл 1</button>
+                <button type="button" data-tracker-cycle="2">Мезоцикл 2</button>
+                <p data-tracker-cycle-summary>6 недель · 18 тренировок · поддерживающие комплексы</p>
+              </div>
+              <div class="tracker-status-card tracker-progress-card">
+                <span>Прогресс</span>
+                <strong data-tracker-status-line>Выполнено 0/18</strong>
+                <div class="tracker-progress-line" aria-hidden="true">
+                  <span data-tracker-progress-fill></span>
+                </div>
+                <p data-tracker-progress-caption>0% программы</p>
+              </div>
+            </div>
           </div>
-          <div class="tracker-progress-options" data-tracker-progress-tags aria-label="Что стало чуть лучше"></div>
-        </section>
 
-        <section class="tracker-card tracker-diary-card" aria-labelledby="tracker-diary-title">
-          <div class="tracker-section-head">
-            <span class="guide-kicker">Дневник недели</span>
-            <h2 id="tracker-diary-title">Что я забираю из этой недели</h2>
-          </div>
-          <div class="tracker-diary-grid">
-            <label class="tracker-field">
-              <span>Что получилось</span>
-              <textarea data-tracker-diary-field="diaryWorked" rows="4" placeholder="Например: прошла 2 тренировки, вернулась после паузы"></textarea>
-            </label>
-            <label class="tracker-field">
-              <span>Что было сложным</span>
-              <textarea data-tracker-diary-field="diaryHard" rows="4" placeholder="Можно коротко: время, усталость, настрой, нагрузка"></textarea>
-            </label>
-            <label class="tracker-field">
-              <span>Что хочу попробовать дальше</span>
-              <textarea data-tracker-diary-field="diaryNext" rows="4" placeholder="Один мягкий шаг на следующую неделю"></textarea>
-            </label>
-          </div>
+          <section class="tracker-metrics" aria-label="Прогресс выбранного мезоцикла">
+            <article class="tracker-metric-card" data-tracker-metric="workouts">
+              <span>Тренировки</span>
+              <strong>0/18</strong>
+              <p>Основная линия программы</p>
+            </article>
+            <article class="tracker-metric-card" data-tracker-metric="complexes">
+              <span>Поддержка</span>
+              <strong>0</strong>
+              <p>Отмеченные комплексы и восстановление</p>
+            </article>
+          </section>
+
+          <section class="tracker-planner-table-section" aria-labelledby="tracker-map-title">
+            <div class="tracker-planner-table-head">
+              <div class="tracker-planner-table-copy">
+                <span class="guide-kicker">Ежедневный трекер</span>
+                <h2 id="tracker-map-title" data-tracker-planner-table-title>6 недель</h2>
+                <p>Отмечай тренировки и комплексы в своем темпе. Главное — видеть движение по программе.</p>
+              </div>
+              <div class="tracker-variant-switch tracker-variant-switch--table" role="group" aria-label="Выбор варианта трекера">
+                <button type="button" data-tracker-variant="base">Базовый вариант</button>
+                <button type="button" data-tracker-variant="advanced">Усиленный вариант</button>
+              </div>
+            </div>
+            <div class="tracker-program-map tracker-planner-table" data-tracker-program-map></div>
+          </section>
           <button class="tracker-reset-link" type="button" data-tracker-reset>Очистить мои отметки</button>
-        </section>
+        </article>
       </section>
     </main>
 
     <a class="back-top" href="#top" aria-label="Наверх">↑</a>
   </div>
 
-  <script src="assets/js/tracker.js?v=hub-4"></script>
+  <script src="assets/js/tracker.js?v=hub-8"></script>
 </body>
 </html>

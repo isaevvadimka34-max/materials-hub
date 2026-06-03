@@ -230,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backTop = document.querySelector('.back-top');
   const materialCards = [...document.querySelectorAll('[data-material-card]')];
   const materialPanels = [...document.querySelectorAll('[data-material-panel]')];
+  const comingSoonMaterialIds = new Set(['swelling', 'cellulite', 'cycle-training', 'supplements']);
   const overeatingProtocolKey = 'ggc_material_overeating_cycle';
   const overeatingProtocol = document.querySelector('[data-overeating-protocol]');
   const overeatingInteractiveDisclosure = document.querySelector('[data-overeating-interactive-disclosure]');
@@ -470,6 +471,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const id = materialIdFromHash();
     if (!id || id === 'materials') {
       showLibrary();
+      return;
+    }
+
+    if (comingSoonMaterialIds.has(id)) {
+      showLibrary();
+      if (window.history?.replaceState) {
+        window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+      }
       return;
     }
 

@@ -336,16 +336,28 @@ function createOvereatingProtocolHarness(savedState = null) {
 for (const materialId of [
   'food-scanner',
   'overeating-cycle',
-  'swelling',
-  'cellulite',
-  'daily-base',
-  'cycle-training',
-  'supplements',
 ]) {
   assert.match(nutritionHtml, new RegExp(`data-material-card="${materialId}"`), `materials library should include ${materialId} card`);
   assert.match(nutritionHtml, new RegExp(`data-material-panel="${materialId}"`), `materials library should include ${materialId} panel`);
   assert.match(nutritionHtml, new RegExp(`#${materialId}`), `materials library should expose #${materialId} link`);
 }
+
+for (const materialId of [
+  'swelling',
+  'cellulite',
+  'cycle-training',
+  'supplements',
+]) {
+  assert.match(nutritionHtml, new RegExp(`data-material-card="${materialId}"[\\s\\S]*data-material-status="coming-soon"`), `materials library should mark ${materialId} as coming soon`);
+  assert.match(nutritionHtml, new RegExp(`data-material-card="${materialId}"[\\s\\S]*Скоро`), `materials library should show a soon badge for ${materialId}`);
+  assert.doesNotMatch(nutritionHtml, new RegExp(`href="#${materialId}"[\\s\\S]*data-material-card="${materialId}"`), `materials library should not expose #${materialId} link`);
+}
+
+assert.doesNotMatch(nutritionHtml, /data-material-card="daily-base"/, 'materials library should remove the daily base card');
+assert.doesNotMatch(nutritionHtml, /href="#daily-base"/, 'materials library should remove the daily base link');
+assert.match(nutritionJs, /comingSoonMaterialIds/, 'nutrition JS should define coming-soon materials');
+assert.match(nutritionJs, /showLibrary\(\);[\s\S]*window\.history\.replaceState/, 'nutrition JS should return manual coming-soon hashes to the library');
+assert.match(css, /material-card--coming-soon/, 'materials CSS should style coming-soon cards');
 
 assert.match(nutritionHtml, /data-material-library/, 'nutrition guide should include the materials library view');
 assert.match(nutritionHtml, /data-material-back/, 'nutrition guide should include a return to library action');
