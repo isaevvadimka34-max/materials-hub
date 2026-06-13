@@ -224,13 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const search = document.querySelector('[data-food-search]');
   const result = document.querySelector('[data-food-result]');
+  const materialsHub = document.querySelector('.materials-hub');
   const library = document.querySelector('[data-material-library]');
   const reader = document.querySelector('[data-material-reader]');
   const materialTitle = document.querySelector('[data-material-title]');
   const backTop = document.querySelector('.back-top');
   const materialCards = [...document.querySelectorAll('[data-material-card]')];
   const materialPanels = [...document.querySelectorAll('[data-material-panel]')];
-  const comingSoonMaterialIds = new Set(['swelling', 'cellulite', 'cycle-training', 'supplements']);
+  const comingSoonMaterialIds = new Set(['swelling', 'cycle-training', 'supplements']);
   const overeatingProtocolKey = 'ggc_material_overeating_cycle';
   const overeatingProtocol = document.querySelector('[data-overeating-protocol]');
   const overeatingInteractiveDisclosure = document.querySelector('[data-overeating-interactive-disclosure]');
@@ -260,6 +261,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const overeatingChecklistIntro = document.querySelector('[data-overeating-checklist-intro]');
   const overeatingFinalHint = document.querySelector('[data-overeating-final-hint]');
   const overeatingChooseAgain = document.querySelector('[data-overeating-choose-again]');
+  const celluliteStorageKey = 'ggc-material-cellulite-progress-v1';
+  const celluliteWaterWeight = document.querySelector('[data-cellulite-water-weight]');
+  const celluliteWaterResult = document.querySelector('[data-cellulite-water-result]');
+  const celluliteFactorButtons = [...document.querySelectorAll('[data-cellulite-factor]')];
+  const celluliteFactorResult = document.querySelector('[data-cellulite-factor-result]');
+  const celluliteProgress = document.querySelector('[data-cellulite-progress]');
+  const celluliteProgressChecks = [...document.querySelectorAll('[data-cellulite-progress] input[type="checkbox"]')];
+  const celluliteProgressSummary = document.querySelector('[data-cellulite-progress-summary]');
+  const celluliteReset = document.querySelector('[data-cellulite-reset]');
+  const copyArticleButtons = [...document.querySelectorAll('[data-copy-article]')];
 
   const overeatingTypes = {
     fastfood: {
@@ -429,6 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function showLibrary() {
+    materialsHub?.classList.remove('is-reading-material');
     library?.removeAttribute('hidden');
     if (reader) reader.hidden = true;
     backTop?.setAttribute('href', '#top');
@@ -447,6 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (library) library.hidden = true;
     if (reader) reader.hidden = false;
+    materialsHub?.classList.add('is-reading-material');
 
     materialPanels.forEach((panel) => {
       panel.hidden = panel !== activePanel;
@@ -835,6 +848,164 @@ document.addEventListener('DOMContentLoaded', () => {
       renderOvereatingProtocol(overeatingState);
     });
   }
+
+  const celluliteFactorCopy = {
+    water: 'Начни с воды и соли без крайностей: держи свой диапазон воды, не убирай соль полностью и оценивай кожу не по одному утру, а по динамике 1-2 недель',
+    movement: 'Твой первый шаг — вернуть кровообращение через движение: 20-30 минут ходьбы, силовые по плану и короткий МФР лучше, чем редкие героические тренировки',
+    nutrition: 'Стабилизируй питание: белок, овощи, нормальные углеводы и регулярные приемы пищи. Качели “голод — срыв — наказание” часто делают тело мягче визуально',
+    massage: 'Начни с мягкой техники: сухая кожа, движение к сердцу, 10-15 минут, без боли. Если кожа красная и горит — нажим слишком сильный',
+    regularity: 'Не собирай идеальную систему. Выбери 2-3 действия на ближайшие дни: вода, шаги и щётка. Регулярность важнее максимального набора привычек',
+  };
+
+  function getCelluliteTodayKey() {
+    const now = new Date();
+    const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+    return localDate.toISOString().slice(0, 10);
+  }
+
+  function readCelluliteState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(celluliteStorageKey)) || {};
+      const todayKey = getCelluliteTodayKey();
+      const progressDate = typeof saved.progressDate === 'string' ? saved.progressDate : '';
+      return {
+        waterWeight: typeof saved.waterWeight === 'string' ? saved.waterWeight : '',
+        factor: typeof saved.factor === 'string' ? saved.factor : '',
+        progressDate: todayKey,
+        checkedItems: progressDate === todayKey && Array.isArray(saved.checkedItems)
+          ? saved.checkedItems.filter((item) => typeof item === 'string')
+          : [],
+      };
+    } catch {
+      return { waterWeight: '', factor: '', progressDate: getCelluliteTodayKey(), checkedItems: [] };
+    }
+  }
+
+  function writeCelluliteState(nextState) {
+    try {
+      localStorage.setItem(celluliteStorageKey, JSON.stringify({
+        ...nextState,
+        progressDate: nextState.progressDate || getCelluliteTodayKey(),
+      }));
+    } catch {
+      // The guide still works without persistence if storage is blocked.
+    }
+  }
+
+  function renderCelluliteWater(weightValue) {
+    if (!celluliteWaterResult) return;
+
+    const weight = Number(String(weightValue || '').replace(',', '.'));
+    if (!weightValue) {
+      celluliteWaterResult.textContent = 'Введи вес — покажу мягкий диапазон на день';
+      return;
+    }
+
+    if (!Number.isFinite(weight) || weight < 35 || weight > 220) {
+      celluliteWaterResult.textContent = 'Проверь вес: нужен ориентир в килограммах, например 62';
+      return;
+    }
+
+    const min = Math.round((weight * 30) / 50) * 50;
+    const max = Math.round((weight * 35) / 50) * 50;
+    celluliteWaterResult.textContent = `Твой ориентир: ${min}-${max} мл воды в день. Пей равномерно, без попытки “залить” всё вечером`;
+  }
+
+  function renderCelluliteFactor(factor) {
+    celluliteFactorButtons.forEach((button) => {
+      const isActive = button.dataset.celluliteFactor === factor;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
+    });
+
+    if (!celluliteFactorResult) return;
+    celluliteFactorResult.textContent = celluliteFactorCopy[factor] || 'Выбери фактор — здесь появится твой первый шаг';
+  }
+
+  function renderCelluliteProgress(checkedItems) {
+    const checkedSet = new Set(checkedItems);
+    celluliteProgressChecks.forEach((input) => {
+      input.checked = checkedSet.has(input.value);
+    });
+
+    if (celluliteProgressSummary) {
+      celluliteProgressSummary.textContent = `${checkedSet.size}/${celluliteProgressChecks.length} сегодня`;
+    }
+  }
+
+  function copyArticle(button) {
+    const article = button.dataset.copyArticle || '';
+    if (!article) return;
+
+    const original = button.textContent;
+    const markCopied = () => {
+      button.textContent = 'Артикул скопирован';
+      window.setTimeout(() => {
+        button.textContent = original;
+      }, 1800);
+    };
+
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(article).then(markCopied).catch(() => {
+        button.textContent = article;
+      });
+      return;
+    }
+
+    button.textContent = article;
+  }
+
+  function initCelluliteGuide() {
+    const state = readCelluliteState();
+
+    if (celluliteWaterWeight) {
+      celluliteWaterWeight.value = state.waterWeight;
+      renderCelluliteWater(state.waterWeight);
+      celluliteWaterWeight.addEventListener('input', () => {
+        const nextState = { ...readCelluliteState(), waterWeight: celluliteWaterWeight.value };
+        renderCelluliteWater(nextState.waterWeight);
+        writeCelluliteState(nextState);
+      });
+    }
+
+    renderCelluliteFactor(state.factor);
+    celluliteFactorButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const nextState = { ...readCelluliteState(), factor: button.dataset.celluliteFactor || '' };
+        renderCelluliteFactor(nextState.factor);
+        writeCelluliteState(nextState);
+      });
+    });
+
+    renderCelluliteProgress(state.checkedItems);
+    celluliteProgress?.addEventListener('change', (event) => {
+      const target = event.target;
+      if (!target?.matches?.('input[type="checkbox"]')) return;
+
+      const checked = new Set(readCelluliteState().checkedItems);
+      if (target.checked) {
+        checked.add(target.value);
+      } else {
+        checked.delete(target.value);
+      }
+
+      const nextState = { ...readCelluliteState(), checkedItems: [...checked] };
+      renderCelluliteProgress(nextState.checkedItems);
+      writeCelluliteState(nextState);
+    });
+
+    celluliteReset?.addEventListener('click', () => {
+      const nextState = { ...readCelluliteState(), checkedItems: [] };
+      renderCelluliteProgress([]);
+      writeCelluliteState(nextState);
+    });
+
+    copyArticleButtons.forEach((button) => {
+      button.addEventListener('click', () => copyArticle(button));
+    });
+  }
+
+  initCelluliteGuide();
 
   function writeState(value) {
     localStorage.setItem(storageKey, JSON.stringify(value));

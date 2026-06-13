@@ -1443,6 +1443,10 @@ body.is-modal-open {
   min-height: 520px;
 }
 
+.materials-hub.is-reading-material .guide-hero {
+  display: none;
+}
+
 .guide-hero h1 {
   font-size: clamp(56px, 9vw, 112px);
 }
@@ -2102,6 +2106,457 @@ body.is-modal-open {
 
 .material-cycle-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.cellulite-panel {
+  gap: 22px;
+}
+
+.cellulite-hero-card,
+.cellulite-tools,
+.cellulite-plan-grid,
+.cellulite-brush-grid,
+.cellulite-technique-accordion,
+.cellulite-favorites,
+.cellulite-myth-accordion,
+.cellulite-cause-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.cellulite-cover {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  min-height: clamp(320px, 42vw, 470px);
+  padding: clamp(22px, 4vw, 48px);
+  overflow: hidden;
+  border: 1px solid rgba(62, 39, 35, 0.1);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 243, 0.98), rgba(244, 201, 214, 0.12)),
+    rgba(255, 255, 255, 0.88);
+  box-shadow: var(--shadow);
+}
+
+.cellulite-cover__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  max-width: 940px;
+}
+
+.cellulite-cover__copy h2 {
+  max-width: 860px;
+  margin: 12px 0 18px;
+  color: var(--espresso);
+  font-family: Arial, sans-serif;
+  font-size: clamp(42px, 6vw, 78px);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.cellulite-cover__copy p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(17px, 1.45vw, 21px);
+  font-weight: 800;
+  line-height: 1.42;
+}
+
+.cellulite-cover__accent {
+  width: min(180px, 42vw);
+  height: 2px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: var(--dusty-rose);
+}
+
+.cellulite-hero-card {
+  grid-template-columns: minmax(0, 0.9fr) minmax(300px, 1.1fr);
+  align-items: stretch;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid rgba(62, 39, 35, 0.12);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 243, 0.96), rgba(244, 201, 214, 0.2)),
+    rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow);
+}
+
+.cellulite-hero-card > div:first-child,
+.cellulite-tool-card,
+.cellulite-progress-card,
+.cellulite-cause-grid article,
+.cellulite-plan-grid article,
+.cellulite-myth-item,
+.cellulite-brush-grid article,
+.cellulite-technique-item,
+.cellulite-favorites article {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cellulite-hero-card span,
+.cellulite-section .section-heading span,
+.cellulite-tool-card > span,
+.cellulite-progress-card > div > span,
+.cellulite-cause-grid span,
+.cellulite-plan-grid span,
+.cellulite-myth-item summary span,
+.cellulite-technique-item summary span,
+.cellulite-favorites span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cellulite-hero-card h3,
+.cellulite-section h3,
+.cellulite-tool-card h3,
+.cellulite-progress-card h3 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-style: italic;
+  line-height: 1.02;
+}
+
+.cellulite-hero-card h4,
+.cellulite-plan-grid h4,
+.cellulite-brush-grid h4,
+.cellulite-favorites h4,
+.cellulite-myth-item summary strong,
+.cellulite-technique-item summary strong {
+  margin: 0;
+  color: var(--espresso);
+  font-size: 18px;
+}
+
+.cellulite-hero-card p,
+.cellulite-section p,
+.cellulite-tool-card p,
+.cellulite-progress-card p,
+.cellulite-favorites p,
+.cellulite-myth-item p,
+.cellulite-technique-item li,
+.cellulite-warning p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.cellulite-methods,
+.cellulite-tools,
+.cellulite-plan-grid,
+.cellulite-brush-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cellulite-technique-accordion {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cellulite-myth-accordion {
+  grid-template-columns: 1fr;
+}
+
+.cellulite-cause-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.cellulite-favorites {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cellulite-methods article,
+.cellulite-tool-card,
+.cellulite-cause-grid article,
+.cellulite-plan-grid article,
+.cellulite-myth-item,
+.cellulite-brush-grid article,
+.cellulite-technique-item,
+.cellulite-favorites article,
+.cellulite-progress-card {
+  padding: 18px;
+  border: 1px solid rgba(62, 39, 35, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow);
+}
+
+.cellulite-section {
+  display: grid;
+  gap: 14px;
+}
+
+.cellulite-myth-item,
+.cellulite-technique-item {
+  align-content: start;
+}
+
+.cellulite-myth-item summary,
+.cellulite-technique-item summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+}
+
+.cellulite-myth-item summary::-webkit-details-marker,
+.cellulite-technique-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.cellulite-myth-item summary::after,
+.cellulite-technique-item summary::after {
+  content: "+";
+  color: var(--dusty-rose);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.cellulite-myth-item[open] summary::after,
+.cellulite-technique-item[open] summary::after {
+  content: "−";
+}
+
+.cellulite-myth-item p,
+.cellulite-technique-item ol {
+  margin-top: 12px;
+}
+
+.cellulite-field {
+  display: grid;
+  gap: 8px;
+  color: var(--espresso);
+  font-weight: 900;
+}
+
+.cellulite-field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid rgba(62, 39, 35, 0.16);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--espresso);
+  font: inherit;
+  font-weight: 800;
+}
+
+.cellulite-result {
+  min-height: 58px;
+  padding: 14px;
+  border-radius: 8px;
+  background: rgba(244, 201, 214, 0.18);
+  color: var(--espresso);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.cellulite-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cellulite-chip-list button,
+.cellulite-favorites button,
+.cellulite-progress-meta button {
+  min-height: 40px;
+  border: 1px solid rgba(201, 123, 148, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 248, 243, 0.9);
+  color: var(--espresso);
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.cellulite-chip-list button {
+  padding: 9px 12px;
+}
+
+.cellulite-chip-list button.is-active,
+.cellulite-favorites button:focus-visible,
+.cellulite-favorites button:hover {
+  background: var(--espresso);
+  color: var(--cream);
+}
+
+.cellulite-technique-item ol {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.cellulite-progress-card {
+  gap: 16px;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 243, 0.96), rgba(244, 201, 214, 0.14)),
+    rgba(255, 255, 255, 0.86);
+}
+
+.cellulite-progress-card summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 16px;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+}
+
+.cellulite-progress-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.cellulite-progress-card summary::after {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(201, 123, 148, 0.26);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+  color: var(--espresso);
+  content: "+";
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.cellulite-progress-card[open] summary::after {
+  content: "−";
+}
+
+.cellulite-progress-card summary > span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cellulite-progress-card summary strong {
+  color: var(--espresso);
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.96;
+}
+
+.cellulite-progress-card summary small {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.cellulite-progress-card__body {
+  display: grid;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(62, 39, 35, 0.08);
+}
+
+.cellulite-progress-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.cellulite-progress-list label {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-height: 92px;
+  padding: 16px;
+  border: 1px solid rgba(62, 39, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--muted);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.cellulite-progress-list label:has(input:checked) {
+  border-color: rgba(201, 123, 148, 0.36);
+  background: rgba(255, 248, 243, 0.94);
+}
+
+.cellulite-progress-list input {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  accent-color: var(--dusty-rose);
+}
+
+.cellulite-progress-list strong {
+  color: var(--espresso);
+}
+
+.cellulite-progress-item__copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.cellulite-progress-item__title {
+  color: var(--espresso);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.cellulite-progress-item__action {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.cellulite-progress-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cellulite-progress-meta strong {
+  color: var(--espresso);
+  font-size: 18px;
+}
+
+.cellulite-favorites button {
+  justify-self: start;
+  padding: 9px 14px;
+}
+
+.cellulite-warning {
+  gap: 12px;
 }
 
 .overeating-cycle {
@@ -4108,6 +4563,16 @@ body.is-modal-open {
   .materials-library__grid,
   .material-block-grid--two,
   .myth-grid,
+  .cellulite-cover,
+  .cellulite-hero-card,
+  .cellulite-methods,
+  .cellulite-tools,
+  .cellulite-plan-grid,
+  .cellulite-myth-accordion,
+  .cellulite-brush-grid,
+  .cellulite-technique-accordion,
+  .cellulite-cause-grid,
+  .cellulite-favorites,
   .supplement-grid,
   .material-checklist-grid,
   .material-cycle-grid,
@@ -4160,6 +4625,10 @@ body.is-modal-open {
   }
 
   .daily-base-list {
+    grid-template-columns: 1fr;
+  }
+
+  .cellulite-progress-list {
     grid-template-columns: 1fr;
   }
 
@@ -4327,7 +4796,18 @@ body.is-modal-open {
   .material-panel--compact {
     width: 100%;
     max-width: 100%;
+    min-width: 0;
     overflow: visible;
+  }
+
+  .material-reader,
+  .material-panel,
+  .material-panel--compact,
+  .material-panel--compact > *,
+  .cellulite-panel > * {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .material-panel--compact .material-panel__head {
@@ -4347,6 +4827,78 @@ body.is-modal-open {
     inline-size: min(100%, calc(100vw - 32px));
     font-size: 16px;
     text-align: left;
+  }
+
+  .cellulite-panel {
+    gap: 16px;
+  }
+
+  .cellulite-cover__copy h2 {
+    max-width: 100%;
+    font-size: clamp(31px, 9vw, 42px);
+  }
+
+  .cellulite-cover,
+  .cellulite-hero-card,
+  .cellulite-tool-card,
+  .cellulite-progress-card,
+  .cellulite-cause-grid article,
+  .cellulite-plan-grid article,
+  .cellulite-myth-item,
+  .cellulite-brush-grid article,
+  .cellulite-technique-item,
+  .cellulite-favorites article {
+    padding: 16px;
+  }
+
+  .cellulite-cover {
+    min-height: auto;
+  }
+
+  .cellulite-hero-card h3,
+  .cellulite-section h3,
+  .cellulite-tool-card h3,
+  .cellulite-progress-card h3 {
+    font-size: clamp(25px, 8vw, 34px);
+  }
+
+  .cellulite-chip-list {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .cellulite-chip-list button,
+  .cellulite-favorites button,
+  .cellulite-progress-meta button {
+    width: 100%;
+    border-radius: 8px;
+    white-space: normal;
+  }
+
+  .cellulite-progress-meta {
+    align-items: stretch;
+  }
+
+  .cellulite-progress-card summary {
+    gap: 6px 12px;
+  }
+
+  .cellulite-progress-card summary strong {
+    font-size: clamp(25px, 8vw, 32px);
+  }
+
+  .cellulite-progress-card summary small {
+    font-size: 14px;
+  }
+
+  .cellulite-progress-card summary::after {
+    width: 34px;
+    height: 34px;
+  }
+
+  .cellulite-progress-list label {
+    min-height: auto;
+    padding: 14px;
   }
 
   .material-reader__bar {

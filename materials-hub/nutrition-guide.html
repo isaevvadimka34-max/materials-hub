@@ -57,12 +57,11 @@
               <p>Будет доступно в ближайшем обновлении</p>
             </article>
 
-            <article class="material-card material-card--coming-soon" data-material-card="cellulite" data-material-status="coming-soon" aria-disabled="true" tabindex="-1">
-              <span>Мифы</span>
-              <span class="material-card__badge">Скоро</span>
+            <a class="material-card" href="#cellulite" data-material-card="cellulite">
+              <span>Практика</span>
               <h3>Целлюлит</h3>
-              <p>Будет доступно в ближайшем обновлении</p>
-            </article>
+              <p>Почему появляется “апельсиновая корочка” и как работать с ней без паники</p>
+            </a>
 
             <article class="material-card material-card--coming-soon" data-material-card="cycle-training" data-material-status="coming-soon" aria-disabled="true" tabindex="-1">
               <span>Цикл</span>
@@ -384,31 +383,274 @@
             </aside>
           </section>
 
-          <section class="material-panel" id="cellulite" data-material-panel="cellulite" data-title="Целлюлит" hidden>
-            <div class="material-panel__head">
-              <span class="hub-eyebrow">честный разбор</span>
-              <h2>Целлюлит</h2>
-              <p>Целлюлит — нормальная особенность кожи и подкожной ткани. Задача не “стереть его”, а улучшать тонус, питание и регулярность без паники</p>
-            </div>
+          <section class="material-panel cellulite-panel" id="cellulite" data-material-panel="cellulite" data-title="Целлюлит" hidden>
+            <section class="cellulite-cover" aria-label="Апельсиновая корочка: что реально работает">
+              <div class="cellulite-cover__copy">
+                <span class="hub-eyebrow">практика + чеклист</span>
+                <h2>Апельсиновая корочка: что реально работает</h2>
+                <span class="cellulite-cover__accent" aria-hidden="true"></span>
+                <p>Спокойный разбор без борьбы с телом: что влияет на рельеф кожи и как собрать план без жёстких обещаний</p>
+              </div>
+            </section>
 
-            <div class="myth-grid">
-              <article class="material-note">
-                <span>Что реально влияет</span>
-                <p>Генетика, гормоны, процент жира, мышечный тонус, активность, питание, сон и стабильность режима</p>
+            <details class="cellulite-progress-card cellulite-progress-card--daily" data-cellulite-daily-tracker>
+              <summary>
+                <span>ежедневный трекер</span>
+                <strong>Ежедневный чеклист</strong>
+                <small>Открой, отметь базу на сегодня и спокойно двигайся дальше</small>
+              </summary>
+              <div class="cellulite-progress-card__body">
+                <p>Отмечай маленькие действия без давления. Прогресс сохраняется только в твоём браузере</p>
+                <div class="cellulite-progress-list" data-cellulite-progress>
+                  <label class="cellulite-progress-item">
+                    <input type="checkbox" value="water">
+                    <span class="cellulite-progress-item__copy">
+                      <strong class="cellulite-progress-item__title">Вода</strong>
+                      <span class="cellulite-progress-item__action">держу свой ориентир без насилия</span>
+                    </span>
+                  </label>
+                  <label class="cellulite-progress-item">
+                    <input type="checkbox" value="protein">
+                    <span class="cellulite-progress-item__copy">
+                      <strong class="cellulite-progress-item__title">Питание</strong>
+                      <span class="cellulite-progress-item__action">добавляю белок и нормальные приёмы пищи</span>
+                    </span>
+                  </label>
+                  <label class="cellulite-progress-item">
+                    <input type="checkbox" value="steps">
+                    <span class="cellulite-progress-item__copy">
+                      <strong class="cellulite-progress-item__title">Шаги</strong>
+                      <span class="cellulite-progress-item__action">делаю прогулку или больше бытового движения</span>
+                    </span>
+                  </label>
+                  <label class="cellulite-progress-item">
+                    <input type="checkbox" value="strength">
+                    <span class="cellulite-progress-item__copy">
+                      <strong class="cellulite-progress-item__title">Тренировка</strong>
+                      <span class="cellulite-progress-item__action">не пропускаю занятия по курсу</span>
+                    </span>
+                  </label>
+                  <label class="cellulite-progress-item">
+                    <input type="checkbox" value="mfr">
+                    <span class="cellulite-progress-item__copy">
+                      <strong class="cellulite-progress-item__title">МФР/щётка</strong>
+                      <span class="cellulite-progress-item__action">делаю мягкую поверхностную работу</span>
+                    </span>
+                  </label>
+                  <label class="cellulite-progress-item">
+                    <input type="checkbox" value="care">
+                    <span class="cellulite-progress-item__copy">
+                      <strong class="cellulite-progress-item__title">Уход</strong>
+                      <span class="cellulite-progress-item__action">душ, крем или масло и гигиена щётки</span>
+                    </span>
+                  </label>
+                </div>
+                <div class="cellulite-progress-meta">
+                  <strong data-cellulite-progress-summary>0/6 сегодня</strong>
+                  <button class="text-button" type="button" data-cellulite-reset>Очистить отметки</button>
+                </div>
+              </div>
+            </details>
+
+            <section class="cellulite-hero-card" aria-label="Главная идея материала">
+              <div>
+                <span>главная мысль</span>
+                <h3>Цель не стереть тело, а сделать кожу визуально спокойнее</h3>
+                <p>Лучший результат даёт комплекс: питание, силовые тренировки, движение, вода, восстановление и поверхностная поддержка кожи</p>
+                <p>Мы не обещаем “стереть всё за 7 дней”, зато собираем понятный план, который реально повторять без истерики и откатов</p>
+              </div>
+              <div class="cellulite-methods">
+                <article>
+                  <span>01</span>
+                  <h4>Глубокий метод</h4>
+                  <p>Правильное питание и силовые тренировки меняют плотность тела, тонус мышц и общую картинку</p>
+                  <p>Первый заметный результат обычно появляется не сразу, а через 3-4 недели дисциплины</p>
+                </article>
+                <article>
+                  <span>02</span>
+                  <h4>Поверхностный метод</h4>
+                  <p>Самомассаж, МФР и сухая щётка улучшают кровообращение, ощущение тела и текстуру кожи</p>
+                  <p>Это поддержка базы, а не замена питанию, тренировкам и регулярному движению</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="cellulite-section">
+              <div class="section-heading">
+                <span class="hub-eyebrow">почему появляется</span>
+                <h3>Причины, которые влияют на целлюлит</h3>
+                <p>Чаще всего это не один “виновник”, а сочетание факторов</p>
+                <p>Поэтому работаем не одной банкой крема, а комплексно: питание, движение, восстановление и уход</p>
+              </div>
+              <div class="cellulite-cause-grid">
+                <article><span>Генетика</span><p>Предрасположенность влияет на строение кожи, соединительной ткани и распределение подкожного жира</p></article>
+                <article><span>Питание</span><p>Нерегулярность, мало белка, мало клетчатки и резкие качели рациона могут усиливать видимость рельефа</p></article>
+                <article><span>Гормоны</span><p>Цикл, стресс, сон и изменения гормонального фона могут менять задержку жидкости и тонус кожи</p></article>
+                <article><span>Жидкость</span><p>Отёчность делает рельеф заметнее, особенно после соли, недосыпа и долгого сидения</p></article>
+                <article><span>Мало движения</span><p>Когда мало шагов и силовой нагрузки, ткани получают меньше регулярной стимуляции</p></article>
+              </div>
+            </section>
+
+            <section class="cellulite-tools" aria-label="Интерактивные инструменты">
+              <article class="cellulite-tool-card">
+                <span>калькулятор воды</span>
+                <h3>Проверь ориентир по воде</h3>
+                <p>Вода не “смывает целлюлит”, но нормальный питьевой режим помогает не усиливать задержку жидкости</p>
+                <p>Ориентир: 30-35 мл на 1 кг веса</p>
+                <label class="cellulite-field">
+                  <span>Твой вес, кг</span>
+                  <input type="number" inputmode="decimal" min="35" max="220" placeholder="Например: 62" data-cellulite-water-weight>
+                </label>
+                <div class="cellulite-result" data-cellulite-water-result aria-live="polite">Введи вес — покажу мягкий диапазон на день</div>
               </article>
-              <article class="material-note">
-                <span>Что может помочь</span>
-                <p>Силовые тренировки, шаги, белок, вода, клетчатка, сон, массаж как поддержка ощущения тела</p>
+
+              <article class="cellulite-tool-card">
+                <span>личный фокус</span>
+                <h3>Что сейчас мешает больше всего?</h3>
+                <p>Выбери один фактор, и материал даст точечный акцент</p>
+                <p>Это не диагноз, а подсказка, с чего проще начать</p>
+                <div class="cellulite-chip-list" role="group" aria-label="Что сейчас мешает больше всего">
+                  <button type="button" data-cellulite-factor="water">Задержка жидкости</button>
+                  <button type="button" data-cellulite-factor="movement">Мало движения</button>
+                  <button type="button" data-cellulite-factor="nutrition">Питание скачет</button>
+                  <button type="button" data-cellulite-factor="massage">Не знаю технику</button>
+                  <button type="button" data-cellulite-factor="regularity">Нет регулярности</button>
+                </div>
+                <div class="cellulite-result" data-cellulite-factor-result aria-live="polite">Выбери фактор — здесь появится твой первый шаг</div>
               </article>
-              <article class="material-note">
-                <span>Что не решает проблему</span>
-                <p>Крем “за 7 дней”, обёртывания вместо базы, жёсткие детоксы, голод и бесконечное кардио</p>
-              </article>
-              <article class="material-note">
-                <span>Что не обещать</span>
-                <p>Не обещать полное исчезновение. Честная цель — кожа визуально ровнее, тело плотнее, самочувствие лучше</p>
-              </article>
-            </div>
+            </section>
+
+            <section class="cellulite-section">
+              <div class="section-heading">
+                <span class="hub-eyebrow">план действий</span>
+                <h3>Что делаем в комплексе</h3>
+              </div>
+              <div class="cellulite-plan-grid">
+                <article>
+                  <span>01</span>
+                  <h4>Чистое питание без жести</h4>
+                  <p>Белок в 2-4 приёмах пищи, овощи/клетчатка, нормальные углеводы и вода</p>
+                  <p>Не голодовка, не детокс, не “с понедельника идеально”</p>
+                </article>
+                <article>
+                  <span>02</span>
+                  <h4>Тренировки 3 раза в неделю</h4>
+                  <p>Силовая нагрузка помогает телу становиться плотнее и визуально собраннее</p>
+                  <p>МФР и лёгкая активность дополняют базу, но не заменяют её</p>
+                </article>
+                <article>
+                  <span>03</span>
+                  <h4>Лимфодренажный самомассаж</h4>
+                  <p>Сухая щётка, спокойная техника и регулярность улучшают ощущение кожи и кровообращение в проблемных зонах</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="cellulite-section">
+              <div class="section-heading">
+                <span class="hub-eyebrow">без мифов</span>
+                <h3>Мифы, которые лучше не тащить в план</h3>
+                <p>Открой, если хочется проверить спорные обещания из ухода</p>
+              </div>
+              <div class="cellulite-myth-accordion">
+                <details class="cellulite-myth-item">
+                  <summary><span>01</span><strong>Крем вместо режима</strong></summary>
+                  <p>Крем может смягчить кожу и сделать уход приятнее, но он не заменяет питание, силовые и движение</p>
+                </details>
+                <details class="cellulite-myth-item">
+                  <summary><span>02</span><strong>Жёсткая щётка до боли</strong></summary>
+                  <p>Сильное трение не ускоряет результат, а повышает риск раздражения, синяков и желания всё бросить</p>
+                </details>
+                <details class="cellulite-myth-item">
+                  <summary><span>03</span><strong>Слив воды любой ценой</strong></summary>
+                  <p>Мочегонные, резкое урезание соли и углеводов без показаний могут ухудшить самочувствие и сбить нормальный режим</p>
+                </details>
+              </div>
+            </section>
+
+            <section class="cellulite-section cellulite-brush-guide">
+              <div class="section-heading">
+                <span class="hub-eyebrow">сухая щётка</span>
+                <h3>Как делать массаж, чтобы не навредить</h3>
+                <p>Массаж делаем на полностью сухую кожу, без воды и крема</p>
+                <p>Движения уверенные, но не болезненные: задача — стимуляция, а не раздражение</p>
+              </div>
+              <div class="cellulite-brush-grid">
+                <article>
+                  <h4>Выбор инструмента</h4>
+                  <p>Лучше всего — щётка с натуральной щетиной, не слишком жёсткая и не царапающая кожу</p>
+                  <p>Если кожа чувствительная, бери мягкую щётку или перчатку-варежку</p>
+                </article>
+                <article>
+                  <h4>Когда делать</h4>
+                  <p>Вариант 1: до тренировки на ягодицы, чтобы разогреть кожу</p>
+                  <p>Вариант 2: после тренировки для восстановления, но только когда кожа сухая</p>
+                </article>
+                <article>
+                  <h4>Сколько времени</h4>
+                  <p>Ориентир — 10-15 минут на весь массаж</p>
+                  <p>Для бедра и ягодицы можно держать по 5-7 минут, если коже комфортно</p>
+                </article>
+              </div>
+
+              <div class="cellulite-technique-accordion">
+                <details class="cellulite-technique-item">
+                  <summary><span>техника</span><strong>Бёдра</strong></summary>
+                  <ol>
+                    <li>Начинай с нижней части бедра, щётку держи примерно под углом 45° к коже</li>
+                    <li>Веди щётку от колена к бедру, в направлении к сердцу</li>
+                    <li>Хорошо проработай зону под ягодицами</li>
+                    <li>На заметных участках добавь лёгкие круговые движения</li>
+                    <li>Не дави до боли: кожа может розоветь, но не должна гореть и болеть</li>
+                  </ol>
+                </details>
+                <details class="cellulite-technique-item">
+                  <summary><span>техника</span><strong>Ягодицы</strong></summary>
+                  <ol>
+                    <li>Линейными движениями веди щётку от внешней стороны ягодицы к центру</li>
+                    <li>На зоне под ягодицами можно работать чуть внимательнее</li>
+                    <li>Круговые движения делай мягко, без агрессивного трения</li>
+                    <li>После массажа прими тёплый душ, чтобы смыть отшелушенные клетки</li>
+                    <li>Нанеси увлажняющий крем или масло, а скраб сразу после щётки лучше не добавлять</li>
+                  </ol>
+                </details>
+              </div>
+            </section>
+
+            <section class="cellulite-section">
+              <div class="section-heading">
+                <span class="hub-eyebrow">мои любимчики</span>
+                <h3>Что можно сохранить себе</h3>
+              </div>
+              <div class="cellulite-favorites">
+                <article>
+                  <span>перчатка</span>
+                  <h4>Wildberries</h4>
+                  <p>Перчатка-варежка: хороший вариант для чувствительной кожи, но ей сложнее работать, чем щёткой</p>
+                  <button type="button" data-copy-article="266823812">Артикул WB: 266823812</button>
+                </article>
+                <article>
+                  <span>щётка</span>
+                  <h4>Мой фаворит</h4>
+                  <p>Сухая щётка с натуральной щетиной: не слишком жёсткая, удобная для бёдер и ягодиц</p>
+                  <button type="button" data-copy-article="164735617">Артикул WB: 164735617</button>
+                </article>
+                <article>
+                  <span>уход</span>
+                  <h4>После массажа</h4>
+                  <p>Скраб SMORODINA Black Currant, крем-баттер DOVE с манго или связка скраб + крем JERMINAL</p>
+                  <button type="button" data-copy-article="254893452">Артикул WB: 254893452</button>
+                </article>
+              </div>
+            </section>
+
+            <aside class="material-warning cellulite-warning">
+              <h3>Противопоказания и безопасность</h3>
+              <p>Не делай массаж сухой щёткой при воспалениях, ранках, раздражении кожи, варикозе, болезненных венах и большом количестве родинок в зоне массажа</p>
+              <p>Если есть сомнения по коже или сосудам — лучше уточнить у специалиста</p>
+              <p>Мой щётку примерно 1 раз в месяц или чаще с мылом и тёплой водой</p>
+              <p>Использовать снова можно только когда она полностью высохнет</p>
+            </aside>
           </section>
 
           <section class="material-panel" id="daily-base" data-material-panel="daily-base" data-title="Ежедневная база" hidden>
