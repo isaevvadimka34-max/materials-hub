@@ -1780,6 +1780,7 @@ body.is-modal-open {
 
 .material-card--new {
   position: relative;
+  padding-top: 52px;
 }
 
 .material-card span,
@@ -1814,10 +1815,10 @@ body.is-modal-open {
 }
 
 .material-card--new .material-card__badge {
-  position: static;
-  justify-self: start;
+  position: absolute;
+  top: 16px;
+  right: 16px;
   width: max-content;
-  margin-top: -2px;
 }
 
 .material-card--coming-soon:hover,
@@ -5543,6 +5544,10 @@ body.is-modal-open {
   }
 
   .material-card--coming-soon {
+    padding: 16px;
+  }
+
+  .material-card--new {
     padding: 16px;
   }
 
