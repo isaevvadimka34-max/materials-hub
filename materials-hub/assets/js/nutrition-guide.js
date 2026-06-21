@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backTop = document.querySelector('.back-top');
   const materialCards = [...document.querySelectorAll('[data-material-card]')];
   const materialPanels = [...document.querySelectorAll('[data-material-panel]')];
-  const comingSoonMaterialIds = new Set(['swelling', 'cycle-training', 'supplements']);
+  const comingSoonMaterialIds = new Set(['swelling', 'cycle-training']);
   const overeatingProtocolKey = 'ggc_material_overeating_cycle';
   const overeatingProtocol = document.querySelector('[data-overeating-protocol]');
   const overeatingInteractiveDisclosure = document.querySelector('[data-overeating-interactive-disclosure]');
@@ -268,9 +268,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const celluliteFactorResult = document.querySelector('[data-cellulite-factor-result]');
   const celluliteProgress = document.querySelector('[data-cellulite-progress]');
   const celluliteProgressChecks = [...document.querySelectorAll('[data-cellulite-progress] input[type="checkbox"]')];
+  const celluliteProgressValues = new Set(celluliteProgressChecks.map((input) => input.value));
   const celluliteProgressSummary = document.querySelector('[data-cellulite-progress-summary]');
   const celluliteReset = document.querySelector('[data-cellulite-reset]');
   const copyArticleButtons = [...document.querySelectorAll('[data-copy-article]')];
+  const copyStatus = document.querySelector('[data-copy-status]');
 
   const overeatingTypes = {
     fastfood: {
@@ -850,11 +852,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const celluliteFactorCopy = {
-    water: 'Начни с воды и соли без крайностей: держи свой диапазон воды, не убирай соль полностью и оценивай кожу не по одному утру, а по динамике 1-2 недель',
-    movement: 'Твой первый шаг — вернуть кровообращение через движение: 20-30 минут ходьбы, силовые по плану и короткий МФР лучше, чем редкие героические тренировки',
-    nutrition: 'Стабилизируй питание: белок, овощи, нормальные углеводы и регулярные приемы пищи. Качели “голод — срыв — наказание” часто делают тело мягче визуально',
-    massage: 'Начни с мягкой техники: сухая кожа, движение к сердцу, 10-15 минут, без боли. Если кожа красная и горит — нажим слишком сильный',
-    regularity: 'Не собирай идеальную систему. Выбери 2-3 действия на ближайшие дни: вода, шаги и щётка. Регулярность важнее максимального набора привычек',
+    water: 'Начни с базы: вода по мягкому ориентиру, соль без крайностей и нормальный сон. Не оценивай рельеф по одному утру — смотри динамику 1-2 недель',
+    movement: 'Добавь ежедневную прогулку или больше бытового движения. Плюс силовые по курсу: они делают тело визуально плотнее, а не просто “сжигают целлюлит”',
+    nutrition: 'Собери тарелку проще: белок в 2-4 приёмах, овощи или клетчатка, нормальные углеводы. Главная цель — убрать качели голод, срыв и наказание',
+    regularity: 'Не собирай идеальную систему. На ближайшие 3 дня выбери минимум: вода, шаги и один спокойный уход. Регулярность важнее длинного списка привычек',
   };
 
   function getCelluliteTodayKey() {
@@ -863,17 +864,25 @@ document.addEventListener('DOMContentLoaded', () => {
     return localDate.toISOString().slice(0, 10);
   }
 
+  function normalizeCelluliteSavedValue(value) {
+    if (value === null || value === undefined || value === 'null' || value === 'undefined') {
+      return '';
+    }
+
+    return typeof value === 'string' ? value : String(value);
+  }
+
   function readCelluliteState() {
     try {
       const saved = JSON.parse(localStorage.getItem(celluliteStorageKey)) || {};
       const todayKey = getCelluliteTodayKey();
       const progressDate = typeof saved.progressDate === 'string' ? saved.progressDate : '';
       return {
-        waterWeight: typeof saved.waterWeight === 'string' ? saved.waterWeight : '',
-        factor: typeof saved.factor === 'string' ? saved.factor : '',
+        waterWeight: normalizeCelluliteSavedValue(saved.waterWeight),
+        factor: normalizeCelluliteSavedValue(saved.factor),
         progressDate: todayKey,
         checkedItems: progressDate === todayKey && Array.isArray(saved.checkedItems)
-          ? saved.checkedItems.filter((item) => typeof item === 'string')
+          ? saved.checkedItems.filter((item) => typeof item === 'string' && celluliteProgressValues.has(item))
           : [],
       };
     } catch {
@@ -929,7 +938,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (celluliteProgressSummary) {
-      celluliteProgressSummary.textContent = `${checkedSet.size}/${celluliteProgressChecks.length} сегодня`;
+      const checkedCount = celluliteProgressChecks.filter((input) => input.checked).length;
+      celluliteProgressSummary.textContent = `${checkedCount}/${celluliteProgressChecks.length} сегодня`;
     }
   }
 
@@ -937,22 +947,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const article = button.dataset.copyArticle || '';
     if (!article) return;
 
-    const original = button.textContent;
     const markCopied = () => {
-      button.textContent = 'Артикул скопирован';
+      button.classList.add('is-copied');
+      if (copyStatus) {
+        copyStatus.textContent = `Скопировано: ${article}`;
+      }
       window.setTimeout(() => {
-        button.textContent = original;
+        button.classList.remove('is-copied');
+        if (copyStatus?.textContent === `Скопировано: ${article}`) {
+          copyStatus.textContent = '';
+        }
       }, 1800);
     };
 
+    const copyFallback = () => {
+      const input = document.createElement('textarea');
+      input.value = article;
+      input.setAttribute('readonly', '');
+      input.style.position = 'fixed';
+      input.style.top = '-999px';
+      input.style.opacity = '0';
+      document.body.append(input);
+      input.select();
+      input.setSelectionRange(0, article.length);
+      const copied = document.execCommand('copy');
+      input.remove();
+      if (copied) {
+        markCopied();
+      } else {
+        if (copyStatus) {
+          copyStatus.textContent = `Артикул: ${article}`;
+        }
+      }
+    };
+
     if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(article).then(markCopied).catch(() => {
-        button.textContent = article;
-      });
+      navigator.clipboard.writeText(article).then(markCopied).catch(copyFallback);
       return;
     }
 
-    button.textContent = article;
+    copyFallback();
   }
 
   function initCelluliteGuide() {
