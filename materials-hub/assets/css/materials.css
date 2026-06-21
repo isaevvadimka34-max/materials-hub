@@ -1778,6 +1778,10 @@ body.is-modal-open {
   box-shadow: 0 14px 34px rgba(62, 39, 35, 0.08);
 }
 
+.material-card--new {
+  position: relative;
+}
+
 .material-card span,
 .material-panel__head span,
 .material-note span {
@@ -1807,6 +1811,13 @@ body.is-modal-open {
   font-size: 11px;
   line-height: 1;
   white-space: nowrap;
+}
+
+.material-card--new .material-card__badge {
+  position: static;
+  justify-self: start;
+  width: max-content;
+  margin-top: -2px;
 }
 
 .material-card--coming-soon:hover,
