@@ -1,17 +1,20 @@
-﻿# Local/system files
+# System/local files
 .DS_Store
 Thumbs.db
+desktop.ini
 *.log
 
-# Draft preorder export files
-getcourse-preorder.html
-getcourse-preorder-instructions.md
-assets/css/getcourse-preorder.css
-scripts/verify_preorder_template.js
+# Temporary exports and screenshots
+*.zip
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.tmp
+*.bak
 
-# Browser render temp profiles
-reports/social-post-square/assets/edge-profile*/
-reports/social-post-square/edge-render-profile*/
-
-# Generated marketing images
-reports/social-post-square/
+# Local browser/test artifacts
+reports/
+source/
+scripts/
