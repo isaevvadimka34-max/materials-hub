@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Полезные материалы QMELLZ: фудсканер, отёки, целлюлит, ежедневная база, женский цикл и БАДы">
   <title>Gym Girls Club — полезные материалы</title>
-  <link rel="stylesheet" href="assets/css/materials.css?v=hub-31">
+  <link rel="stylesheet" href="assets/css/materials.css?v=hub-35">
 </head>
 <body>
   <div class="materials-hub">
@@ -60,11 +60,11 @@
               <p>Протеин, креатин, BCAA, омега-3 и витамин D: что это и как выбирать</p>
             </a>
 
-            <article class="material-card material-card--coming-soon" data-material-card="swelling" data-material-status="coming-soon" aria-disabled="true" tabindex="-1">
-              <span class="material-card__badge">Скоро</span>
+            <a class="material-card material-card--new" href="#swelling" data-material-card="swelling">
+              <span class="material-card__badge">Новый материал</span>
               <h3>Отёки</h3>
-              <p>Будет доступно в ближайшем обновлении</p>
-            </article>
+              <p>Тренировки, питание, цикл и восстановление: всё важное про задержку воды</p>
+            </a>
 
             <article class="material-card material-card--coming-soon" data-material-card="cycle-training" data-material-status="coming-soon" aria-disabled="true" tabindex="-1">
               <span class="material-card__badge">Скоро</span>
@@ -326,55 +326,350 @@
             </div>
           </section>
 
-          <section class="material-panel" id="swelling" data-material-panel="swelling" data-title="Отёки" hidden>
-            <div class="material-panel__head">
-              <span class="hub-eyebrow">чеклист</span>
-              <h2>Отёки</h2>
-              <p>Отёки не всегда означают, что “что-то пошло не так”. Часто это реакция на цикл, соль, сон, стресс и нагрузку</p>
+          <section class="material-panel material-panel--compact swelling-panel" id="swelling" data-material-panel="swelling" data-title="Отёки" hidden>
+            <div class="material-panel__head swelling-panel__head">
+              <span class="hub-eyebrow">ОТЁКИ</span>
+              <h2>Почему тело удерживает воду и что с этим делать</h2>
+              <p>Вес, кольца, следы от носков и отражение в зеркале могут меняться даже при правильном питании и тренировках. Разбираемся без паники и крайностей</p>
             </div>
 
-            <div class="material-checklist-grid">
-              <article class="material-check-card">
-                <h3>Когда это нормально</h3>
-                <ul>
-                  <li>Перед менструацией</li>
-                  <li>После солёной еды или алкоголя</li>
-                  <li>После перелёта, жары или долгого сидения</li>
-                  <li>После новой тяжёлой тренировки</li>
-                </ul>
-              </article>
-              <article class="material-check-card">
-                <h3>Что может влиять</h3>
-                <ul>
-                  <li>Недосып и стресс</li>
-                  <li>Мало воды и много соли</li>
-                  <li>Резкие качели углеводов</li>
-                  <li>Низкая активность в течение дня</li>
-                </ul>
-              </article>
-              <article class="material-check-card">
-                <h3>Что делать</h3>
-                <ul>
-                  <li>Вернуть воду и обычное питание</li>
-                  <li>Добавить ходьбу и лёгкое движение</li>
-                  <li>Не урезать еду резко</li>
-                  <li>Дать телу 1-3 дня на стабилизацию</li>
-                </ul>
-              </article>
-              <article class="material-check-card">
-                <h3>Чего не делать</h3>
-                <ul>
-                  <li>Не пить мочегонные без назначения</li>
-                  <li>Не убирать полностью соль и углеводы</li>
-                  <li>Не наказывать себя голодом</li>
-                  <li>Не делать выводы по одному утру</li>
-                </ul>
-              </article>
+            <div class="swelling-disclosures">
+              <details class="swelling-disclosure">
+                <summary>
+                  <span>Разобраться</span>
+                  <strong>Почему появляются отёки</strong>
+                  <small>Короткая база, причины, привычки и мифы</small>
+                </summary>
+
+                <div class="swelling-theory swelling-disclosure__body">
+                  <section class="swelling-intro swelling-theory-intro" aria-labelledby="swelling-difference-title">
+                    <div class="swelling-section__head">
+                      <span>Начнём с главного</span>
+                      <h3 id="swelling-difference-title">Не всё, что кажется отёком, им является</h3>
+                      <p>После тренировки и в разные дни цикла тело может выглядеть по-разному. Это не повод оценивать прогресс по одному утру</p>
+                    </div>
+
+                    <div class="swelling-distinction-grid">
+                      <article class="swelling-distinction-card">
+                        <span>01</span>
+                        <h4>Отёк</h4>
+                        <p>Припухлость, следы от одежды, колец или носков, ощущение тяжести</p>
+                      </article>
+                      <article class="swelling-distinction-card">
+                        <span>02</span>
+                        <h4>Вздутие</h4>
+                        <p>Ощущение объёма и дискомфорта преимущественно в животе</p>
+                      </article>
+                      <article class="swelling-distinction-card">
+                        <span>03</span>
+                        <h4>Памп</h4>
+                        <p>Временная наполненность мышц кровью и жидкостью после нагрузки</p>
+                      </article>
+                      <article class="swelling-distinction-card">
+                        <span>04</span>
+                        <h4>Колебание веса</h4>
+                        <p>Вода, содержимое ЖКТ и запасы гликогена, а не только изменение жировой массы</p>
+                      </article>
+                    </div>
+
+                    <aside class="swelling-key-note swelling-quote">
+                      <span>Главная мысль</span>
+                      <p>Один вес или одно отражение утром ничего не говорят о прогрессе</p>
+                    </aside>
+                  </section>
+
+                  <section class="swelling-section" aria-labelledby="swelling-scenarios-title">
+                    <div class="swelling-section__head">
+                      <span>Что может влиять</span>
+                      <h3 id="swelling-scenarios-title">Шесть частых сценариев у спортсменок</h3>
+                    </div>
+
+                    <div class="swelling-scenarios">
+                      <article class="swelling-scenario swelling-scenario-card">
+                        <span class="swelling-scenario__number">01</span>
+                        <h4>Новая или тяжёлая нагрузка</h4>
+                        <p><strong>Что заметишь:</strong> мышцы выглядят плотнее, есть крепатура или локальная припухлость</p>
+                        <p><strong>Почему:</strong> после непривычной нагрузки ткани восстанавливаются и временно удерживают больше жидкости</p>
+                        <p><strong>Что поможет:</strong> обычное питание, спокойное движение и время на восстановление</p>
+                        <details class="swelling-deeper">
+                          <summary>Хочу понять глубже</summary>
+                          <p>Раннее увеличение объёма мышц после старта силовых частично может быть связано не с ростом мышечной ткани, а с восстановительным отёком. Это временная реакция, поэтому прогресс лучше сравнивать по неделям, а не на следующее утро</p>
+                        </details>
+                      </article>
+
+                      <article class="swelling-scenario swelling-scenario-card">
+                        <span class="swelling-scenario__number">02</span>
+                        <h4>Углеводы и гликоген</h4>
+                        <p><strong>Что заметишь:</strong> вес меняется после более углеводного дня, мышцы выглядят наполненнее</p>
+                        <p><strong>Почему:</strong> мышцы запасают углеводы в форме гликогена вместе с водой</p>
+                        <p><strong>Что поможет:</strong> не устраивать резкие качели и сохранить привычный рацион</p>
+                        <details class="swelling-deeper">
+                          <summary>Хочу понять глубже</summary>
+                          <p>Когда запасы гликогена пополняются, вместе с ними возвращается вода. Это нормальная часть спортивного восстановления, а не набор жира за один день</p>
+                        </details>
+                      </article>
+
+                      <article class="swelling-scenario swelling-scenario-card">
+                        <span class="swelling-scenario__number">03</span>
+                        <h4>Соль, жара и потоотделение</h4>
+                        <p><strong>Что заметишь:</strong> жажда, тяжесть, изменение веса после жаркого или солёного дня</p>
+                        <p><strong>Почему:</strong> организму приходится заново выравнивать баланс жидкости и электролитов</p>
+                        <p><strong>Что поможет:</strong> стабильный режим без полного отказа от соли и без воды через силу</p>
+                        <details class="swelling-deeper">
+                          <summary>Хочу понять глубже</summary>
+                          <p>Скорость потоотделения у всех разная, поэтому универсальная норма воды не подходит каждой спортсменке. Ориентируйся на жажду, условия тренировки и рекомендации курса</p>
+                        </details>
+                      </article>
+
+                      <article class="swelling-scenario swelling-scenario-card">
+                        <span class="swelling-scenario__number">04</span>
+                        <h4>Менструальный цикл</h4>
+                        <p><strong>Что заметишь:</strong> вздутие, тяжесть, следы от колец или временный плюс на весах</p>
+                        <p><strong>Почему:</strong> перед менструацией самочувствие и распределение жидкости могут меняться</p>
+                        <p><strong>Что поможет:</strong> сравнивать состояние с той же фазой прошлого цикла, а не со вчерашним днём</p>
+                        <details class="swelling-deeper">
+                          <summary>Хочу понять глубже</summary>
+                          <p>Отмечай фазу цикла вместе с ощущениями два-три месяца. Личная повторяемость полезнее универсального календаря, потому что реакции отличаются</p>
+                        </details>
+                      </article>
+
+                      <article class="swelling-scenario swelling-scenario-card">
+                        <span class="swelling-scenario__number">05</span>
+                        <h4>Дорога и долгое сидение</h4>
+                        <p><strong>Что заметишь:</strong> тяжесть в ногах и более заметные следы от носков к вечеру</p>
+                        <p><strong>Почему:</strong> при долгом сидении мышцы ног меньше помогают движению крови и жидкости</p>
+                        <p><strong>Что поможет:</strong> короткие перерывы на ходьбу и удобная одежда без сильного давления</p>
+                      </article>
+
+                      <article class="swelling-scenario swelling-scenario-card">
+                        <span class="swelling-scenario__number">06</span>
+                        <h4>Недовосстановление</h4>
+                        <p><strong>Что заметишь:</strong> тяжесть, усталость и ощущение, что тело выглядит непривычно</p>
+                        <p><strong>Почему:</strong> недосып, стресс и алкоголь меняют привычный режим питания, воды и восстановления</p>
+                        <p><strong>Что поможет:</strong> вернуть базовые привычки и не делать вывод по одному сложному дню</p>
+                      </article>
+                    </div>
+                  </section>
+
+                  <section class="swelling-section swelling-program" aria-labelledby="swelling-program-title">
+                    <div class="swelling-section__head swelling-program__intro">
+                      <span>Без конфликта с курсом</span>
+                      <h3 id="swelling-program-title">Что делать вокруг тренировочной программы</h3>
+                      <p>Этот материал не меняет расписание и упражнения курса</p>
+                    </div>
+
+                    <div class="swelling-program-grid">
+                      <article class="swelling-program-card">
+                        <span>До тренировки</span>
+                        <ul>
+                          <li>Пей в привычном режиме</li>
+                          <li>Не приходи после голодного дня</li>
+                          <li>Не исключай заранее соль и углеводы</li>
+                          <li>Оценивай самочувствие, а не только зеркало</li>
+                        </ul>
+                      </article>
+                      <article class="swelling-program-card">
+                        <span>Во время</span>
+                        <ul>
+                          <li>Следуй программе</li>
+                          <li>Учитывай жажду, длительность и жару</li>
+                          <li>Не надевай лишнюю одежду ради пота</li>
+                          <li>Не добавляй кардио «для сушки»</li>
+                        </ul>
+                      </article>
+                      <article class="swelling-program-card">
+                        <span>После тренировки</span>
+                        <ul>
+                          <li>Верни обычный приём пищи</li>
+                          <li>Восполни жидкость без чрезмерного объёма</li>
+                          <li>Добавь ходьбу или мягкую мобильность</li>
+                          <li>Оценивай динамику, а не одно утро</li>
+                        </ul>
+                      </article>
+                    </div>
+
+                    <aside class="swelling-priority swelling-program__priority">
+                      <strong>Программа и рекомендации тренера всегда в приоритете</strong>
+                      <p>Не отменяй и не добавляй нагрузку только из-за цифры на весах или отражения в зеркале</p>
+                    </aside>
+                  </section>
+
+                  <section class="swelling-section" aria-labelledby="swelling-habits-title">
+                    <div class="swelling-section__head">
+                      <span>Профилактика без крайностей</span>
+                      <h3 id="swelling-habits-title">Пять привычек, которые помогают видеть систему</h3>
+                    </div>
+                    <div class="swelling-habits swelling-route">
+                      <article class="swelling-route__step"><span>01</span><div><strong>Стабильный питьевой режим</strong><p>Без обезвоживания и воды через силу</p></div></article>
+                      <article class="swelling-route__step"><span>02</span><div><strong>Регулярное питание</strong><p>Без голода и резких качелей углеводов</p></div></article>
+                      <article class="swelling-route__step"><span>03</span><div><strong>Постепенная нагрузка</strong><p>Прогрессия по программе, а не рывками</p></div></article>
+                      <article class="swelling-route__step"><span>04</span><div><strong>Движение в течение дня</strong><p>Короткая ходьба после долгого сидения</p></div></article>
+                      <article class="swelling-route__step"><span>05</span><div><strong>Сон и наблюдение за циклом</strong><p>Сравнение повторяющихся условий, а не случайных дней</p></div></article>
+                    </div>
+                  </section>
+
+                  <section class="swelling-section" aria-labelledby="swelling-myths-title">
+                    <div class="swelling-section__head">
+                      <span>Проверка реальностью</span>
+                      <h3 id="swelling-myths-title">Семь мифов, которые мешают прогрессу</h3>
+                    </div>
+                    <div class="swelling-myths">
+                      <details class="swelling-myth"><summary>Нужно пить меньше воды</summary><p>Резкое ограничение жидкости не решает причину и может ухудшить самочувствие. Верни привычный режим без крайностей</p></details>
+                      <details class="swelling-myth"><summary>Нужно полностью убрать соль</summary><p>Соль участвует в водно-электролитном балансе. Важнее стабильность рациона, а не полный запрет</p></details>
+                      <details class="swelling-myth"><summary>Углеводы делают тело жирнее за ночь</summary><p>После пополнения гликогена вместе с ним удерживается вода. Это не равно набору жира за один день</p></details>
+                      <details class="swelling-myth"><summary>Отёк нужно отработать кардио</summary><p>Дополнительная нагрузка не нужна как наказание. Продолжай программу и возвращай обычный режим</p></details>
+                      <details class="swelling-myth"><summary>Чем больше пота, тем лучше результат</summary><p>Пот показывает работу охлаждения, а не количество сгоревшего жира</p></details>
+                      <details class="swelling-myth"><summary>Мочегонные и детокс-чаи ускоряют прогресс</summary><p>Они не решают спортивную задачу и могут нарушить баланс жидкости и электролитов</p></details>
+                      <details class="swelling-myth"><summary>Плюс после тренировки означает набор жира</summary><p>На вес влияют вода, гликоген, пища и восстановление. Смотри на тренд за несколько недель</p></details>
+                    </div>
+                  </section>
+
+                </div>
+              </details>
+
+              <details class="swelling-disclosure swelling-disclosure--tracker" open>
+                <summary>
+                  <span>Интерактив</span>
+                  <strong>Трекер отёков на 3 дня</strong>
+                  <small>Ответь сегодня — получи план · после 3 записей узнаешь, с чем чаще совпадают отёки</small>
+                </summary>
+
+                <section class="swelling-tracker swelling-disclosure__body" data-swelling-tracker aria-labelledby="swelling-tracker-purpose-title">
+                  <section class="swelling-tracker-purpose" aria-labelledby="swelling-tracker-purpose-title">
+                    <div class="swelling-tracker-purpose__head">
+                      <span>ЧТО ДАСТ ТРЕКЕР</span>
+                      <h3 id="swelling-tracker-purpose-title">Пойми, в каких ситуациях отёчность появляется чаще</h3>
+                      <p>Сравним изменения тела с тренировками, сном, циклом, питанием, жарой и долгим сидением</p>
+                    </div>
+                    <ol class="swelling-tracker-purpose__steps">
+                      <li><strong>Сегодня</strong><span>Ответь на 4 вопроса и получи спокойный план на день</span></li>
+                      <li><strong>Ещё 2 раза</strong><span>Вернись в течение недели и ответь на те же вопросы</span></li>
+                      <li><strong>После 3 записей</strong><span>Увидишь, с чем чаще совпадали отёки, и получишь 3 привычки на неделю</span></li>
+                    </ol>
+                    <p class="swelling-tracker-purpose__note">Трекер сравнивает твои записи, но не ставит диагноз</p>
+                  </section>
+
+                  <section class="swelling-tracker-start" data-swelling-start-panel data-swelling-step="start" aria-labelledby="swelling-tracker-title">
+                    <div class="swelling-tracker__intro swelling-tracker__head">
+                      <span>СЕГОДНЯШНЯЯ ЗАПИСЬ</span>
+                      <h3 id="swelling-tracker-title" data-swelling-start-title tabindex="-1">Ответь на 4 коротких вопроса</h3>
+                      <p>О теле, режиме воды и самочувствии</p>
+                    </div>
+                    <div class="swelling-tracker-start__date">
+                      <span>Сегодня</span>
+                      <time data-swelling-today-date></time>
+                    </div>
+                    <button class="button button--primary swelling-tracker-start__button" type="button" data-swelling-start>Начать день 1</button>
+                    <small>Около минуты · ответы хранятся только в этом браузере</small>
+                  </section>
+
+                  <div class="swelling-tracker__workspace" data-swelling-workspace hidden>
+                    <div class="swelling-progress swelling-tracker__progress" data-swelling-progress aria-label="Прогресс по дням">
+                      <span class="swelling-tracker__progress-segment" data-swelling-progress-segment="1"></span>
+                      <span class="swelling-tracker__progress-segment" data-swelling-progress-segment="2"></span>
+                      <span class="swelling-tracker__progress-segment" data-swelling-progress-segment="3"></span>
+                    </div>
+                    <div class="swelling-tracker__progress-copy" aria-live="polite">
+                      <strong data-swelling-day-progress>День 1 из 3</strong>
+                      <span data-swelling-question-progress>Вопрос 1 из 4</span>
+                    </div>
+                    <strong class="swelling-progress__label swelling-tracker__progress-label" data-swelling-progress-label hidden>Запись 1 из 3</strong>
+
+                    <form class="swelling-tracker__form" data-swelling-form hidden novalidate>
+                      <section class="swelling-tracker__question" data-swelling-step="question-1" aria-labelledby="swelling-question-1-title">
+                        <fieldset class="swelling-tracker__field swelling-tracker__group" aria-describedby="swelling-question-1-hint swelling-question-1-error">
+                          <legend id="swelling-question-1-title" data-swelling-question-heading tabindex="-1">Что изменилось сегодня?</legend>
+                          <p id="swelling-question-1-hint">Можно выбрать несколько вариантов</p>
+                          <div class="swelling-options swelling-options--two swelling-tracker__options">
+                            <label class="swelling-option swelling-tracker__option"><input type="checkbox" value="face" data-swelling-notice><span>Лицо или область вокруг глаз</span></label>
+                            <label class="swelling-option swelling-tracker__option"><input type="checkbox" value="hands" data-swelling-notice><span>Кольца или кисти</span></label>
+                            <label class="swelling-option swelling-tracker__option"><input type="checkbox" value="legs" data-swelling-notice><span>Следы от носков или тяжесть в ногах</span></label>
+                            <label class="swelling-option swelling-tracker__option"><input type="checkbox" value="bloating" data-swelling-notice><span>Вздутие живота</span></label>
+                            <label class="swelling-option swelling-tracker__option"><input type="checkbox" value="appearance" data-swelling-notice><span>Вес или внешний вид</span></label>
+                            <label class="swelling-option swelling-tracker__option"><input type="checkbox" value="none" data-swelling-notice><span>Ничего необычного</span></label>
+                          </div>
+                          <p class="swelling-tracker__error" id="swelling-question-1-error" data-swelling-step-error="question-1" role="alert" hidden>Выбери хотя бы один вариант</p>
+                        </fieldset>
+                        <div class="swelling-tracker__navigation">
+                          <button class="button button--primary" type="button" data-swelling-next="question-2" disabled>Дальше</button>
+                        </div>
+                      </section>
+
+                      <section class="swelling-tracker__question" data-swelling-step="question-2" aria-labelledby="swelling-question-2-title" hidden>
+                        <fieldset class="swelling-tracker__field" aria-describedby="swelling-question-2-hint swelling-factor-limit-hint swelling-question-2-error">
+                          <legend id="swelling-question-2-title" data-swelling-question-heading tabindex="-1">Что происходило за последние два дня?</legend>
+                          <p id="swelling-question-2-hint">Выбери до 3 факторов, которые могли повлиять</p>
+                          <p class="swelling-tracker__counter" data-swelling-factor-counter aria-live="polite">Выбрано 0 из 3</p>
+                          <div class="swelling-options swelling-options--chips">
+                            <label class="swelling-option"><input type="checkbox" value="hard-training" data-swelling-factor><span>Тяжёлая тренировка</span></label>
+                            <label class="swelling-option"><input type="checkbox" value="regular-training" data-swelling-factor><span>Обычная тренировка</span></label>
+                            <label class="swelling-option"><input type="checkbox" value="cycle" data-swelling-factor><span>ПМС или первые дни цикла</span></label>
+                            <label class="swelling-option"><input type="checkbox" value="salty-food" data-swelling-factor><span>Солёная еда</span></label>
+                            <label class="swelling-option"><input type="checkbox" value="alcohol" data-swelling-factor><span>Алкоголь</span></label>
+                            <label class="swelling-option"><input type="checkbox" value="heat" data-swelling-factor><span>Жара</span></label>
+                            <label class="swelling-option"><input type="checkbox" value="sitting" data-swelling-factor><span>Дорога или долгое сидение</span></label>
+                            <label class="swelling-option"><input type="checkbox" value="low-sleep" data-swelling-factor><span>Недостаток сна</span></label>
+                            <label class="swelling-option"><input type="checkbox" value="stress" data-swelling-factor><span>Напряжённый день</span></label>
+                            <label class="swelling-option"><input type="checkbox" value="routine" data-swelling-factor><span>Привычный режим</span></label>
+                          </div>
+                          <p class="swelling-tracker__hint" id="swelling-factor-limit-hint" data-swelling-factor-hint hidden>Выбери до трёх основных факторов — так результат будет понятнее</p>
+                          <p class="swelling-tracker__error" id="swelling-question-2-error" data-swelling-step-error="question-2" role="alert" hidden>Выбери хотя бы один фактор</p>
+                        </fieldset>
+                        <div class="swelling-tracker__navigation">
+                          <button class="button button--ghost" type="button" data-swelling-back="question-1">Назад</button>
+                          <button class="button button--primary" type="button" data-swelling-next="question-3" disabled>Дальше</button>
+                        </div>
+                      </section>
+
+                      <section class="swelling-tracker__question" data-swelling-step="question-3" aria-labelledby="swelling-question-3-title" hidden>
+                        <fieldset class="swelling-tracker__field" aria-describedby="swelling-question-3-hint swelling-question-3-error">
+                          <legend id="swelling-question-3-title" data-swelling-question-heading tabindex="-1">Как сегодня обстояли дела с водой?</legend>
+                          <p id="swelling-question-3-hint">Выбери то, что ближе всего к твоему дню</p>
+                          <div class="swelling-options swelling-options--two">
+                            <label class="swelling-option"><input type="radio" name="swelling-water" value="less" data-swelling-water><span>Меньше обычного</span></label>
+                            <label class="swelling-option"><input type="radio" name="swelling-water" value="usual" data-swelling-water><span>Примерно как обычно</span></label>
+                            <label class="swelling-option"><input type="radio" name="swelling-water" value="more" data-swelling-water><span>Больше обычного</span></label>
+                            <label class="swelling-option"><input type="radio" name="swelling-water" value="unknown" data-swelling-water><span>Не отслеживала</span></label>
+                          </div>
+                          <p class="swelling-tracker__error" id="swelling-question-3-error" data-swelling-step-error="question-3" role="alert" hidden>Выбери один вариант</p>
+                        </fieldset>
+                        <div class="swelling-tracker__navigation">
+                          <button class="button button--ghost" type="button" data-swelling-back="question-2">Назад</button>
+                          <button class="button button--primary" type="button" data-swelling-next="question-4" disabled>Дальше</button>
+                        </div>
+                      </section>
+
+                      <section class="swelling-tracker__question" data-swelling-step="question-4" aria-labelledby="swelling-question-4-title" hidden>
+                        <fieldset class="swelling-tracker__field" aria-describedby="swelling-question-4-hint swelling-question-4-error">
+                          <legend id="swelling-question-4-title" data-swelling-question-heading tabindex="-1">Как себя чувствуешь?</legend>
+                          <p id="swelling-question-4-hint">Это поможет выбрать более спокойный план на сегодня</p>
+                          <div class="swelling-options swelling-options--two">
+                            <label class="swelling-option"><input type="radio" name="swelling-feeling" value="usual" data-swelling-feeling><span>Как обычно</span></label>
+                            <label class="swelling-option"><input type="radio" name="swelling-feeling" value="heavy" data-swelling-feeling><span>Чувствую тяжесть</span></label>
+                            <label class="swelling-option"><input type="radio" name="swelling-feeling" value="under-recovered" data-swelling-feeling><span>Плохо восстановилась</span></label>
+                            <label class="swelling-option"><input type="radio" name="swelling-feeling" value="pain" data-swelling-feeling><span>Есть необычная боль или резкое ухудшение</span></label>
+                          </div>
+                          <p class="swelling-tracker__error" id="swelling-question-4-error" data-swelling-step-error="question-4" role="alert" hidden>Выбери один вариант</p>
+                        </fieldset>
+                        <div class="swelling-tracker__navigation">
+                          <button class="button button--ghost" type="button" data-swelling-back="question-3">Назад</button>
+                          <button class="button button--primary swelling-tracker__save" type="submit" data-swelling-save disabled>Показать план на сегодня</button>
+                        </div>
+                      </section>
+
+                      <p class="swelling-tracker__status" data-swelling-status role="status" aria-live="polite"></p>
+                    </form>
+
+                  <div class="swelling-day-result" data-swelling-day-result data-swelling-step="day-result" tabindex="-1" aria-live="polite" hidden></div>
+                  <div class="swelling-summary" data-swelling-summary data-swelling-step="final-result" tabindex="-1" aria-live="polite" hidden></div>
+                  </div>
+                </section>
+              </details>
             </div>
 
-            <aside class="material-warning">
-              <h3>Когда лучше обратиться к специалисту</h3>
-              <p>Если отёки сильные, болезненные, односторонние, появились резко или держатся постоянно — лучше не гадать и обратиться к врачу</p>
+            <aside class="swelling-safety" aria-label="Когда нужна медицинская помощь">
+              <strong>Когда тренировку лучше отложить</strong>
+              <p>Если отёк появился резко, только с одной стороны или сопровождается болью, покраснением либо жаром кожи, тренировку отложи и обратись за медицинской помощью. При одышке или боли в груди вызови 112</p>
             </aside>
           </section>
 
@@ -1050,6 +1345,6 @@
     <a class="back-top" href="#top" aria-label="Наверх">↑</a>
   </div>
 
-  <script src="assets/js/nutrition-guide.js?v=hub-15"></script>
+  <script src="assets/js/nutrition-guide.js?v=hub-18"></script>
 </body>
 </html>

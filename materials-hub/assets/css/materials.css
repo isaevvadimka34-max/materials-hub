@@ -12,6 +12,2025 @@
   --shadow: 0 18px 46px rgba(62, 39, 35, 0.08);
 }
 
+/* Swelling tracker wizard v2 */
+#swelling .swelling-disclosure--tracker {
+  order: -1;
+}
+
+#swelling .swelling-tracker [hidden] {
+  display: none;
+}
+
+#swelling .swelling-tracker {
+  gap: 16px;
+  max-width: 820px;
+  margin-inline: auto;
+}
+
+#swelling .swelling-tracker-purpose {
+  display: grid;
+  gap: 15px;
+  padding: clamp(18px, 3vw, 24px);
+  border: 1px solid rgba(96, 118, 106, 0.22);
+  border-radius: 8px;
+  background: rgba(96, 118, 106, 0.08);
+}
+
+#swelling .swelling-tracker-purpose__head {
+  display: grid;
+  gap: 7px;
+}
+
+#swelling .swelling-tracker-purpose__head > span {
+  color: var(--dusty-rose);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+#swelling .swelling-tracker-purpose__head h3 {
+  max-width: 690px;
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 3.4vw, 36px);
+  font-style: italic;
+  line-height: 1.08;
+}
+
+#swelling .swelling-tracker-purpose__head p,
+#swelling .swelling-tracker-purpose__note {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+#swelling .swelling-tracker-purpose__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#swelling .swelling-tracker-purpose__steps li {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 12px;
+  border-top: 2px solid rgba(201, 123, 148, 0.48);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+#swelling .swelling-tracker-purpose__steps strong {
+  color: var(--dusty-rose);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+#swelling .swelling-tracker-purpose__steps span {
+  color: var(--espresso);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+#swelling .swelling-tracker-purpose__note {
+  padding-top: 11px;
+  border-top: 1px solid rgba(96, 118, 106, 0.18);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+#swelling .swelling-tracker-start {
+  gap: 14px;
+  padding: clamp(18px, 3vw, 24px);
+}
+
+#swelling .swelling-tracker-start__date {
+  justify-content: flex-start;
+  width: fit-content;
+  padding: 7px 11px;
+  border: 1px solid rgba(201, 123, 148, 0.2);
+  border-radius: 999px;
+  background: rgba(244, 201, 214, 0.1);
+}
+
+#swelling .swelling-tracker-start__date span {
+  color: var(--muted);
+}
+
+#swelling .swelling-tracker-start__date time {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 850;
+}
+
+#swelling .swelling-tracker-how {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#swelling .swelling-tracker-how li {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  min-width: 0;
+  padding: 11px 12px;
+  border-top: 2px solid rgba(201, 123, 148, 0.4);
+  background: rgba(255, 255, 255, 0.56);
+}
+
+#swelling .swelling-tracker-how li > span {
+  color: var(--dusty-rose);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+#swelling .swelling-tracker-how li > p {
+  margin: 0;
+  color: var(--espresso);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+#swelling .swelling-tracker-start__note {
+  margin: 0;
+  padding: 11px 13px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+#swelling .swelling-tracker__workspace,
+#swelling .swelling-tracker__form {
+  display: grid;
+  gap: 14px;
+}
+
+#swelling .swelling-tracker__progress-copy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 14px;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+#swelling .swelling-tracker__progress-copy strong {
+  color: var(--espresso);
+}
+
+#swelling .swelling-tracker__question {
+  display: grid;
+  gap: 14px;
+  animation: swelling-step-in 220ms ease both;
+}
+
+#swelling .swelling-tracker__field {
+  padding: clamp(15px, 2.5vw, 20px);
+  box-shadow: 0 14px 32px rgba(62, 39, 35, 0.05);
+}
+
+#swelling .swelling-tracker__field legend {
+  max-width: min(100%, 690px);
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 3.5vw, 36px);
+  font-style: italic;
+  font-weight: 800;
+  line-height: 1.08;
+}
+
+#swelling .swelling-options {
+  margin-top: 4px;
+}
+
+#swelling .swelling-option {
+  position: relative;
+}
+
+#swelling .swelling-option:has(input:checked)::after {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  color: var(--sage);
+  content: "✓";
+  font-size: 14px;
+  font-weight: 900;
+}
+
+#swelling .swelling-option:has(input:checked) {
+  padding-right: 34px;
+}
+
+#swelling .swelling-tracker__counter {
+  width: fit-content;
+  margin: 0;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: var(--sage-soft);
+  color: var(--sage);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+#swelling .swelling-tracker__hint,
+#swelling .swelling-tracker__error {
+  margin: 0;
+  padding: 9px 11px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+#swelling .swelling-tracker__hint {
+  border-left: 3px solid var(--dusty-rose);
+  background: rgba(244, 201, 214, 0.12);
+  color: var(--muted);
+}
+
+#swelling .swelling-tracker__error {
+  border: 1px solid rgba(201, 123, 148, 0.28);
+  background: rgba(255, 248, 243, 0.9);
+  color: #8b4560;
+}
+
+#swelling .swelling-tracker__navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+#swelling .swelling-tracker__navigation .button {
+  min-height: 48px;
+  border-radius: 8px;
+}
+
+#swelling .swelling-tracker__navigation .button--primary:only-child {
+  margin-left: auto;
+}
+
+#swelling .button--ghost {
+  border: 1px solid rgba(62, 39, 35, 0.14);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--espresso);
+}
+
+#swelling .button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+  transform: none;
+}
+
+#swelling .swelling-safety--result {
+  border-color: rgba(201, 123, 148, 0.34);
+  background: rgba(244, 201, 214, 0.14);
+}
+
+#swelling .swelling-result-section,
+#swelling .swelling-final-section {
+  display: grid;
+  gap: 7px;
+  padding: 14px;
+  border: 1px solid rgba(62, 39, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+#swelling .swelling-result-section h5,
+#swelling .swelling-final-section h5,
+#swelling .swelling-result-section p,
+#swelling .swelling-final-section p {
+  margin: 0;
+}
+
+#swelling .swelling-result-section h5,
+#swelling .swelling-final-section h5 {
+  color: var(--dusty-rose);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#swelling .swelling-result-section p,
+#swelling .swelling-final-section p {
+  color: var(--deep-text);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+#swelling .swelling-tracker__result-section,
+#swelling .swelling-tracker__next-visit {
+  display: grid;
+  gap: 7px;
+  padding: 14px;
+  border: 1px solid rgba(62, 39, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+#swelling .swelling-tracker__section-title,
+#swelling .swelling-tracker__next-visit h4,
+#swelling .swelling-tracker__result-section p,
+#swelling .swelling-tracker__next-visit p {
+  margin: 0;
+}
+
+#swelling .swelling-tracker__section-title {
+  color: var(--dusty-rose);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#swelling .swelling-tracker__result-section p,
+#swelling .swelling-tracker__next-visit p {
+  color: var(--deep-text);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+#swelling .swelling-tracker__next-visit {
+  border-color: rgba(201, 123, 148, 0.22);
+  background: rgba(255, 248, 243, 0.88);
+}
+
+#swelling .swelling-tracker__next-visit h4 {
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(21px, 3vw, 28px);
+  font-style: italic;
+}
+
+#swelling .swelling-tracker__safety {
+  display: grid;
+  gap: 7px;
+  padding: 14px;
+  border: 1px solid rgba(201, 123, 148, 0.34);
+  border-left: 3px solid var(--dusty-rose);
+  border-radius: 8px;
+  background: rgba(244, 201, 214, 0.14);
+}
+
+#swelling .swelling-tracker__safety strong,
+#swelling .swelling-tracker__safety p {
+  margin: 0;
+}
+
+#swelling .swelling-tracker__safety p {
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+#swelling .swelling-tracker__result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+#swelling .swelling-tracker__primary-button,
+#swelling .swelling-tracker__secondary-button,
+#swelling .swelling-tracker__link-button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 850;
+}
+
+#swelling .swelling-tracker__primary-button {
+  border: 1px solid var(--espresso);
+  background: var(--espresso);
+  color: var(--cream);
+}
+
+#swelling .swelling-tracker__secondary-button {
+  border: 1px solid rgba(201, 123, 148, 0.32);
+  background: var(--dusty-rose);
+  color: #fff;
+}
+
+#swelling .swelling-tracker__link-button {
+  border: 0;
+  background: transparent;
+  color: var(--dusty-rose);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+#swelling .swelling-tracker__primary-button:focus-visible,
+#swelling .swelling-tracker__secondary-button:focus-visible,
+#swelling .swelling-tracker__link-button:focus-visible {
+  outline: 3px solid rgba(201, 123, 148, 0.38);
+  outline-offset: 2px;
+}
+
+#swelling .swelling-next-visit {
+  gap: 7px;
+}
+
+#swelling .swelling-tracker__actions {
+  padding-top: 2px;
+  border-top: 1px solid var(--soft-line);
+}
+
+#swelling .swelling-tracker__question .button:focus-visible,
+#swelling .swelling-tracker-start__button:focus-visible,
+#swelling .swelling-tracker__link:focus-visible,
+#swelling .swelling-option:focus-within {
+  outline: 3px solid rgba(201, 123, 148, 0.38);
+  outline-offset: 2px;
+}
+
+@keyframes swelling-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  #swelling .swelling-tracker {
+    padding: 12px;
+  }
+
+  #swelling .swelling-tracker-how,
+  #swelling .swelling-tracker-purpose__steps,
+  #swelling .swelling-options--two,
+  #swelling .swelling-options--chips {
+    grid-template-columns: 1fr;
+  }
+
+  #swelling .swelling-tracker__navigation {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #swelling .swelling-tracker__result-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #swelling .swelling-tracker__navigation .button,
+  #swelling .swelling-tracker-start__button,
+  #swelling .swelling-tracker__link,
+  #swelling .swelling-tracker__primary-button,
+  #swelling .swelling-tracker__secondary-button,
+  #swelling .swelling-tracker__link-button {
+    width: 100%;
+  }
+
+  #swelling .swelling-tracker__navigation .button--primary {
+    order: -1;
+  }
+
+  #swelling .swelling-tracker__progress-copy {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #swelling .swelling-tracker__question {
+    animation: none;
+  }
+}
+
+/* Swelling guide */
+.swelling-panel,
+.swelling-panel * {
+  box-sizing: border-box;
+}
+
+.swelling-panel {
+  display: grid;
+  gap: 20px;
+  width: min(100%, 1080px);
+  margin-inline: auto;
+  padding: clamp(18px, 3vw, 30px);
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: var(--shadow);
+}
+
+.swelling-panel__head {
+  display: grid;
+  gap: 9px;
+  max-width: 780px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.swelling-panel__head > span,
+.swelling-panel__head .hub-eyebrow {
+  margin: 0;
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.swelling-panel__head h2,
+.swelling-panel__head h3 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-style: italic;
+  line-height: 0.98;
+}
+
+.swelling-panel__head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(15px, 1.8vw, 18px);
+  font-weight: 700;
+}
+
+.swelling-disclosures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.swelling-disclosure {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(62, 39, 35, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 16px 34px rgba(62, 39, 35, 0.06);
+}
+
+.swelling-disclosure[open] {
+  grid-column: 1 / -1;
+}
+
+.swelling-disclosure summary {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  min-height: 154px;
+  padding: 20px 58px 20px 20px;
+  color: var(--espresso);
+  cursor: pointer;
+  list-style: none;
+  outline: none;
+}
+
+.swelling-disclosure summary::marker,
+.swelling-deeper summary::marker,
+.swelling-myth summary::marker {
+  content: "";
+}
+
+.swelling-disclosure summary::-webkit-details-marker,
+.swelling-deeper summary::-webkit-details-marker,
+.swelling-myth summary::-webkit-details-marker {
+  display: none;
+}
+
+.swelling-disclosure summary::after {
+  position: absolute;
+  top: 20px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(244, 201, 214, 0.24);
+  color: var(--dusty-rose);
+  content: "+";
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.swelling-disclosure[open] summary::after {
+  content: "−";
+}
+
+.swelling-disclosure[open] summary {
+  min-height: auto;
+  border-bottom: 1px solid var(--soft-line);
+  background: rgba(255, 248, 243, 0.68);
+}
+
+.swelling-disclosure__eyebrow,
+.swelling-disclosure summary > span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.swelling-disclosure summary > strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 3vw, 31px);
+  font-style: italic;
+  line-height: 1.05;
+}
+
+.swelling-disclosure summary > small {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.swelling-disclosure__body {
+  display: grid;
+  gap: 22px;
+  min-width: 0;
+  padding: clamp(16px, 3vw, 28px);
+}
+
+.swelling-disclosure--tracker[open] .swelling-disclosure__body {
+  width: min(100%, 840px);
+  margin-inline: auto;
+}
+
+.swelling-theory-intro {
+  display: grid;
+  gap: 9px;
+  max-width: 800px;
+  padding: 18px 20px;
+  border-left: 4px solid var(--dusty-rose);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.86);
+}
+
+.swelling-theory-intro h3,
+.swelling-theory-intro h4 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 3vw, 34px);
+  font-style: italic;
+  line-height: 1.05;
+}
+
+.swelling-theory-intro p {
+  margin: 0;
+  color: var(--deep-text);
+  line-height: 1.55;
+}
+
+.swelling-quote {
+  max-width: 820px;
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid rgba(96, 118, 106, 0.2);
+  border-radius: 8px;
+  background: var(--sage-soft);
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(20px, 2.5vw, 29px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.28;
+  text-align: center;
+}
+
+.swelling-distinction-grid,
+.swelling-scenarios,
+.swelling-program-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.swelling-distinction-card,
+.swelling-scenario-card,
+.swelling-program-card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.swelling-distinction-card {
+  border-top: 4px solid var(--dusty-rose);
+}
+
+.swelling-distinction-card:nth-child(even) {
+  border-top-color: var(--sage);
+}
+
+.swelling-distinction-card h3,
+.swelling-distinction-card h4,
+.swelling-scenario-card h3,
+.swelling-scenario-card h4,
+.swelling-program-card h3,
+.swelling-program-card h4 {
+  margin: 0;
+  color: var(--espresso);
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.swelling-distinction-card p,
+.swelling-scenario-card p,
+.swelling-program-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.48;
+}
+
+.swelling-scenario-card {
+  gap: 11px;
+  padding: 18px;
+  background: rgba(255, 248, 243, 0.68);
+}
+
+.swelling-scenario-card__label {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--dusty-rose);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.swelling-scenario-card__row {
+  display: grid;
+  gap: 3px;
+  padding-top: 9px;
+  border-top: 1px solid var(--soft-line);
+}
+
+.swelling-deeper {
+  overflow: hidden;
+  border: 1px solid rgba(96, 118, 106, 0.2);
+  border-radius: 8px;
+  background: rgba(96, 118, 106, 0.07);
+}
+
+.swelling-deeper summary {
+  position: relative;
+  min-height: 48px;
+  padding: 13px 46px 13px 15px;
+  color: var(--sage);
+  font-weight: 900;
+  cursor: pointer;
+  list-style: none;
+  outline: none;
+}
+
+.swelling-deeper summary::after {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  color: var(--sage);
+  content: "+";
+  font-size: 21px;
+  line-height: 1;
+  transform: translateY(-50%);
+}
+
+.swelling-deeper[open] summary::after {
+  content: "−";
+}
+
+.swelling-deeper[open] summary {
+  border-bottom: 1px solid rgba(96, 118, 106, 0.18);
+}
+
+.swelling-deeper__content {
+  display: grid;
+  gap: 9px;
+  padding: 15px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.swelling-deeper__content > * {
+  margin: 0;
+}
+
+.swelling-program {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(201, 123, 148, 0.18);
+  border-radius: 8px;
+  background: rgba(244, 201, 214, 0.12);
+}
+
+.swelling-program__intro {
+  display: grid;
+  gap: 6px;
+  max-width: 760px;
+}
+
+.swelling-program__intro h3 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 3vw, 36px);
+  font-style: italic;
+  line-height: 1.05;
+}
+
+.swelling-program__intro p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.swelling-program-card ul,
+.swelling-scenario-card ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.swelling-program__priority {
+  margin: 0;
+  padding: 12px 14px;
+  border-left: 3px solid var(--sage);
+  border-radius: 8px;
+  background: var(--sage-soft);
+  color: var(--espresso);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.swelling-route {
+  position: relative;
+  display: grid;
+  gap: 10px;
+}
+
+.swelling-route::before {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 19px;
+  width: 2px;
+  border-radius: 8px;
+  background: rgba(96, 118, 106, 0.24);
+  content: "";
+}
+
+.swelling-route__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 13px;
+  align-items: start;
+  min-width: 0;
+}
+
+.swelling-route__step > span {
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(96, 118, 106, 0.22);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--sage);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.swelling-route__step > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 4px 0 12px;
+}
+
+.swelling-route__step strong {
+  color: var(--espresso);
+  line-height: 1.25;
+}
+
+.swelling-route__step p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.swelling-myths {
+  display: grid;
+  gap: 8px;
+}
+
+.swelling-myth {
+  overflow: hidden;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.swelling-myth summary {
+  position: relative;
+  min-height: 52px;
+  padding: 14px 48px 14px 16px;
+  color: var(--espresso);
+  font-weight: 850;
+  line-height: 1.35;
+  cursor: pointer;
+  list-style: none;
+  outline: none;
+}
+
+.swelling-myth summary::after {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  color: var(--dusty-rose);
+  content: "+";
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.swelling-myth[open] summary::after {
+  content: "−";
+}
+
+.swelling-myth[open] summary {
+  border-bottom: 1px solid var(--soft-line);
+  background: rgba(255, 248, 243, 0.68);
+}
+
+.swelling-myth > :not(summary) {
+  margin: 0;
+  padding: 14px 16px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.swelling-safety {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid rgba(201, 123, 148, 0.24);
+  border-left: 4px solid var(--dusty-rose);
+  border-radius: 8px;
+  background: rgba(244, 201, 214, 0.14);
+  color: var(--deep-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.swelling-safety strong,
+.swelling-safety h3,
+.swelling-safety p {
+  margin: 0;
+}
+
+.swelling-safety strong,
+.swelling-safety h3 {
+  color: var(--espresso);
+}
+
+.swelling-tracker {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+  padding: clamp(16px, 3vw, 24px);
+  border: 1px solid rgba(96, 118, 106, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.62);
+}
+
+.swelling-tracker__head {
+  display: grid;
+  gap: 7px;
+}
+
+.swelling-tracker__head h3,
+.swelling-tracker__head h4 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 3vw, 36px);
+  font-style: italic;
+  line-height: 1.06;
+}
+
+.swelling-tracker__head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.swelling-tracker__progress-wrap {
+  display: grid;
+  gap: 8px;
+}
+
+.swelling-tracker__progress-label {
+  color: var(--espresso);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.swelling-tracker__progress {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  width: 100%;
+}
+
+.swelling-tracker__progress-segment {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(62, 39, 35, 0.1);
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.swelling-tracker__progress-segment.is-complete {
+  background: var(--sage);
+}
+
+.swelling-tracker__form {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.swelling-tracker__group {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.swelling-tracker__group legend {
+  max-width: 100%;
+  padding: 0 5px;
+  color: var(--espresso);
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.swelling-tracker__group > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.swelling-tracker__options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.swelling-tracker__option {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+  min-height: 48px;
+  padding: 11px 12px;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.7);
+  color: var(--espresso);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.swelling-tracker__option:has(input:checked) {
+  border-color: rgba(96, 118, 106, 0.42);
+  background: var(--sage-soft);
+  box-shadow: inset 0 0 0 1px rgba(96, 118, 106, 0.12);
+}
+
+.swelling-tracker__option input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--sage);
+}
+
+.swelling-tracker__limit {
+  margin: 0;
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.swelling-tracker__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.swelling-tracker__button {
+  min-height: 48px;
+  border-radius: 8px;
+}
+
+.swelling-tracker__status {
+  min-height: 22px;
+  margin: 0;
+  color: var(--sage);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.swelling-tracker__day-result,
+.swelling-tracker__summary {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid rgba(96, 118, 106, 0.2);
+  border-radius: 8px;
+  background: var(--sage-soft);
+}
+
+.swelling-tracker__summary {
+  border-color: rgba(201, 123, 148, 0.22);
+  background: rgba(244, 201, 214, 0.16);
+}
+
+.swelling-tracker__day-result[hidden],
+.swelling-tracker__summary[hidden],
+.swelling-tracker__form[hidden],
+.swelling-tracker__actions [hidden] {
+  display: none;
+}
+
+.swelling-tracker__result-title,
+.swelling-tracker__summary-title {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(23px, 3vw, 32px);
+  font-style: italic;
+  line-height: 1.08;
+}
+
+.swelling-tracker__observation,
+.swelling-tracker__summary-copy,
+.swelling-tracker__summary-trend,
+.swelling-tracker__disclaimer {
+  margin: 0;
+  color: var(--deep-text);
+  line-height: 1.5;
+}
+
+.swelling-tracker__eyebrow {
+  margin: 0;
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.swelling-tracker__summary-trend {
+  font-weight: 850;
+}
+
+.swelling-tracker__recommendations,
+.swelling-tracker__habits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.swelling-tracker__recommendations li,
+.swelling-tracker__habits li {
+  position: relative;
+  min-width: 0;
+  padding: 11px 12px 11px 34px;
+  border: 1px solid rgba(96, 118, 106, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--espresso);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.swelling-tracker__recommendations li::before,
+.swelling-tracker__habits li::before {
+  position: absolute;
+  top: 11px;
+  left: 12px;
+  color: var(--sage);
+  content: "•";
+  font-size: 20px;
+  line-height: 1;
+}
+
+.swelling-tracker__disclaimer {
+  padding-top: 10px;
+  border-top: 1px solid rgba(62, 39, 35, 0.1);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.swelling-disclosure summary:focus-visible,
+.swelling-deeper summary:focus-visible,
+.swelling-myth summary:focus-visible,
+.swelling-tracker__option:focus-within,
+.swelling-tracker__button:focus-visible {
+  outline: 3px solid rgba(201, 123, 148, 0.36);
+  outline-offset: 2px;
+}
+
+@media (max-width: 980px) {
+  .swelling-disclosures,
+  .swelling-distinction-grid,
+  .swelling-scenarios,
+  .swelling-program-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .swelling-disclosure[open] {
+    grid-column: auto;
+  }
+
+  .swelling-disclosure summary {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .swelling-panel {
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .swelling-disclosures {
+    gap: 10px;
+  }
+
+  .swelling-disclosure summary {
+    padding: 16px 52px 16px 16px;
+  }
+
+  .swelling-disclosure summary::after {
+    top: 15px;
+    right: 14px;
+  }
+
+  .swelling-disclosure__body {
+    gap: 17px;
+    padding: 14px;
+  }
+
+  .swelling-theory-intro,
+  .swelling-program,
+  .swelling-tracker {
+    padding: 14px;
+  }
+
+  .swelling-tracker__options,
+  .swelling-tracker__recommendations,
+  .swelling-tracker__habits {
+    grid-template-columns: 1fr;
+  }
+
+  .swelling-tracker__group {
+    padding: 13px;
+  }
+
+  .swelling-tracker__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .swelling-tracker__actions .button,
+  .swelling-tracker__button {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .swelling-quote {
+    padding: 16px;
+    text-align: left;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swelling-tracker__progress-segment,
+  .swelling-tracker__option {
+    transition: none;
+  }
+}
+
+/* Swelling guide: actual nutrition-guide.html contract */
+#swelling .material-panel__head {
+  justify-items: center;
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+#swelling .material-panel__head p {
+  margin-inline: auto;
+}
+
+.swelling-theory,
+.swelling-intro,
+.swelling-section {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.swelling-section {
+  padding-top: 20px;
+  border-top: 1px solid var(--soft-line);
+}
+
+.swelling-section__head,
+.swelling-tracker__intro {
+  display: grid;
+  gap: 7px;
+  max-width: 780px;
+}
+
+.swelling-section__head > span,
+.swelling-tracker__intro > span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.swelling-section__head h3,
+.swelling-tracker__intro h3 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(26px, 3.6vw, 42px);
+  font-style: italic;
+  line-height: 1.04;
+}
+
+.swelling-section__head p,
+.swelling-tracker__intro p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.swelling-key-note {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid rgba(96, 118, 106, 0.2);
+  border-left: 4px solid var(--sage);
+  border-radius: 8px;
+  background: var(--sage-soft);
+}
+
+.swelling-key-note span {
+  color: var(--sage);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.swelling-key-note p {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.swelling-distinction-card > span,
+.swelling-scenario__number,
+.swelling-habits article > span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+.swelling-scenario,
+.swelling-program-grid article {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  min-width: 0;
+  padding: 17px;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.7);
+}
+
+.swelling-scenario h4 {
+  margin: 0;
+  color: var(--espresso);
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.swelling-scenario > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.48;
+}
+
+.swelling-scenario > p strong {
+  color: var(--espresso);
+}
+
+.swelling-deeper > p {
+  margin: 0;
+  padding: 15px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.swelling-program-grid article > span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.swelling-program-grid article ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.swelling-priority {
+  display: grid;
+  gap: 5px;
+  padding: 14px 16px;
+  border: 1px solid rgba(96, 118, 106, 0.18);
+  border-left: 4px solid var(--sage);
+  border-radius: 8px;
+  background: var(--sage-soft);
+}
+
+.swelling-priority strong,
+.swelling-priority p {
+  margin: 0;
+}
+
+.swelling-priority strong {
+  color: var(--espresso);
+}
+
+.swelling-priority p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.swelling-habits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.swelling-habits article {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  padding: 15px;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.swelling-habits article:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.swelling-habits strong {
+  color: var(--espresso);
+  line-height: 1.25;
+}
+
+.swelling-habits p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.42;
+}
+
+.swelling-myths > details {
+  overflow: hidden;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.swelling-myths > details summary {
+  position: relative;
+  min-height: 52px;
+  padding: 14px 48px 14px 16px;
+  color: var(--espresso);
+  font-weight: 850;
+  line-height: 1.35;
+  cursor: pointer;
+  list-style: none;
+  outline: none;
+}
+
+.swelling-myths > details summary::-webkit-details-marker {
+  display: none;
+}
+
+.swelling-myths > details summary::after {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  color: var(--dusty-rose);
+  content: "+";
+  font-size: 21px;
+  line-height: 1;
+}
+
+.swelling-myths > details[open] summary::after {
+  content: "−";
+}
+
+.swelling-myths > details > p {
+  margin: 0;
+  padding: 14px 16px;
+  border-top: 1px solid var(--soft-line);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.swelling-tracker__intro {
+  max-width: 700px;
+}
+
+.swelling-progress {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.swelling-progress > span {
+  height: 8px;
+  border-radius: 8px;
+  background: rgba(62, 39, 35, 0.1);
+  transition: background-color 180ms ease;
+}
+
+.swelling-progress > span.is-complete {
+  background: var(--sage);
+}
+
+.swelling-progress__label {
+  color: var(--espresso);
+  font-size: 13px;
+}
+
+.swelling-tracker__field {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 15px;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.swelling-tracker__field legend {
+  padding-inline: 5px;
+  color: var(--espresso);
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.swelling-tracker__field legend span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+}
+
+.swelling-tracker__field > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.swelling-options {
+  display: grid;
+  gap: 8px;
+}
+
+.swelling-options--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.swelling-options--chips {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.swelling-option {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 48px;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.72);
+  color: var(--espresso);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.swelling-option:has(input:checked) {
+  border-color: rgba(96, 118, 106, 0.42);
+  background: var(--sage-soft);
+  box-shadow: inset 0 0 0 1px rgba(96, 118, 106, 0.12);
+}
+
+.swelling-option input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--sage);
+}
+
+.swelling-tracker__save {
+  justify-self: start;
+  min-height: 48px;
+  border-radius: 8px;
+}
+
+.swelling-day-result,
+.swelling-summary {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid rgba(96, 118, 106, 0.2);
+  border-radius: 8px;
+  background: var(--sage-soft);
+}
+
+.swelling-summary {
+  border-color: rgba(201, 123, 148, 0.22);
+  background: rgba(244, 201, 214, 0.16);
+}
+
+.swelling-day-result[hidden],
+.swelling-summary[hidden],
+.swelling-tracker__form[hidden],
+.swelling-tracker__link[hidden] {
+  display: none;
+}
+
+.swelling-tracker__link {
+  min-height: 44px;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: var(--dusty-rose);
+  font-weight: 850;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.swelling-disclosure--tracker {
+  order: -1;
+}
+
+.swelling-tracker-start,
+.swelling-tracker__workspace {
+  display: grid;
+  gap: 16px;
+}
+
+.swelling-tracker-start[hidden],
+.swelling-tracker__workspace[hidden],
+.swelling-next-visit[hidden] {
+  display: none;
+}
+
+.swelling-tracker-start {
+  padding: clamp(16px, 3vw, 22px);
+  border: 1px solid rgba(201, 123, 148, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.swelling-tracker-start__date {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--soft-line);
+}
+
+.swelling-tracker-start__date span,
+.swelling-tracker-start__copy > span,
+.swelling-tracker-value article > span,
+.swelling-tracker__form-head > span,
+.swelling-next-visit > span {
+  color: var(--dusty-rose);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.swelling-tracker-start__date time {
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 21px;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.swelling-tracker-start__copy,
+.swelling-tracker__form-head {
+  display: grid;
+  gap: 7px;
+}
+
+.swelling-tracker-start__copy h4,
+.swelling-tracker__form-head h4 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 3.5vw, 38px);
+  font-style: italic;
+  line-height: 1.05;
+}
+
+.swelling-tracker-start__copy p,
+.swelling-tracker__form-head p,
+.swelling-tracker-value p,
+.swelling-tracker-how p,
+.swelling-tracker-start__note,
+.swelling-next-visit p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.swelling-tracker-value {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.swelling-tracker-value article {
+  display: grid;
+  gap: 7px;
+  padding: 15px;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.76);
+}
+
+.swelling-tracker-value article:last-child {
+  background: var(--sage-soft);
+}
+
+.swelling-tracker-value strong {
+  color: var(--espresso);
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.swelling-tracker-how {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.swelling-tracker-how article {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 9px;
+  align-items: start;
+  min-width: 0;
+  padding: 12px;
+  border-top: 2px solid rgba(201, 123, 148, 0.38);
+  background: rgba(255, 255, 255, 0.54);
+}
+
+.swelling-tracker-how span {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.swelling-tracker-how p {
+  color: var(--espresso);
+  font-size: 13px;
+}
+
+.swelling-tracker-start__note {
+  padding: 12px 14px;
+  border-left: 3px solid var(--sage);
+  background: rgba(96, 118, 106, 0.08);
+  font-size: 13px;
+}
+
+.swelling-tracker-start__button {
+  justify-self: start;
+  min-height: 48px;
+  border-radius: 8px;
+}
+
+.swelling-tracker-start > small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.swelling-tracker__form-head {
+  padding: 15px;
+  border: 1px solid rgba(201, 123, 148, 0.18);
+  border-radius: 8px;
+  background: rgba(244, 201, 214, 0.1);
+}
+
+.swelling-next-visit {
+  display: grid;
+  gap: 6px;
+  padding: 15px 16px;
+  border: 1px solid rgba(201, 123, 148, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 248, 243, 0.88);
+}
+
+.swelling-next-visit time {
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.swelling-tracker__clarifier,
+.swelling-tracker__next-hint {
+  margin: 0;
+  padding: 11px 13px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.swelling-tracker__clarifier {
+  border: 1px solid rgba(96, 118, 106, 0.16);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.swelling-tracker__next-hint {
+  border-left: 3px solid var(--dusty-rose);
+  background: rgba(244, 201, 214, 0.12);
+}
+
+.swelling-tracker__base-title {
+  padding-top: 4px;
+  color: var(--espresso);
+  font-size: 15px;
+}
+
+.swelling-tracker-start__button:focus-visible {
+  outline: 3px solid rgba(201, 123, 148, 0.36);
+  outline-offset: 2px;
+}
+
+.swelling-disclosure summary:focus-visible,
+.swelling-deeper summary:focus-visible,
+.swelling-myths > details summary:focus-visible,
+.swelling-option:focus-within,
+.swelling-tracker__save:focus-visible,
+.swelling-tracker__link:focus-visible {
+  outline: 3px solid rgba(201, 123, 148, 0.36);
+  outline-offset: 2px;
+}
+
+@media (max-width: 980px) {
+  .swelling-habits,
+  .swelling-tracker-value,
+  .swelling-tracker-how,
+  .swelling-options--two,
+  .swelling-options--chips {
+    grid-template-columns: 1fr;
+  }
+
+  .swelling-habits article:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .swelling-scenario,
+  .swelling-program-grid article,
+  .swelling-tracker__field,
+  .swelling-day-result,
+  .swelling-summary {
+    padding: 13px;
+  }
+
+  .swelling-tracker__save,
+  .swelling-tracker-start__button,
+  .swelling-tracker__link {
+    width: 100%;
+  }
+
+  .swelling-tracker-start__date {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swelling-progress > span,
+  .swelling-option {
+    transition: none;
+  }
+}
+
 *,
 *::before,
 *::after {

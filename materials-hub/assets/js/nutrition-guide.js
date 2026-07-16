@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const backTop = document.querySelector('.back-top');
   const materialCards = [...document.querySelectorAll('[data-material-card]')];
   const materialPanels = [...document.querySelectorAll('[data-material-panel]')];
-  const comingSoonMaterialIds = new Set(['swelling', 'cycle-training']);
+  const comingSoonMaterialIds = new Set(['cycle-training']);
   const overeatingProtocolKey = 'ggc_material_overeating_cycle';
   const overeatingProtocol = document.querySelector('[data-overeating-protocol]');
   const overeatingInteractiveDisclosure = document.querySelector('[data-overeating-interactive-disclosure]');
@@ -273,6 +273,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const celluliteReset = document.querySelector('[data-cellulite-reset]');
   const copyArticleButtons = [...document.querySelectorAll('[data-copy-article]')];
   const copyStatus = document.querySelector('[data-copy-status]');
+  const swellingTrackerStorageKey = 'ggc_material_swelling_tracker_v1';
+  const swellingTracker = document.querySelector('[data-swelling-tracker]');
+  const swellingTodayDate = swellingTracker?.querySelector('[data-swelling-today-date]');
+  const swellingStart = swellingTracker?.querySelector('[data-swelling-start]');
+  const swellingStartPanel = swellingTracker?.querySelector('[data-swelling-start-panel]');
+  const swellingWorkspace = swellingTracker?.querySelector('[data-swelling-workspace]');
+  const swellingForm = swellingTracker?.querySelector('[data-swelling-form]');
+  const swellingViews = [...(swellingTracker?.querySelectorAll('[data-swelling-step]') || [])];
+  const swellingNoticeInputs = [...(swellingTracker?.querySelectorAll('[data-swelling-notice]') || [])];
+  const swellingFactorInputs = [...(swellingTracker?.querySelectorAll('[data-swelling-factor]') || [])];
+  const swellingWaterInputs = [...(swellingTracker?.querySelectorAll('[data-swelling-water]') || [])];
+  const swellingFeelingInputs = [...(swellingTracker?.querySelectorAll('[data-swelling-feeling]') || [])];
+  const swellingProgress = swellingTracker?.querySelector('[data-swelling-progress]');
+  const swellingQuestionProgress = swellingTracker?.querySelector('[data-swelling-question-progress]');
+  const swellingDayProgress = swellingTracker?.querySelector('[data-swelling-day-progress]');
+  const swellingFactorCount = swellingTracker?.querySelector('[data-swelling-factor-counter]');
+  const swellingFactorHint = swellingTracker?.querySelector('[data-swelling-factor-hint]');
+  const swellingErrors = [...(swellingTracker?.querySelectorAll('[data-swelling-step-error]') || [])];
+  const swellingStatus = swellingTracker?.querySelector('[data-swelling-status]');
+  const swellingStorageWarning = swellingTracker?.querySelector('[data-swelling-storage-warning]');
+  const swellingDayResult = swellingTracker?.querySelector('[data-swelling-day-result]');
+  const swellingSummary = swellingTracker?.querySelector('[data-swelling-summary]');
+  const swellingBackButtons = [...(swellingTracker?.querySelectorAll('[data-swelling-back]') || [])];
+  const swellingNextButtons = [...(swellingTracker?.querySelectorAll('[data-swelling-next]') || [])];
+  const swellingSubmit = swellingTracker?.querySelector('[data-swelling-save]');
 
   const overeatingTypes = {
     fastfood: {
@@ -850,6 +875,823 @@ document.addEventListener('DOMContentLoaded', () => {
       renderOvereatingProtocol(overeatingState);
     });
   }
+
+  const swellingOptionCopy = {
+    notice: {
+      face: 'лицо или область глаз',
+      hands: 'кольца или кисти',
+      legs: 'следы от носков или тяжесть в ногах',
+      bloating: 'вздутие живота',
+      appearance: 'изменение веса или внешнего вида',
+      none: 'ничего необычного',
+    },
+    factor: {
+      'hard-training': 'тяжёлая тренировка',
+      'regular-training': 'обычная тренировка',
+      cycle: 'ПМС или первые дни цикла',
+      'salty-food': 'солёная еда',
+      alcohol: 'алкоголь',
+      heat: 'жара',
+      sitting: 'дорога или долгое сидение',
+      'low-sleep': 'мало сна',
+      stress: 'напряжённый день',
+      routine: 'привычный режим',
+    },
+    water: {
+      less: 'меньше обычного',
+      usual: 'примерно как обычно',
+      more: 'больше обычного',
+      unknown: 'не отслеживала',
+    },
+    feeling: {
+      usual: 'обычное',
+      heavy: 'чувствую тяжесть',
+      'under-recovered': 'плохо восстановилась',
+      pain: 'есть необычная боль или резкое ухудшение',
+    },
+  };
+
+  const swellingHabitCopy = {
+    'hard-training': 'Следи за восстановлением после тяжёлых тренировок и не добавляй кардио ради воды',
+    'regular-training': 'Продолжай программу и оценивай изменения в динамике',
+    cycle: 'Не оценивай форму по этим дням и сравнивай состояние в других фазах цикла',
+    'salty-food': 'Не исключай соль полностью — вернись к обычному рациону и оцени ощущения',
+    alcohol: 'Возвращай обычный режим еды, воды и сна без голодания и компенсаций',
+    heat: 'Учитывай температуру, ориентируйся на жажду и не добавляй нагрузку сверх программы',
+    sitting: 'Добавляй лёгкую ходьбу или короткую разминку после долгого сидения',
+    'low-sleep': 'Понаблюдай, как тело реагирует после нормального сна',
+    stress: 'В напряжённые дни сохраняй обычную еду, воду, сон и нагрузку по программе',
+    routine: 'Сохраняй стабильный режим и сравнивай несколько дней',
+  };
+
+  const swellingDefaultHabits = [
+    'Сохраняй обычное питание без компенсаций',
+    'Пей в привычном режиме без крайностей',
+    'Следуй программе и оценивай изменения в динамике',
+  ];
+
+  const swellingWaterActionCopy = {
+    less: 'Постепенно возвращайся к привычному питьевому режиму, не пытаясь наверстать всё сразу',
+    usual: 'Оставь привычный питьевой режим без резких изменений',
+    more: 'Не увеличивай воду специально. Вернись к обычному режиму и ориентируйся на жажду',
+    unknown: 'Вернись к привычному режиму воды без строгого контроля',
+  };
+
+  function formatSwellingDate(stamp) {
+    const date = new Date(`${stamp}T12:00:00`);
+    if (!Number.isFinite(date.getTime())) return '';
+    return new Intl.DateTimeFormat('ru-RU', { day: 'numeric', month: 'long' }).format(date);
+  }
+
+  function swellingInputValue(input, type) {
+    const dataValue = input?.dataset?.[`swelling${type[0].toUpperCase()}${type.slice(1)}`];
+    return dataValue || input?.value || '';
+  }
+
+  function uniqueKnownValues(values, type, limit = Infinity) {
+    return [...new Set(values)]
+      .filter((value) => Object.hasOwn(swellingOptionCopy[type], value))
+      .slice(0, limit);
+  }
+
+  const swellingSteps = ['start', 'question-1', 'question-2', 'question-3', 'question-4', 'day-result', 'final-result'];
+  const swellingQuestionSteps = swellingSteps.slice(1, 5);
+  let swellingMemoryState = null;
+  let swellingStorageAvailable = true;
+
+  function emptySwellingDraft(dayIndex = 1) {
+    return {
+      date: todayStamp(),
+      dayIndex,
+      answers: {
+        changes: [],
+        factors: [],
+        water: null,
+        feeling: null,
+      },
+    };
+  }
+
+  function emptySwellingState() {
+    return {
+      version: 2,
+      records: [],
+      draft: emptySwellingDraft(),
+      currentStep: 'start',
+      startedAt: null,
+      completedAt: null,
+    };
+  }
+
+  function dayDistance(fromStamp, toStamp) {
+    const from = new Date(`${fromStamp}T00:00:00`);
+    const to = new Date(`${toStamp}T00:00:00`);
+    if (!Number.isFinite(from.getTime()) || !Number.isFinite(to.getTime())) return 0;
+    return Math.floor((to.getTime() - from.getTime()) / 86400000);
+  }
+
+  function validSwellingDate(value) {
+    return typeof value === 'string'
+      && /^\d{4}-\d{2}-\d{2}$/.test(value)
+      && Number.isFinite(new Date(`${value}T12:00:00`).getTime());
+  }
+
+  function normalizeSwellingRecord(entry, index = 0) {
+    if (!entry || !validSwellingDate(entry.date)) return null;
+
+    const sourceChanges = Array.isArray(entry.changes) ? entry.changes : entry.notices;
+    const changes = uniqueKnownValues(Array.isArray(sourceChanges) ? sourceChanges : [], 'notice');
+    const factors = uniqueKnownValues(Array.isArray(entry.factors) ? entry.factors : [], 'factor', 3);
+    const water = Object.hasOwn(swellingOptionCopy.water, entry.water) ? entry.water : '';
+    const feeling = Object.hasOwn(swellingOptionCopy.feeling, entry.feeling) ? entry.feeling : '';
+    if (!changes.length || !factors.length || !water || !feeling) return null;
+
+    return {
+      id: typeof entry.id === 'string' && entry.id ? entry.id : `swelling-${entry.date}-${index + 1}`,
+      date: entry.date,
+      dayIndex: Number.isInteger(entry.dayIndex) ? Math.min(Math.max(entry.dayIndex, 1), 3) : index + 1,
+      changes: changes.includes('none') ? ['none'] : changes,
+      factors,
+      water,
+      feeling,
+      createdAt: typeof entry.createdAt === 'string' && entry.createdAt
+        ? entry.createdAt
+        : `${entry.date}T12:00:00.000Z`,
+    };
+  }
+
+  function normalizeSwellingDraft(savedDraft, records) {
+    const dayIndex = Math.min(records.length + 1, 3);
+    const sourceAnswers = savedDraft?.answers || savedDraft || {};
+    const sourceChanges = Array.isArray(sourceAnswers.changes) ? sourceAnswers.changes : sourceAnswers.notices;
+    const changes = uniqueKnownValues(Array.isArray(sourceChanges) ? sourceChanges : [], 'notice');
+    return {
+      date: validSwellingDate(savedDraft?.date) ? savedDraft.date : todayStamp(),
+      dayIndex: Number.isInteger(savedDraft?.dayIndex)
+        ? Math.min(Math.max(savedDraft.dayIndex, 1), 3)
+        : dayIndex,
+      answers: {
+        changes: changes.includes('none') ? ['none'] : changes,
+        factors: uniqueKnownValues(Array.isArray(sourceAnswers.factors) ? sourceAnswers.factors : [], 'factor', 3),
+        water: Object.hasOwn(swellingOptionCopy.water, sourceAnswers.water) ? sourceAnswers.water : null,
+        feeling: Object.hasOwn(swellingOptionCopy.feeling, sourceAnswers.feeling) ? sourceAnswers.feeling : null,
+      },
+    };
+  }
+
+  function normalizeSwellingState(saved) {
+    const recordsByDate = new Map();
+    const sourceRecords = Array.isArray(saved?.records)
+      ? saved.records
+      : Array.isArray(saved?.entries) ? saved.entries : [];
+    sourceRecords.forEach((sourceRecord, index) => {
+      const record = normalizeSwellingRecord(sourceRecord, index);
+      if (record) recordsByDate.set(record.date, record);
+    });
+
+    const records = [...recordsByDate.values()]
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(0, 3)
+      .map((record, index) => ({ ...record, dayIndex: index + 1 }));
+    const draft = normalizeSwellingDraft(saved?.draft, records);
+    const todayRecord = records.find((record) => record.date === todayStamp());
+    const hasSavedStep = swellingSteps.includes(saved?.currentStep);
+    let currentStep = hasSavedStep
+      ? saved.currentStep
+      : todayRecord ? 'day-result' : 'start';
+
+    if (records.length === 3) {
+      currentStep = 'final-result';
+    } else if (swellingQuestionSteps.includes(currentStep) && draft.date !== todayStamp()) {
+      currentStep = 'start';
+    } else if (currentStep === 'day-result' && !todayRecord) {
+      currentStep = 'start';
+    } else if (currentStep === 'final-result') {
+      currentStep = 'start';
+    }
+
+    return {
+      version: 2,
+      records,
+      draft,
+      currentStep,
+      startedAt: validSwellingDate(saved?.startedAt) ? saved.startedAt : records[0]?.date || null,
+      completedAt: records.length === 3
+        ? (validSwellingDate(saved?.completedAt) ? saved.completedAt : records[2].date)
+        : null,
+    };
+  }
+
+  function readSwellingState() {
+    let saved = swellingMemoryState || emptySwellingState();
+    try {
+      const stored = localStorage.getItem(swellingTrackerStorageKey);
+      if (stored) saved = JSON.parse(stored);
+    } catch {
+      swellingStorageAvailable = false;
+    }
+
+    let state = normalizeSwellingState(saved);
+
+    const expired = state.records.length > 0
+      && state.records.length < 3
+      && dayDistance(state.startedAt, todayStamp()) >= 7;
+    if (!expired) {
+      swellingMemoryState = state;
+      return { state, wasReset: false };
+    }
+
+    state = emptySwellingState();
+    writeSwellingState(state);
+    return { state, wasReset: true };
+  }
+
+  function writeSwellingState(state) {
+    const normalized = normalizeSwellingState(state);
+    swellingMemoryState = normalized;
+    try {
+      localStorage.setItem(swellingTrackerStorageKey, JSON.stringify(normalized));
+    } catch {
+      swellingStorageAvailable = false;
+    }
+    renderSwellingStorageWarning();
+    return normalized;
+  }
+
+  function renderSwellingStorageWarning() {
+    const message = swellingStorageAvailable
+      ? ''
+      : 'Не удалось сохранить ответы в браузере. Трекер продолжит работать в этой вкладке';
+    if (swellingStorageWarning) {
+      swellingStorageWarning.hidden = swellingStorageAvailable;
+      swellingStorageWarning.textContent = message;
+    } else if (!swellingStorageAvailable && swellingStatus) {
+      swellingStatus.textContent = message;
+    }
+  }
+
+  function setSwellingStatus(message) {
+    if (swellingStatus) swellingStatus.textContent = message;
+  }
+
+  function setSwellingError(message = '', step = '') {
+    swellingErrors.forEach((error) => {
+      const matches = !step || error.dataset.swellingStepError === step;
+      error.hidden = !message || !matches;
+      if (matches && message) error.textContent = message;
+    });
+  }
+
+  function setSwellingInputChecked(input, isChecked) {
+    input.checked = isChecked;
+    input.closest('label')?.classList.toggle('is-active', isChecked);
+  }
+
+  function clearSwellingForm() {
+    [...swellingNoticeInputs, ...swellingFactorInputs, ...swellingWaterInputs, ...swellingFeelingInputs]
+      .forEach((input) => setSwellingInputChecked(input, false));
+  }
+
+  function fillSwellingForm(draft) {
+    clearSwellingForm();
+    if (!draft) return;
+
+    const selected = {
+      notice: new Set(draft.answers.changes),
+      factor: new Set(draft.answers.factors),
+      water: new Set([draft.answers.water]),
+      feeling: new Set([draft.answers.feeling]),
+    };
+
+    [
+      ['notice', swellingNoticeInputs],
+      ['factor', swellingFactorInputs],
+      ['water', swellingWaterInputs],
+      ['feeling', swellingFeelingInputs],
+    ].forEach(([type, inputs]) => {
+      inputs.forEach((input) => {
+        setSwellingInputChecked(input, selected[type].has(swellingInputValue(input, type)));
+      });
+    });
+  }
+
+  function selectedSwellingValues(inputs, type) {
+    return inputs
+      .filter((input) => input.checked)
+      .map((input) => swellingInputValue(input, type));
+  }
+
+  function readSwellingDraft(dayIndex = 1) {
+    return {
+      date: todayStamp(),
+      dayIndex,
+      answers: {
+        changes: selectedSwellingValues(swellingNoticeInputs, 'notice'),
+        factors: selectedSwellingValues(swellingFactorInputs, 'factor'),
+        water: selectedSwellingValues(swellingWaterInputs, 'water')[0] || null,
+        feeling: selectedSwellingValues(swellingFeelingInputs, 'feeling')[0] || null,
+      },
+    };
+  }
+
+  function createSwellingElement(tagName, className, textValue = '') {
+    const element = document.createElement(tagName);
+    if (className) element.className = className;
+    if (textValue) element.textContent = textValue;
+    return element;
+  }
+
+  function renderSwellingList(items, className) {
+    const list = createSwellingElement('ul', className);
+    items.forEach((item) => list.append(createSwellingElement('li', '', item)));
+    return list;
+  }
+
+  function renderSwellingProgress(state) {
+    const questionNumber = swellingQuestionSteps.indexOf(state.currentStep) + 1;
+    const dayIndex = Math.min(state.records.length + (state.records.some((record) => record.date === todayStamp()) ? 0 : 1), 3);
+    if (swellingQuestionProgress) {
+      swellingQuestionProgress.textContent = questionNumber ? `Вопрос ${questionNumber} из 4` : '';
+    }
+    if (swellingDayProgress) {
+      swellingDayProgress.textContent = state.currentStep === 'final-result'
+        ? 'Записи 3 из 3 готовы'
+        : `День ${Math.max(dayIndex, 1)} из 3`;
+    }
+
+    if (!swellingProgress) return;
+    let segments = [...swellingProgress.querySelectorAll('[data-swelling-progress-segment]')];
+    if (!segments.length) {
+      segments = Array.from({ length: 3 }, (_, index) => {
+        const segment = createSwellingElement('span', 'swelling-tracker__progress-segment');
+        segment.dataset.swellingProgressSegment = String(index + 1);
+        swellingProgress.append(segment);
+        return segment;
+      });
+    }
+
+    segments.forEach((segment, index) => {
+      const isComplete = index < state.records.length;
+      segment.classList.toggle('is-complete', isComplete);
+      segment.setAttribute('aria-hidden', 'true');
+    });
+    swellingProgress.setAttribute('aria-label', `${state.records.length} из 3 записей готовы`);
+  }
+
+  function joinSwellingLabels(labels) {
+    if (labels.length === 1) return labels[0];
+    return `${labels.slice(0, -1).join(', ')} и ${labels.at(-1)}`;
+  }
+
+  function entryFactorPhrase(entry) {
+    return joinSwellingLabels(entry.factors.map((factor) => swellingOptionCopy.factor[factor]));
+  }
+
+  function entryChangePhrase(entry) {
+    return joinSwellingLabels(entry.changes.map((change) => swellingOptionCopy.notice[change]));
+  }
+
+  function createSwellingSection(title, content, className = '') {
+    const section = createSwellingElement('section', `swelling-tracker__result-section ${className}`.trim());
+    section.append(createSwellingElement('h4', 'swelling-tracker__section-title', title));
+    if (typeof content === 'string') {
+      section.append(createSwellingElement('p', '', content));
+    } else if (content) {
+      section.append(content);
+    }
+    return section;
+  }
+
+  function swellingTrainingAction(entry) {
+    if (entry.feeling === 'pain') {
+      return 'Не используй трекер для решения о тренировке — сначала оцени тревожные симптомы';
+    }
+    if (entry.factors.includes('hard-training') || entry.feeling === 'under-recovered') {
+      return 'Следуй программе, но ориентируйся на самочувствие. Не увеличивай нагрузку сверх плана';
+    }
+    if (entry.factors.includes('regular-training')) {
+      return 'Продолжай тренироваться по программе без дополнительных компенсаций';
+    }
+    return 'Двигайся в привычном режиме и не добавляй кардио только ради отёков';
+  }
+
+  function swellingRecoveryAction(entry) {
+    const recoveryPriority = [
+      'low-sleep',
+      'sitting',
+      'heat',
+      'alcohol',
+      'cycle',
+      'stress',
+      'salty-food',
+      'routine',
+      'regular-training',
+      'hard-training',
+    ];
+    const factor = recoveryPriority.find((key) => entry.factors.includes(key));
+    const copy = {
+      'low-sleep': 'Сделай восстановление приоритетом: сон, спокойный режим и тренировка без перегрузок',
+      sitting: 'Добавь лёгкую ходьбу или мягкую разминку, но не превращай это в дополнительную тренировку',
+      heat: 'Следи за самочувствием, не добавляй нагрузку сверх программы и вернись к обычному режиму воды',
+      alcohol: 'Вернись к обычному питанию и воде без голодания или переедания ради компенсации',
+      cycle: 'Не оценивай прогресс по одному дню и продолжай мягко соблюдать привычный режим',
+      stress: 'Снизь нагрузку вечером: обычная еда, вода и спокойное восстановление',
+      'salty-food': 'Не убирай соль резко. Вернись к обычному рациону и нормальному приёму пищи',
+      routine: 'Сохрани обычное питание и спокойное восстановление',
+      'regular-training': 'Сохрани обычное питание и дай телу восстановиться по плану',
+      'hard-training': 'Сохрани обычное питание и дай телу время на восстановление после нагрузки',
+    };
+    return copy[factor] || 'Сохрани обычное питание и спокойное восстановление';
+  }
+
+  function renderSwellingSafety(entry) {
+    if (entry.feeling !== 'pain') return null;
+    const safety = createSwellingElement('aside', 'swelling-tracker__safety');
+    safety.setAttribute('role', 'alert');
+    safety.append(
+      createSwellingElement('strong', '', 'Обрати внимание на самочувствие'),
+      createSwellingElement('p', '', 'Если есть необычная боль, резкое ухудшение самочувствия, сильная односторонняя отёчность, одышка или симптомы, которые тебя пугают, лучше обратиться к врачу. Трекер не заменяет медицинскую консультацию'),
+    );
+    return safety;
+  }
+
+  function renderSwellingDayResult(entry, savedCount = 0) {
+    if (!swellingDayResult) return;
+    swellingDayResult.replaceChildren();
+    if (!entry) return;
+
+    const hasChanges = !entry.changes.includes('none');
+    const changesCopy = hasChanges
+      ? `Сегодня ты отметила: ${entryChangePhrase(entry)}`
+      : 'Сегодня ты не отметила заметных изменений. Это тоже полезная запись — она помогает сравнивать дни между собой';
+    const onlyRoutine = entry.factors.every((factor) => factor === 'routine');
+    const factorsCopy = onlyRoutine
+      ? 'Явного бытового фактора сегодня не видно. Следующие записи помогут понять, повторится ли ситуация'
+      : `За последние два дня были: ${entryFactorPhrase(entry)}`;
+    const recommendations = [
+      swellingTrainingAction(entry),
+      swellingWaterActionCopy[entry.water],
+      swellingRecoveryAction(entry),
+      'Не добавляй голодание, мочегонные, детокс или лишнее кардио ради воды',
+    ];
+    const safety = renderSwellingSafety(entry);
+    const nextBox = createSwellingElement('section', 'swelling-tracker__next-visit');
+    if (savedCount === 1) {
+      nextBox.append(
+        createSwellingElement('h4', '', `Следующая запись — завтра, ${formatSwellingDate(tomorrowStamp())}`),
+        createSwellingElement('p', '', 'Вернись ещё два раза, чтобы проверить, повторятся ли те же факторы'),
+      );
+    } else {
+      nextBox.append(
+        createSwellingElement('h4', '', 'Остался последний день'),
+        createSwellingElement('p', '', 'Вернись ещё один раз, чтобы подвести итог по трём записям'),
+      );
+    }
+    const actions = createSwellingElement('div', 'swelling-tracker__result-actions');
+    const editButton = createSwellingElement('button', 'swelling-tracker__secondary-button', 'Изменить ответы');
+    editButton.type = 'button';
+    editButton.dataset.swellingEdit = '';
+    const restartButton = createSwellingElement('button', 'swelling-tracker__link-button', 'Начать заново');
+    restartButton.type = 'button';
+    restartButton.dataset.swellingRestart = '';
+    actions.append(editButton, restartButton);
+
+    swellingDayResult.append(
+      createSwellingElement('p', 'swelling-tracker__eyebrow', `Запись ${entry.dayIndex} из 3 готова`),
+      createSwellingElement('h3', 'swelling-tracker__result-title', `День ${entry.dayIndex} готов`),
+      ...(safety ? [safety] : []),
+      createSwellingSection('Что ты отметила', changesCopy),
+      createSwellingSection('Что могло повлиять', factorsCopy),
+      createSwellingSection('План на сегодня', renderSwellingList(recommendations, 'swelling-tracker__recommendations')),
+      nextBox,
+      actions,
+    );
+  }
+
+  function topSwellingFactors(entries) {
+    const counts = new Map();
+    const firstSeen = new Map();
+    let order = 0;
+    entries.forEach((entry) => {
+      entry.factors.forEach((factor) => {
+        counts.set(factor, (counts.get(factor) || 0) + 1);
+        if (!firstSeen.has(factor)) firstSeen.set(factor, order++);
+      });
+    });
+
+    let factors = [...counts.keys()];
+    const specificFactors = factors.filter((factor) => !['routine', 'regular-training'].includes(factor));
+    if (specificFactors.length) factors = specificFactors;
+
+    return factors
+      .sort((a, b) => counts.get(b) - counts.get(a) || firstSeen.get(a) - firstSeen.get(b))
+      .slice(0, 2)
+      .map((factor) => ({ factor, count: counts.get(factor) }));
+  }
+
+  function swellingHabits(topFactors) {
+    const habits = topFactors
+      .map(({ factor }) => swellingHabitCopy[factor])
+      .filter(Boolean);
+    swellingDefaultHabits.forEach((habit) => {
+      if (habits.length < 3 && !habits.includes(habit)) habits.push(habit);
+    });
+    return habits.slice(0, 3);
+  }
+
+  function renderSwellingSummary(state) {
+    if (!swellingSummary) return;
+    swellingSummary.replaceChildren();
+    const isComplete = state.records.length === 3;
+    if (!isComplete) return;
+
+    const changedEntries = state.records.filter((entry) => !entry.changes.includes('none'));
+    const noneCount = state.records.length - changedEntries.length;
+    const topFactors = topSwellingFactors(changedEntries)
+      .filter(({ factor }) => !['routine', 'regular-training'].includes(factor));
+    const repeatedFactors = topFactors.filter(({ count }) => count >= 2);
+    let repeatedCopy = '';
+    let meaningCopy = '';
+    let habits = [];
+
+    if (noneCount >= 2) {
+      repeatedCopy = 'Заметных изменений почти не было';
+      meaningCopy = 'За эти три дня текущий режим, тренировки и восстановление не дали повторяющейся реакции';
+      habits = [
+        'Продолжай тренироваться по программе',
+        'Не меняй резко воду и соль',
+        'Вернись к трекеру, если снова появятся отёки, вздутие или тяжесть',
+      ];
+    } else if (changedEntries.length === 1) {
+      repeatedCopy = 'Изменения появились только в одной записи';
+      meaningCopy = 'Пока это больше похоже на разовую реакцию, а не на повторяющуюся ситуацию';
+      habits = [
+        'Не делай выводов по одному дню',
+        'Вернись к привычному питанию, воде и тренировкам',
+        'Повтори трекер, если ситуация повторится',
+      ];
+    } else if (repeatedFactors.length) {
+      const repeated = repeatedFactors.slice(0, 2);
+      repeatedCopy = `Чаще всего изменения совпадали с: ${joinSwellingLabels(repeated.map(({ factor }) => swellingOptionCopy.factor[factor]))}`;
+      meaningCopy = 'Это не доказывает причину, но показывает, за чем стоит понаблюдать в первую очередь';
+      habits = swellingHabits(repeated);
+    } else {
+      repeatedCopy = 'Один повторяющийся фактор не выделился';
+      meaningCopy = 'На состояние могли одновременно влиять сон, цикл, тренировки, питание, стресс и дорога';
+      habits = [
+        'Не делай поспешных выводов',
+        'Оставь стабильными воду, питание и тренировки',
+        'Повтори наблюдение, если изменения вернутся',
+      ];
+    }
+
+    const restartButton = createSwellingElement('button', 'swelling-tracker__primary-button', 'Начать новое наблюдение');
+    restartButton.type = 'button';
+    restartButton.dataset.swellingRestart = '';
+
+    swellingSummary.append(
+      createSwellingElement('h3', 'swelling-tracker__summary-title', 'Итоги трёх дней'),
+      createSwellingElement('p', 'swelling-tracker__summary-copy', 'Мы сравнили твои записи и посмотрели, что повторялось вместе с изменениями'),
+      createSwellingSection('Что повторялось', repeatedCopy),
+      createSwellingSection('Что это значит', meaningCopy),
+      createSwellingSection('Что оставить на следующую неделю', renderSwellingList(habits, 'swelling-tracker__habits')),
+      createSwellingSection('Чего не делать', 'Не добавляй голодание, мочегонные, детокс, резкое ограничение воды или соли и лишнее кардио ради воды'),
+      createSwellingSection('Когда стоит обратиться к врачу', 'Если есть необычная боль, резкое ухудшение, сильная односторонняя отёчность, одышка или симптомы, которые тебя пугают'),
+      createSwellingElement('p', 'swelling-tracker__disclaimer', 'Это ориентир, а не доказательство причины'),
+      restartButton,
+    );
+  }
+
+  function isSwellingStepValid(step, draft) {
+    if (step === 'question-1') return draft.answers.changes.length > 0;
+    if (step === 'question-2') return draft.answers.factors.length > 0 && draft.answers.factors.length <= 3;
+    if (step === 'question-3') return Boolean(draft.answers.water);
+    if (step === 'question-4') return Boolean(draft.answers.feeling);
+    return true;
+  }
+
+  function renderSwellingFactorMeta() {
+    const count = swellingFactorInputs.filter((input) => input.checked).length;
+    if (swellingFactorCount) swellingFactorCount.textContent = `Выбрано ${count} из 3`;
+    if (swellingFactorHint) {
+      swellingFactorHint.hidden = count < 3;
+      swellingFactorHint.textContent = count >= 3
+        ? 'Выбери до трёх основных факторов — так результат будет понятнее'
+        : '';
+    }
+  }
+
+  function renderSwellingTracker(state, { focus = false } = {}) {
+    const todayRecord = state.records.find((record) => record.date === todayStamp()) || null;
+    const activeStep = state.records.length === 3 ? 'final-result' : state.currentStep;
+    swellingViews.forEach((view) => {
+      view.hidden = view.dataset.swellingStep !== activeStep;
+    });
+    if (swellingStartPanel) swellingStartPanel.hidden = activeStep !== 'start';
+    if (swellingWorkspace) swellingWorkspace.hidden = activeStep === 'start';
+    if (swellingForm) swellingForm.hidden = !swellingQuestionSteps.includes(activeStep);
+    if (swellingTodayDate) {
+      swellingTodayDate.dateTime = todayStamp();
+      swellingTodayDate.textContent = formatSwellingDate(todayStamp());
+    }
+    if (swellingStart) swellingStart.textContent = `Начать день ${Math.min(state.records.length + 1, 3)}`;
+    renderSwellingProgress({ ...state, currentStep: activeStep });
+    renderSwellingFactorMeta();
+    renderSwellingDayResult(todayRecord, state.records.length);
+    renderSwellingSummary(state);
+    swellingNextButtons.forEach((button) => {
+      const owner = button.closest('[data-swelling-step]');
+      if (!owner || owner.dataset.swellingStep !== activeStep) return;
+      button.disabled = !isSwellingStepValid(activeStep, state.draft);
+    });
+    if (swellingSubmit) swellingSubmit.disabled = !isSwellingStepValid('question-4', state.draft);
+    renderSwellingStorageWarning();
+
+    if (focus) {
+      const activeView = swellingTracker.querySelector(`[data-swelling-step="${activeStep}"]`);
+      const heading = activeView?.querySelector('[data-swelling-question-heading], [data-swelling-start-title], h2, h3');
+      if (heading) {
+        heading.tabIndex = -1;
+        heading.focus({ preventScroll: true });
+      }
+    }
+  }
+
+  function persistSwellingDraft() {
+    const { state } = readSwellingState();
+    const dayIndex = state.records.find((record) => record.date === todayStamp())?.dayIndex
+      || Math.min(state.records.length + 1, 3);
+    const nextState = writeSwellingState({ ...state, draft: readSwellingDraft(dayIndex) });
+    setSwellingError('');
+    renderSwellingTracker(nextState);
+    return nextState;
+  }
+
+  function goToSwellingStep(step) {
+    const { state } = readSwellingState();
+    if (!swellingSteps.includes(step)) return;
+    const nextState = writeSwellingState({ ...state, currentStep: step });
+    setSwellingError('');
+    renderSwellingTracker(nextState, { focus: true });
+  }
+
+  function validateCurrentSwellingStep(state) {
+    if (isSwellingStepValid(state.currentStep, state.draft)) return true;
+    setSwellingError('Выбери подходящий вариант, чтобы продолжить', state.currentStep);
+    return false;
+  }
+
+  function nextSwellingQuestion() {
+    const { state } = readSwellingState();
+    if (!validateCurrentSwellingStep(state)) return;
+    const index = swellingQuestionSteps.indexOf(state.currentStep);
+    if (index >= 0 && index < swellingQuestionSteps.length - 1) {
+      goToSwellingStep(swellingQuestionSteps[index + 1]);
+    }
+  }
+
+  function previousSwellingQuestion() {
+    const { state } = readSwellingState();
+    const index = swellingQuestionSteps.indexOf(state.currentStep);
+    goToSwellingStep(index > 0 ? swellingQuestionSteps[index - 1] : 'start');
+  }
+
+  function saveSwellingEntry() {
+    const { state } = readSwellingState();
+    if (!isSwellingStepValid('question-1', state.draft)
+      || !isSwellingStepValid('question-2', state.draft)
+      || !isSwellingStepValid('question-3', state.draft)
+      || !isSwellingStepValid('question-4', state.draft)) {
+      setSwellingError('Ответь на этот вопрос, чтобы получить план', 'question-4');
+      return;
+    }
+
+    const recordIndex = state.records.findIndex((record) => record.date === todayStamp());
+    if (recordIndex < 0 && state.records.length >= 3) return;
+    const existing = state.records[recordIndex];
+    const answers = state.draft.answers;
+    const record = {
+      id: existing?.id || `swelling-${todayStamp()}-${state.records.length + 1}`,
+      date: todayStamp(),
+      dayIndex: existing?.dayIndex || state.records.length + 1,
+      changes: answers.changes,
+      factors: answers.factors,
+      water: answers.water,
+      feeling: answers.feeling,
+      createdAt: existing?.createdAt || new Date().toISOString(),
+    };
+    const records = [...state.records];
+    if (recordIndex >= 0) records[recordIndex] = record;
+    else records.push(record);
+    records.sort((a, b) => a.date.localeCompare(b.date));
+    const isComplete = records.length === 3;
+    const nextState = writeSwellingState({
+      ...state,
+      records,
+      startedAt: state.startedAt || records[0].date,
+      completedAt: isComplete ? todayStamp() : null,
+      currentStep: isComplete ? 'final-result' : 'day-result',
+    });
+    setSwellingStatus(`Запись ${record.dayIndex} из 3 готова`);
+    setSwellingError('');
+    renderSwellingTracker(nextState, { focus: true });
+  }
+
+  function beginSwellingDay() {
+    const { state } = readSwellingState();
+    const todayRecord = state.records.find((record) => record.date === todayStamp());
+    const draft = todayRecord
+      ? {
+        date: todayRecord.date,
+        dayIndex: todayRecord.dayIndex,
+        answers: {
+          changes: todayRecord.changes,
+          factors: todayRecord.factors,
+          water: todayRecord.water,
+          feeling: todayRecord.feeling,
+        },
+      }
+      : emptySwellingDraft(Math.min(state.records.length + 1, 3));
+    fillSwellingForm(draft);
+    const nextState = writeSwellingState({ ...state, draft, currentStep: 'question-1' });
+    setSwellingStatus('');
+    setSwellingError('');
+    renderSwellingTracker(nextState, { focus: true });
+  }
+
+  function restartSwellingTracker() {
+    if (!window.confirm('Начать заново? Ответы текущего наблюдения будут удалены.')) return;
+    const state = writeSwellingState(emptySwellingState());
+    clearSwellingForm();
+    setSwellingStatus('Новое наблюдение можно начать');
+    setSwellingError('');
+    renderSwellingTracker(state, { focus: true });
+  }
+
+  function initSwellingTracker() {
+    if (!swellingTracker) return;
+
+    const { state, wasReset } = readSwellingState();
+    fillSwellingForm(state.draft);
+    writeSwellingState(state);
+    renderSwellingTracker(state);
+    if (wasReset) setSwellingStatus('Прошло больше семи дней — начни новое наблюдение');
+
+    swellingNoticeInputs.forEach((input) => {
+      input.addEventListener('change', () => {
+        const value = swellingInputValue(input, 'notice');
+        if (input.checked && value === 'none') {
+          swellingNoticeInputs.forEach((other) => setSwellingInputChecked(other, other === input));
+        } else if (input.checked) {
+          const noneInput = swellingNoticeInputs.find((other) => swellingInputValue(other, 'notice') === 'none');
+          if (noneInput) setSwellingInputChecked(noneInput, false);
+        }
+        setSwellingInputChecked(input, input.checked);
+        persistSwellingDraft();
+      });
+    });
+
+    swellingFactorInputs.forEach((input) => {
+      input.addEventListener('change', () => {
+        const selected = swellingFactorInputs.filter((item) => item.checked);
+        if (selected.length > 3) {
+          setSwellingInputChecked(input, false);
+          if (swellingFactorHint) {
+            swellingFactorHint.hidden = false;
+            swellingFactorHint.textContent = 'Выбери до трёх основных факторов — так результат будет понятнее';
+          }
+        } else {
+          setSwellingInputChecked(input, input.checked);
+        }
+        persistSwellingDraft();
+      });
+    });
+
+    [...swellingWaterInputs, ...swellingFeelingInputs].forEach((input) => {
+      input.addEventListener('change', () => {
+        const group = swellingWaterInputs.includes(input) ? swellingWaterInputs : swellingFeelingInputs;
+        group.forEach((item) => setSwellingInputChecked(item, item.checked));
+        persistSwellingDraft();
+      });
+    });
+
+    swellingForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      saveSwellingEntry();
+    });
+
+    swellingTracker.addEventListener('click', (event) => {
+      const target = event.target.closest('button, [role="button"]');
+      if (!target || !swellingTracker.contains(target)) return;
+      if (target.matches('[data-swelling-start]')) beginSwellingDay();
+      if (target.matches('[data-swelling-next]')) nextSwellingQuestion();
+      if (target.matches('[data-swelling-back]')) previousSwellingQuestion();
+      if (target.matches('[data-swelling-edit]')) beginSwellingDay();
+      if (target.matches('[data-swelling-restart]')) restartSwellingTracker();
+    });
+  }
+
+  initSwellingTracker();
 
   const celluliteFactorCopy = {
     water: 'Начни с базы: вода по мягкому ориентиру, соль без крайностей и нормальный сон. Не оценивай рельеф по одному утру — смотри динамику 1-2 недель',
