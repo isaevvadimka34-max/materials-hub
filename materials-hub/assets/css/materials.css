@@ -4139,6 +4139,592 @@ body.is-modal-open {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+/* Cycle training guide */
+.cycle-training-panel,
+.cycle-training-panel * {
+  box-sizing: border-box;
+}
+
+.cycle-training-panel {
+  display: grid;
+  gap: 20px;
+  width: min(100%, 1080px);
+  margin-inline: auto;
+}
+
+.cycle-training-panel__head {
+  justify-items: center;
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.cycle-training-panel__head p {
+  margin-inline: auto;
+}
+
+.cycle-training-note {
+  display: grid;
+  gap: 7px;
+  padding: clamp(17px, 2.5vw, 22px);
+  border: 1px solid rgba(96, 118, 106, 0.2);
+  border-radius: 8px;
+  background: rgba(96, 118, 106, 0.08);
+}
+
+.cycle-training-note--main {
+  border-color: rgba(201, 123, 148, 0.24);
+  background: rgba(244, 201, 214, 0.14);
+}
+
+.cycle-training-note span {
+  color: var(--dusty-rose);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cycle-training-note p {
+  margin: 0;
+  color: var(--espresso);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.cycle-training-nav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.cycle-training-nav__card {
+  --cycle-accent: var(--dusty-rose);
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  min-height: 148px;
+  padding: 18px;
+  border: 1px solid var(--soft-line);
+  border-top: 3px solid var(--cycle-accent);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--espresso);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.cycle-training-nav__card:hover,
+.cycle-training-nav__card:focus-visible {
+  border-color: color-mix(in srgb, var(--cycle-accent) 42%, transparent);
+  box-shadow: 0 18px 38px rgba(62, 39, 35, 0.12);
+  transform: translateY(-2px);
+}
+
+.cycle-training-nav__card--menstruation {
+  --cycle-accent: #b86578;
+}
+
+.cycle-training-nav__card--follicular {
+  --cycle-accent: #6f8b7c;
+}
+
+.cycle-training-nav__card--ovulation {
+  --cycle-accent: #b88a46;
+}
+
+.cycle-training-nav__card--luteal {
+  --cycle-accent: #a56f61;
+}
+
+.cycle-training-nav__card span {
+  color: var(--cycle-accent);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.cycle-training-nav__card strong {
+  align-self: end;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(20px, 1.7vw, 24px);
+  font-style: italic;
+  line-height: 1.04;
+  overflow-wrap: normal;
+}
+
+.cycle-training-nav__card small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.cycle-training-phases {
+  display: grid;
+  gap: 18px;
+}
+
+.cycle-phase {
+  --cycle-accent: var(--dusty-rose);
+  --cycle-soft: rgba(244, 201, 214, 0.13);
+  display: grid;
+  gap: 17px;
+  padding: clamp(18px, 3vw, 28px);
+  scroll-margin-top: 88px;
+  border: 1px solid var(--soft-line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, var(--cycle-soft), rgba(255, 255, 255, 0) 42%),
+    rgba(255, 253, 250, 0.84);
+  box-shadow: var(--shadow);
+}
+
+.cycle-phase--menstruation {
+  --cycle-accent: #b86578;
+  --cycle-soft: rgba(184, 101, 120, 0.09);
+}
+
+.cycle-phase--follicular {
+  --cycle-accent: #6f8b7c;
+  --cycle-soft: rgba(111, 139, 124, 0.1);
+}
+
+.cycle-phase--ovulation {
+  --cycle-accent: #b88a46;
+  --cycle-soft: rgba(184, 138, 70, 0.1);
+}
+
+.cycle-phase--luteal {
+  --cycle-accent: #a56f61;
+  --cycle-soft: rgba(165, 111, 97, 0.1);
+}
+
+.cycle-phase__head {
+  display: grid;
+  gap: 7px;
+  max-width: 820px;
+  padding-left: 16px;
+  border-left: 3px solid var(--cycle-accent);
+}
+
+.cycle-phase__head > span,
+.cycle-info-card > span {
+  color: var(--cycle-accent);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cycle-phase__head h3 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(29px, 4vw, 46px);
+  font-style: italic;
+  line-height: 1.02;
+}
+
+.cycle-phase__head p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.cycle-phase__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.cycle-info-card {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-width: 0;
+  padding: clamp(16px, 2.4vw, 21px);
+  border: 1px solid rgba(62, 39, 35, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.cycle-info-card--wide {
+  grid-column: 1 / -1;
+}
+
+.cycle-info-card--mood {
+  background: rgba(244, 201, 214, 0.12);
+}
+
+.cycle-info-card--attention {
+  border-color: rgba(184, 138, 70, 0.25);
+  background: rgba(255, 248, 225, 0.62);
+}
+
+.cycle-info-card h4 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(21px, 2.6vw, 29px);
+  font-style: italic;
+  line-height: 1.08;
+}
+
+.cycle-info-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.cycle-info-card ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.cycle-phase__callout {
+  padding: 13px 14px;
+  border-left: 3px solid var(--cycle-accent);
+  background: var(--cycle-soft);
+  color: var(--espresso);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.48;
+}
+
+.cycle-phase__callout--positive {
+  background: rgba(111, 139, 124, 0.1);
+}
+
+.cycle-food-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.cycle-food-list span {
+  padding: 7px 10px;
+  border: 1px solid color-mix(in srgb, var(--cycle-accent) 24%, transparent);
+  border-radius: 999px;
+  background: var(--cycle-soft);
+  color: var(--espresso);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .cycle-training-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .cycle-training-panel {
+    gap: 14px;
+  }
+
+  .cycle-training-panel__head {
+    justify-items: start;
+    margin: 0;
+    text-align: left;
+  }
+
+  .cycle-training-panel__head p {
+    margin: 0;
+  }
+
+  .cycle-training-nav,
+  .cycle-phase__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cycle-training-nav__card {
+    min-height: 118px;
+    padding: 15px;
+  }
+
+  .cycle-info-card--wide {
+    grid-column: auto;
+  }
+
+  .cycle-phase {
+    padding: 16px;
+    scroll-margin-top: 78px;
+  }
+
+  .cycle-phase__head {
+    padding-left: 12px;
+  }
+
+  .cycle-training-note {
+    padding: 16px;
+  }
+}
+
+#swelling .swelling-disclosure--tracker {
+  order: -2;
+}
+
+.swelling-personal {
+  order: -1;
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(201, 123, 148, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: var(--shadow);
+}
+
+.swelling-personal__media {
+  min-width: 0;
+  margin: 0;
+  background: rgba(244, 201, 214, 0.12);
+}
+
+.swelling-personal__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 660px;
+  object-fit: contain;
+}
+
+.swelling-personal__copy,
+.swelling-personal__head {
+  display: grid;
+  gap: 10px;
+}
+
+.swelling-personal__copy {
+  align-content: center;
+  padding: clamp(20px, 3vw, 30px);
+}
+
+.swelling-personal__head > span {
+  color: var(--dusty-rose);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.swelling-personal__head h3 {
+  margin: 0;
+  color: var(--espresso);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(27px, 3.5vw, 40px);
+  font-style: italic;
+  line-height: 1.04;
+}
+
+.swelling-personal__head p,
+.swelling-personal__note {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.48;
+}
+
+.swelling-personal__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 14px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.swelling-personal__list li {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 12px 0;
+  border-top: 1px solid rgba(62, 39, 35, 0.1);
+}
+
+.swelling-personal__list strong {
+  color: var(--dusty-rose);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.swelling-personal__list span {
+  color: var(--deep-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.swelling-personal__note {
+  padding: 11px 13px;
+  border-left: 3px solid var(--sage);
+  background: rgba(96, 118, 106, 0.08);
+  font-size: 13px;
+}
+
+/* Mobile materials: one visual surface instead of nested cards */
+@media (max-width: 640px) {
+  .swelling-panel {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .swelling-disclosure[open] {
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .swelling-disclosure[open] summary {
+    border: 0;
+    border-left: 3px solid var(--dusty-rose);
+    border-radius: 6px;
+    background: rgba(244, 201, 214, 0.1);
+  }
+
+  .swelling-disclosure__body,
+  .swelling-disclosure--tracker[open] .swelling-disclosure__body {
+    width: 100%;
+    padding: 14px 0 0;
+  }
+
+  #swelling .swelling-tracker {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  #swelling .swelling-tracker-purpose {
+    padding: 16px 14px;
+    border: 0;
+    border-left: 3px solid var(--sage);
+    border-radius: 6px;
+  }
+
+  .swelling-tracker-start {
+    padding: 4px 0 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .swelling-tracker__form-head,
+  .swelling-tracker__field,
+  .swelling-tracker__result-section,
+  .swelling-tracker__next-visit {
+    border-color: rgba(62, 39, 35, 0.08);
+    box-shadow: none;
+  }
+
+  .swelling-personal {
+    grid-template-columns: 1fr;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .swelling-personal__media {
+    overflow: hidden;
+    border-radius: 6px;
+  }
+
+  .swelling-personal__media img {
+    height: auto;
+    max-height: none;
+  }
+
+  .swelling-personal__copy {
+    padding: 17px 0 0;
+  }
+
+  .swelling-personal__list {
+    grid-template-columns: 1fr;
+  }
+
+  .cycle-training-note {
+    border: 0;
+    border-left: 3px solid var(--sage);
+    border-radius: 6px;
+  }
+
+  .cycle-training-note--main {
+    border-left-color: var(--dusty-rose);
+  }
+
+  .cycle-training-nav__card {
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    background: rgba(255, 255, 255, 0.58);
+    box-shadow: none;
+  }
+
+  .cycle-training-phases {
+    gap: 20px;
+  }
+
+  .cycle-phase {
+    gap: 0;
+    padding: 18px 0 0;
+    border: 0;
+    border-top: 1px solid rgba(62, 39, 35, 0.1);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .cycle-phase__head {
+    margin-bottom: 4px;
+    padding: 0 0 16px 12px;
+  }
+
+  .cycle-info-card {
+    gap: 9px;
+    padding: 18px 0;
+    border: 0;
+    border-top: 1px solid rgba(62, 39, 35, 0.08);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .cycle-info-card--mood,
+  .cycle-info-card--attention {
+    margin-top: 4px;
+    padding: 18px 14px;
+    border-top: 0;
+    border-radius: 6px;
+  }
+
+  .cycle-info-card--mood {
+    background: rgba(244, 201, 214, 0.1);
+  }
+
+  .cycle-info-card--attention {
+    background: rgba(255, 248, 225, 0.52);
+  }
+}
+
 .cellulite-panel {
   gap: 22px;
   width: min(100%, 1120px);

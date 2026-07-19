@@ -231,7 +231,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const backTop = document.querySelector('.back-top');
   const materialCards = [...document.querySelectorAll('[data-material-card]')];
   const materialPanels = [...document.querySelectorAll('[data-material-panel]')];
-  const comingSoonMaterialIds = new Set(['cycle-training']);
+  const cyclePhaseIds = new Set([
+    'cycle-phase-menstruation',
+    'cycle-phase-follicular',
+    'cycle-phase-ovulation',
+    'cycle-phase-luteal',
+  ]);
   const overeatingProtocolKey = 'ggc_material_overeating_cycle';
   const overeatingProtocol = document.querySelector('[data-overeating-protocol]');
   const overeatingInteractiveDisclosure = document.querySelector('[data-overeating-interactive-disclosure]');
@@ -514,11 +519,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    if (comingSoonMaterialIds.has(id)) {
-      showLibrary();
-      if (window.history?.replaceState) {
-        window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
-      }
+    if (cyclePhaseIds.has(id)) {
+      showMaterial('cycle-training', false);
+      document.getElementById(id)?.scrollIntoView?.({
+        behavior: shouldScroll ? scrollBehavior() : 'auto',
+        block: 'start',
+      });
       return;
     }
 
